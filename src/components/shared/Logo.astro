@@ -14,7 +14,7 @@ const textHeight = size === 'sm' ? 'h-[20px]' : 'h-[24px]';
 const homeHref = lang === 'de' ? '/de/' : '/';
 ---
 
-<a href={homeHref} class="flex items-center gap-3 flex-shrink-0 z-10 rounded-sm hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard p-1 -m-1" aria-label="Curfee Home">
+<a href={homeHref} class="flex items-center gap-3 flex-shrink-0 z-10" aria-label="Curfee Home">
   <!-- Icon (larger) -->
   <span class={`${iconHeight} text-brand-primary [&>svg]:h-full [&>svg]:w-auto`} set:html={logoIconRaw} />
   <!-- Text "CURFEE" (smaller, hidden on mobile) -->
