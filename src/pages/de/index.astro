@@ -1,0 +1,50 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import HeroSection from '@/components/HeroSection.astro';
+import ResultSection from '@/components/ResultSection.astro';
+import ServicesSection from '@/components/ServicesSection.astro';
+import ProcessSection from '@/components/ProcessSection.astro';
+import AboutSection from '@/components/AboutSection.astro';
+import ContactSection from '@/components/ContactSection.astro';
+import { getTranslations } from '@/i18n/translations';
+
+const lang = 'de' as const;
+const t = getTranslations(lang);
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Curfee",
+    "url": "https://curfee.com",
+    "logo": "https://curfee.com/assets/og-image.png",
+    "description": "Software-Architektur: Systeme untersuchen, Architekturen entwerfen, Entscheidungen verankern. Diagnose, Design, Advisory.",
+    "founder": { "@type": "Person", "name": "Philipp Höllinger" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Salzburg", "addressCountry": "AT" },
+    "sameAs": ["https://www.linkedin.com/in/phoellinger"]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Curfee",
+    "url": "https://curfee.com",
+    "description": "Struktur, die Potenzial freisetzt. Software-Architektur von Philipp Höllinger.",
+    "inLanguage": ["en", "de"]
+  }
+];
+---
+
+<Layout
+  title="Curfee — Software-Architektur · Diagnose, Design, Advisory"
+  description="Software-Architektur aus Salzburg. Systeme untersuchen, Architekturen gestalten, Entscheidungen absichern. Diagnose, Design, Advisory und Hands-on Architektur."
+  canonicalPath="/de/"
+  jsonLd={jsonLd}
+  lang={lang}
+>
+  <HeroSection translations={t} />
+  <ResultSection translations={t} />
+  <ServicesSection translations={t} lang={lang} />
+  <ProcessSection translations={t} />
+  <AboutSection translations={t} />
+  <ContactSection translations={t} />
+</Layout>

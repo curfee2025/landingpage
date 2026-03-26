@@ -1,0 +1,26 @@
+{
+  "name": "curfee-landingpage",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "yarn@1.22.22",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/tailwind": "^5.1.1",
+    "astro": "^5.16.6",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.7",
+    "playwright": "^1.58.2",
+    "sharp": "^0.34.5",
+    "typescript": "^5.9.3"
+  }
+}

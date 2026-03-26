@@ -1,0 +1,17 @@
+---
+import ServicePageTemplate from '@/components/ServicePageTemplate.astro';
+import { getLangFromUrl } from '@/i18n/utils';
+import { getTranslations } from '@/i18n/translations';
+
+const lang = getLangFromUrl(Astro.url);
+const t = getTranslations(lang);
+---
+
+<ServicePageTemplate
+  serviceKey="design" icon="route"
+  translations={t}
+  lang={lang}
+  canonicalPath="/services/design"
+  pageTitle={t['services.design.page.title']}
+  pageDesc={t['services.design.page.description']}
+/>

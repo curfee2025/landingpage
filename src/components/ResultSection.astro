@@ -1,0 +1,59 @@
+---
+import Icon from '@/components/shared/Icon.astro';
+
+interface Props {
+  translations: Record<string, string>;
+}
+const { translations: t } = Astro.props;
+---
+
+<section id="result" class="py-20 md:py-24" aria-labelledby="result-heading">
+  <div class="text-center mb-12 md:mb-16">
+    <span class="text-label-large text-brand-primary tracking-wider uppercase">{t['result.tagline']}</span>
+    <h2 id="result-heading" class="text-headline-large md:text-display-small text-ink-primary mt-3">{t['result.heading']}</h2>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+    <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <Icon name="handshake" class="w-6 h-6 text-brand-primary" />
+        <h3 class="text-title-medium text-ink-primary">{t['result.1.title']}</h3>
+      </div>
+      <p class="text-body-medium text-ink-muted min-h-[4rem]">{t['result.1.description']}</p>
+    </div>
+    <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <Icon name="hub" class="w-6 h-6 text-brand-primary" />
+        <h3 class="text-title-medium text-ink-primary">{t['result.2.title']}</h3>
+      </div>
+      <p class="text-body-medium text-ink-muted min-h-[4rem]">{t['result.2.description']}</p>
+    </div>
+    <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <Icon name="swap_horiz" class="w-6 h-6 text-brand-primary" />
+        <h3 class="text-title-medium text-ink-primary">{t['result.3.title']}</h3>
+      </div>
+      <p class="text-body-medium text-ink-muted min-h-[4rem]">{t['result.3.description']}</p>
+    </div>
+    <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <Icon name="map" class="w-6 h-6 text-brand-primary" />
+        <h3 class="text-title-medium text-ink-primary">{t['result.4.title']}</h3>
+      </div>
+      <p class="text-body-medium text-ink-muted min-h-[4rem]">{t['result.4.description']}</p>
+    </div>
+    <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <Icon name="trending_up" class="w-6 h-6 text-brand-primary" />
+        <h3 class="text-title-medium text-ink-primary">{t['result.5.title']}</h3>
+      </div>
+      <p class="text-body-medium text-ink-muted min-h-[4rem]">{t['result.5.description']}</p>
+    </div>
+    <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <Icon name="visibility" class="w-6 h-6 text-brand-primary" />
+        <h3 class="text-title-medium text-ink-primary">{t['result.6.title']}</h3>
+      </div>
+      <p class="text-body-medium text-ink-muted min-h-[4rem]">{t['result.6.description']}</p>
+    </div>
+  </div>
+</section>

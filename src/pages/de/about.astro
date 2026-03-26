@@ -1,0 +1,134 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Icon from '@/components/shared/Icon.astro';
+import { getTranslations } from '@/i18n/translations';
+
+const lang = 'de' as const;
+const t = getTranslations(lang);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Philipp Höllinger",
+  "jobTitle": "Softwarearchitekt",
+  "url": "https://curfee.com/de/about",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Curfee",
+    "url": "https://curfee.com"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Salzburg",
+    "addressCountry": "AT"
+  },
+  "sameAs": ["https://www.linkedin.com/in/phoellinger"]
+};
+---
+
+<Layout
+  title="Über mich — Curfee | Philipp Höllinger, Softwarearchitekt"
+  description="Philipp Höllinger, Softwarearchitekt aus Salzburg. Eine Obsession für die Dinge, die unbemerkt bleiben — die kleinen Details, die die Zukunft eines Systems formen."
+  canonicalPath="/de/about"
+  jsonLd={jsonLd}
+  lang={lang}
+>
+
+  <!-- Wer ich bin -->
+  <section class="mb-20 max-w-3xl mx-auto">
+    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6">
+      <Icon name="person" class="w-6 h-6 text-brand-primary" />
+    </div>
+    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">{t['about.who.heading']}</h1>
+    <p class="text-title-medium text-brand-primary font-medium mb-8">{t['about.heading']}</p>
+    <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
+      <p>{t['about.who.1']}</p>
+      <p>{t['about.who.2']}</p>
+    </div>
+  </section>
+
+  <!-- Was ich gemacht habe -->
+  <section class="mb-20 max-w-3xl mx-auto">
+    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.done.heading']}</h2>
+    <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
+      <p>{t['about.done.1']}</p>
+      <p>{t['about.done.2']}</p>
+    </div>
+  </section>
+
+  <!-- Wofür ich stehe -->
+  <section class="mb-20 max-w-3xl mx-auto">
+    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.stand.heading']}</h2>
+    <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
+      <p>{t['about.stand.1']}</p>
+      <p>{t['about.stand.2']}</p>
+      <p class="text-ink-primary">{t['about.stand.3']}</p>
+    </div>
+  </section>
+
+  <!-- Wie ich arbeite -->
+  <section class="mb-20 max-w-3xl mx-auto">
+    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.work.heading']}</h2>
+    <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
+      <p>{t['about.work.1']}</p>
+      <p>{t['about.work.2']}</p>
+      <p>{t['about.work.3']}</p>
+    </div>
+  </section>
+
+  <!-- Fünf Prinzipien -->
+  <section class="mb-20 max-w-3xl mx-auto">
+    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['principles.heading']}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+            <Icon name="visibility" class="w-6 h-6 text-brand-primary" />
+          </div>
+          <h3 class="text-title-medium text-ink-primary">{t['principles.1.title']}</h3>
+        </div>
+        <p class="text-body-medium text-ink-muted">{t['principles.1.description']}</p>
+      </div>
+      <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+            <Icon name="layers" class="w-6 h-6 text-brand-primary" />
+          </div>
+          <h3 class="text-title-medium text-ink-primary">{t['principles.2.title']}</h3>
+        </div>
+        <p class="text-body-medium text-ink-muted">{t['principles.2.description']}</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-brand-secondary/10 flex items-center justify-center flex-shrink-0">
+            <Icon name="360" class="w-6 h-6 text-brand-secondary" />
+          </div>
+          <h3 class="text-title-medium text-ink-primary">{t['principles.3.title']}</h3>
+        </div>
+        <p class="text-body-medium text-ink-muted">{t['principles.3.description']}</p>
+      </div>
+      <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-brand-tertiary/10 flex items-center justify-center flex-shrink-0">
+            <Icon name="trending_up" class="w-6 h-6 text-brand-tertiary" />
+          </div>
+          <h3 class="text-title-medium text-ink-primary">{t['principles.4.title']}</h3>
+        </div>
+        <p class="text-body-medium text-ink-muted">{t['principles.4.description']}</p>
+      </div>
+      <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-brand-tertiary/10 flex items-center justify-center flex-shrink-0">
+            <Icon name="filter_alt" class="w-6 h-6 text-brand-tertiary" />
+          </div>
+          <h3 class="text-title-medium text-ink-primary">{t['principles.5.title']}</h3>
+        </div>
+        <p class="text-body-medium text-ink-muted">{t['principles.5.description']}</p>
+      </div>
+    </div>
+  </section>
+
+
+</Layout>

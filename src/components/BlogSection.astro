@@ -1,0 +1,23 @@
+---
+interface Props {
+  translations: Record<string, string>;
+}
+const { translations: t } = Astro.props;
+---
+
+<section id="blog" class="py-20 md:py-24" aria-labelledby="blog-heading">
+  <div class="text-center mb-12">
+    <span class="text-label-large text-brand-primary tracking-wider uppercase">{t['blog.tagline']}</span>
+    <h2 id="blog-heading" class="text-headline-large md:text-display-small text-ink-primary mt-3">
+      {t['blog.heading']}
+    </h2>
+  </div>
+  <div class="max-w-2xl mx-auto rounded-md border border-stroke-outlineVariant p-10 md:p-14 text-center">
+    <p class="text-body-large text-ink-muted mb-2">
+      {t['blog.coming']}
+    </p>
+    <p class="text-body-medium text-ink-muted italic">
+      {t['blog.placeholder']}
+    </p>
+  </div>
+</section>

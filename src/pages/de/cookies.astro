@@ -1,0 +1,105 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Icon from '@/components/shared/Icon.astro';
+import { getLangFromUrl } from '@/i18n/utils';
+import { getTranslations } from '@/i18n/translations';
+import { localizedRoutes } from '@/configurations/routes';
+
+const lang = getLangFromUrl(Astro.url);
+const t = getTranslations(lang);
+const routes = localizedRoutes(lang);
+const linkClass = "text-brand-primary hover:underline transition-colors duration-short4 ease-standard";
+---
+
+<Layout
+  title="Cookie-Richtlinie — Curfee"
+  description="Cookie-Richtlinie für Curfee e.U., Unternehmensberatung im Bereich Informationstechnologie von Philipp Höllinger, Salzburg, Österreich."
+  lang={lang}
+  canonicalPath="/de/cookies"
+>
+  <div class="max-w-3xl mx-auto">
+    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6">
+      <Icon name="cookie" class="w-6 h-6 text-brand-primary" />
+    </div>
+    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">{t['cookies.heading']}</h1>
+    <p class="text-title-medium text-brand-primary font-medium mb-8">{t['cookies.updated']}</p>
+
+    <div class="space-y-10 mb-12">
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-3">{t['cookies.what.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['cookies.what']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-3">{t['cookies.legal.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['cookies.legal']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-6">{t['cookies.types.heading']}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 rounded-xl bg-surface-raised border border-stroke-outlineVariant p-6">
+          <div>
+            <span class="text-label-large text-ink-primary">{t['cookies.types.necessary.label']}</span>
+            <p class="text-body-large text-ink-muted mt-2">{t['cookies.types.necessary']}</p>
+          </div>
+          <div>
+            <span class="text-label-large text-ink-primary">{t['cookies.types.analytics.label']}</span>
+            <p class="text-body-large text-ink-muted mt-2">{t['cookies.types.analytics']}</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-6">{t['cookies.list.heading']}</h2>
+        <div class="rounded-xl bg-surface-raised border border-stroke-outlineVariant p-6 space-y-6">
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 pb-4 border-b border-stroke-outlineVariant">
+            <span class="text-label-medium text-ink-primary">{t['cookies.list.name']}</span>
+            <span class="text-label-medium text-ink-primary">{t['cookies.list.provider']}</span>
+            <span class="text-label-medium text-ink-primary hidden sm:block">{t['cookies.list.purpose']}</span>
+            <span class="text-label-medium text-ink-primary hidden sm:block">{t['cookies.list.duration']}</span>
+            <span class="text-label-medium text-ink-primary hidden sm:block">{t['cookies.list.type']}</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 pb-4 border-b border-stroke-outlineVariant">
+            <span class="text-body-large text-ink-muted font-mono">_ga</span>
+            <span class="text-body-large text-ink-muted">Google Analytics</span>
+            <span class="text-body-large text-ink-muted hidden sm:block">{t['cookies.list.ga.purpose']}</span>
+            <span class="text-body-large text-ink-muted hidden sm:block">{t['cookies.list.ga.duration']}</span>
+            <span class="text-body-large text-ink-muted hidden sm:block">{t['cookies.list.ga.type']}</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 pb-4 border-b border-stroke-outlineVariant">
+            <span class="text-body-large text-ink-muted font-mono">{t['cookies.list.gastar.name']}</span>
+            <span class="text-body-large text-ink-muted">Google Analytics</span>
+            <span class="text-body-large text-ink-muted hidden sm:block">{t['cookies.list.gastar.purpose']}</span>
+            <span class="text-body-large text-ink-muted hidden sm:block">{t['cookies.list.gastar.duration']}</span>
+            <span class="text-body-large text-ink-muted hidden sm:block">{t['cookies.list.gastar.type']}</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+            <span class="text-body-large text-ink-muted font-mono">curfee-consent</span>
+            <span class="text-body-large text-ink-muted">Curfee</span>
+            <span class="text-body-large text-ink-muted hidden sm:block">{t['cookies.list.consent.purpose']}</span>
+            <span class="text-body-large text-ink-muted hidden sm:block">{t['cookies.list.consent.duration']}</span>
+            <span class="text-body-large text-ink-muted hidden sm:block">{t['cookies.list.consent.type']}</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-3">{t['cookies.manage.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed mb-6">{t['cookies.manage']}</p>
+        <button
+          type="button"
+          data-consent-reset
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-label-large text-ink-primary border border-stroke-outlineVariant hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary/40"
+        >
+          <Icon name="cookie" class="w-5 h-5" />
+          {t['consent.settings']}
+        </button>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-3">{t['cookies.updates.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['cookies.updates']}</p>
+      </section>
+    </div>
+  </div>
+</Layout>

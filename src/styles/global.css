@@ -1,0 +1,292 @@
+@font-face {
+  font-family: "Google Sans";
+  src: url("/assets/fonts/google_sans/google_sans_regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0100-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+
+@font-face {
+  font-family: "Google Sans";
+  src: url("/assets/fonts/google_sans/google_sans_medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0100-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+
+@font-face {
+  font-family: "Google Sans";
+  src: url("/assets/fonts/google_sans/google_sans_semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0100-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+
+@font-face {
+  font-family: "Google Sans";
+  src: url("/assets/fonts/google_sans/google_sans_bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0100-024F, U+0250-02AF, U+1E00-1EFF, U+2000-206F, U+20A0-20CF;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light Mode (default) — #003366 Navy, #7B1B38 Bordeaux, #D4C4A8 Beige, #1C1C20 Charcoal */
+  :root {
+    --brand-primary: 0 51 102;
+    --on-brand-primary: 255 255 255;
+    --brand-primary-container: 194 218 242;
+    --on-brand-primary-container: 0 28 64;
+
+    --brand-secondary: 123 27 56;
+    --on-brand-secondary: 255 255 255;
+    --brand-secondary-container: 255 218 225;
+    --on-brand-secondary-container: 65 5 25;
+
+    --brand-tertiary: 120 105 72;
+    --on-brand-tertiary: 255 255 255;
+    --brand-tertiary-container: 240 232 212;
+    --on-brand-tertiary-container: 48 38 15;
+
+    --brand-error: 179 38 30;
+    --on-brand-error: 255 255 255;
+    --brand-error-container: 249 222 220;
+    --on-brand-error-container: 65 14 11;
+
+    --surface-base: 252 251 249;
+    --surface-dim: 222 219 214;
+    --surface-bright: 252 251 249;
+    --surface-soft: 246 244 240;
+    --surface-raised: 255 255 255;
+    --surface-variant: 232 228 222;
+    --surface-container-lowest: 255 255 255;
+    --surface-container-low: 248 246 243;
+    --surface-container: 242 240 236;
+    --surface-container-high: 237 234 230;
+    --surface-container-highest: 231 229 224;
+
+    --inverse-surface: 49 48 51;
+    --inverse-on-surface: 244 239 236;
+    --inverse-primary: 162 200 236;
+
+    --ink-primary: 28 28 32;
+    --ink-muted: 72 72 80;
+    --ink-on-surface-variant: 68 68 76;
+
+    --stroke-subtle: 210 206 198;
+    --outline-variant: 200 196 188;
+
+    --scrim: 0 0 0;
+    --shadow-color: 0 0 0;
+    --state-hover: 0.08;
+    --state-pressed: 0.12;
+    color-scheme: light;
+  }
+
+  /* Dark Mode — M3 tonal palette inversion */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --brand-primary: 162 200 236;
+      --on-brand-primary: 0 30 65;
+      --brand-primary-container: 0 42 88;
+      --on-brand-primary-container: 194 218 242;
+
+      --brand-secondary: 240 180 195;
+      --on-brand-secondary: 65 5 30;
+      --brand-secondary-container: 90 15 40;
+      --on-brand-secondary-container: 255 218 225;
+
+      --brand-tertiary: 210 195 165;
+      --on-brand-tertiary: 50 40 18;
+      --brand-tertiary-container: 65 55 30;
+      --on-brand-tertiary-container: 240 232 212;
+
+      --brand-error: 242 184 181;
+      --on-brand-error: 96 20 16;
+      --brand-error-container: 140 29 24;
+      --on-brand-error-container: 249 222 220;
+
+      --surface-base: 20 20 22;
+      --surface-dim: 20 20 22;
+      --surface-bright: 58 56 53;
+      --surface-soft: 28 28 30;
+      --surface-raised: 35 35 38;
+      --surface-variant: 55 52 48;
+      --surface-container-lowest: 15 15 17;
+      --surface-container-low: 28 27 30;
+      --surface-container: 33 32 35;
+      --surface-container-high: 43 42 45;
+      --surface-container-highest: 54 53 56;
+
+      --inverse-surface: 230 225 221;
+      --inverse-on-surface: 49 48 51;
+      --inverse-primary: 0 51 102;
+
+      --ink-primary: 230 228 224;
+      --ink-muted: 190 188 184;
+      --ink-on-surface-variant: 200 196 190;
+
+      --stroke-subtle: 55 52 48;
+      --outline-variant: 75 72 66;
+
+      --scrim: 0 0 0;
+      --shadow-color: 0 0 0;
+      --state-hover: 0.08;
+      --state-pressed: 0.12;
+      color-scheme: dark;
+    }
+  }
+
+  body {
+    @apply bg-surface-base text-ink-primary font-body antialiased;
+    overflow-anchor: none;
+  }
+}
+
+@layer utilities {
+  /* M3 Type Scale — Display */
+  .text-display-large {
+    font-size: 3.5625rem;
+    line-height: 4rem;
+    letter-spacing: -0.015625rem;
+    font-weight: 400;
+  }
+  .text-display-medium {
+    font-size: 2.8125rem;
+    line-height: 3.25rem;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+  .text-display-small {
+    font-size: 2.25rem;
+    line-height: 2.75rem;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  /* M3 Type Scale — Headline */
+  .text-headline-large {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+  .text-headline-medium {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+  .text-headline-small {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  /* M3 Type Scale — Title */
+  .text-title-large {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+  .text-title-medium {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.009375rem;
+    font-weight: 500;
+  }
+  .text-title-small {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.00625rem;
+    font-weight: 500;
+  }
+
+  /* M3 Type Scale — Body */
+  .text-body-large {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.03125rem;
+    font-weight: 400;
+  }
+  .text-body-medium {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.015625rem;
+    font-weight: 400;
+  }
+  .text-body-small {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.025rem;
+    font-weight: 400;
+  }
+
+  /* M3 Type Scale — Label */
+  .text-label-large {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.00625rem;
+    font-weight: 500;
+  }
+  .text-label-medium {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0.03125rem;
+    font-weight: 500;
+  }
+  .text-label-small {
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    letter-spacing: 0.03125rem;
+    font-weight: 500;
+  }
+
+  /* M3 State Layer */
+  .state-hover {
+    background-color: rgba(var(--ink-primary), var(--state-hover));
+  }
+  .state-pressed {
+    background-color: rgba(var(--ink-primary), var(--state-pressed));
+  }
+
+  /* M3 Background Gradient Masks */
+  .mask-radial {
+    mask-image: radial-gradient(120% 80% at 10% 20%, rgba(0, 0, 0, 0.75), transparent);
+  }
+  .mask-radial-3 {
+    mask-image: radial-gradient(120% 80% at 90% 80%, rgba(0, 0, 0, 0.75), transparent);
+  }
+  .mask-radial-2 {
+    mask-image: radial-gradient(100% 70% at 80% 0%, rgba(0, 0, 0, 0.65), transparent);
+  }
+}
+
+/* M3 Accessibility — Focus Visible (M3 uses secondary for focus indicators) */
+:focus-visible {
+  outline: 3px solid rgb(var(--brand-secondary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* M3 Accessibility — Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

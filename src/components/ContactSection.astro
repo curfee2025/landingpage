@@ -1,0 +1,22 @@
+---
+import { EXTERNAL } from '@/configurations/routes';
+
+interface Props {
+  translations: Record<string, string>;
+}
+const { translations: t } = Astro.props;
+---
+
+<section id="contact" class="py-20 md:py-24" aria-labelledby="contact-heading">
+  <div class="rounded-md bg-brand-primaryContainer border border-stroke-outlineVariant p-8 md:p-16 text-center max-w-4xl mx-auto">
+    <h2 id="contact-heading" class="text-headline-large md:text-display-small text-brand-onPrimaryContainer">
+      {t['calltoaction.heading']}
+    </h2>
+    <a
+      href={EXTERNAL.email}
+      class="inline-flex items-center justify-center gap-2 bg-brand-primary text-brand-onPrimary px-8 py-4 rounded-full text-label-large font-medium shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 transition-all duration-medium2 ease-standard mt-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary/40"
+    >
+      {t['calltoaction.button']}
+    </a>
+  </div>
+</section>

@@ -1,0 +1,92 @@
+---
+import Icon from '@/components/shared/Icon.astro';
+import { localizedRoutes } from '@/configurations/routes';
+import type { Lang } from '@/configurations/i18n';
+
+interface Props {
+  translations: Record<string, string>;
+  lang: Lang;
+}
+const { translations: t, lang } = Astro.props;
+const routes = localizedRoutes(lang);
+---
+
+<section id="services" class="py-20 md:py-24" aria-labelledby="services-heading">
+  <div class="text-center mb-6 md:mb-8">
+    <span class="text-label-large text-brand-primary tracking-wider uppercase">{t['services.tagline']}</span>
+    <h2 id="services-heading" class="text-headline-large md:text-display-small text-ink-primary mt-3">{t['services.heading']}</h2>
+  </div>
+
+  <!-- Core Services — 3 cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+    <!-- Diagnosis -->
+    <a href={routes.diagnosis} class="flex flex-col rounded-md border border-stroke-outlineVariant bg-surface-raised p-6 md:p-8 transition-all duration-medium2 ease-standard hover:bg-ink-primary/[0.08] cursor-pointer no-underline">
+      <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center mb-4">
+        <Icon name="search" class="w-6 h-6 text-brand-primary" />
+      </div>
+      <h3 class="text-title-large text-ink-primary mb-1">{t['services.diagnosis.title']}</h3>
+      <p class="text-body-medium text-brand-primary mb-4">{t['services.diagnosis.subtitle']}</p>
+      <p class="text-body-medium text-ink-muted mb-4 flex-1">{t['services.diagnosis.description']}</p>
+      <div class="rounded-md bg-brand-primary/[0.08] p-4 mb-4 min-h-[96px]">
+        <p class="text-body-medium text-ink-primary">{t['services.diagnosis.deliverable']}</p>
+      </div>
+      <div class="pt-4 border-t border-stroke-subtle flex justify-between items-baseline">
+        <span class="text-body-small text-ink-muted">{t['services.diagnosis.duration']}</span>
+        <span class="text-title-medium text-brand-primary">{t['services.diagnosis.price']}</span>
+      </div>
+    </a>
+    <!-- Design -->
+    <a href={routes.design} class="flex flex-col rounded-md border border-stroke-outlineVariant bg-surface-raised p-6 md:p-8 transition-all duration-medium2 ease-standard hover:bg-ink-primary/[0.08] cursor-pointer no-underline">
+      <div class="w-10 h-10 rounded-full bg-brand-secondary/10 flex items-center justify-center mb-4">
+        <Icon name="route" class="w-6 h-6 text-brand-secondary" />
+      </div>
+      <h3 class="text-title-large text-ink-primary mb-1">{t['services.design.title']}</h3>
+      <p class="text-body-medium text-brand-primary mb-4">{t['services.design.subtitle']}</p>
+      <p class="text-body-medium text-ink-muted mb-4 flex-1">{t['services.design.description']}</p>
+      <div class="rounded-md bg-brand-primary/[0.08] p-4 mb-4 min-h-[96px]">
+        <p class="text-body-medium text-ink-primary">{t['services.design.deliverable']}</p>
+      </div>
+      <div class="pt-4 border-t border-stroke-subtle flex justify-between items-baseline">
+        <span class="text-body-small text-ink-muted">{t['services.design.duration']}</span>
+        <span class="text-title-medium text-brand-primary">{t['services.design.price']}</span>
+      </div>
+    </a>
+    <!-- Advisory -->
+    <a href={routes.advisory} class="flex flex-col rounded-md border border-stroke-outlineVariant bg-surface-raised p-6 md:p-8 transition-all duration-medium2 ease-standard hover:bg-ink-primary/[0.08] cursor-pointer no-underline">
+      <div class="w-10 h-10 rounded-full bg-brand-tertiary/10 flex items-center justify-center mb-4">
+        <Icon name="handshake" class="w-6 h-6 text-brand-tertiary" />
+      </div>
+      <h3 class="text-title-large text-ink-primary mb-1">{t['services.advisory.title']}</h3>
+      <p class="text-body-medium text-brand-primary mb-4">{t['services.advisory.subtitle']}</p>
+      <p class="text-body-medium text-ink-muted mb-4 flex-1">{t['services.advisory.description']}</p>
+      <div class="rounded-md bg-brand-primary/[0.08] p-4 mb-4 min-h-[96px]">
+        <p class="text-body-medium text-ink-primary">{t['services.advisory.deliverable']}</p>
+      </div>
+      <div class="pt-4 border-t border-stroke-subtle flex justify-between items-baseline">
+        <span class="text-body-small text-ink-muted">{t['services.advisory.duration']}</span>
+        <span class="text-title-medium text-brand-primary">{t['services.advisory.price']}</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Hands-on Architecture — full width -->
+  <div class="max-w-5xl mx-auto mt-6">
+    <a href={routes.handson} class="flex flex-col md:flex-row md:items-center gap-6 rounded-md border border-stroke-outlineVariant bg-surface-raised p-6 md:p-8 transition-all duration-medium2 ease-standard hover:bg-ink-primary/[0.08] cursor-pointer no-underline">
+      <div class="flex items-center gap-4 md:w-1/4">
+        <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+          <Icon name="code" class="w-6 h-6 text-brand-primary" />
+        </div>
+        <div>
+          <h3 class="text-title-large text-ink-primary">{t['services.handson.title']}</h3>
+          <p class="text-body-medium text-brand-primary">{t['services.handson.subtitle']}</p>
+        </div>
+      </div>
+      <p class="text-body-medium text-ink-muted flex-1">{t['services.handson.description']}</p>
+      <div class="flex items-baseline gap-4 md:w-auto flex-shrink-0">
+        <span class="text-body-small text-ink-muted">{t['services.handson.duration']}</span>
+        <span class="text-title-medium text-brand-primary">{t['services.handson.price']}</span>
+      </div>
+    </a>
+  </div>
+
+</section>

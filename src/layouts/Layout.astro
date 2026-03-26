@@ -1,0 +1,129 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Header from '@/components/shared/Header.astro';
+import Footer from '@/components/shared/Footer.astro';
+import ScrollToTop from '@/components/shared/ScrollToTop.astro';
+import CookieBanner from '@/components/shared/CookieBanner.astro';
+import { getLangFromUrl, getAlternateUrl } from '@/i18n/utils';
+import { getTranslations } from '@/i18n/translations';
+import '@/styles/global.css';
+
+import type { Lang } from '@/configurations/i18n';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalPath?: string;
+  jsonLd?: object | object[];
+  lang?: Lang;
+}
+
+const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
+const translations = getTranslations(lang);
+
+const {
+  title,
+  description = lang === 'de'
+    ? 'CURFEE – Software-Architektur: Systeme untersuchen, Architekturen entwerfen, Entscheidungen verankern. Diagnose, Design, Advisory.'
+    : 'CURFEE – Software architecture: examining systems, designing architectures, anchoring decisions. Diagnosis, Design, Advisory.',
+  canonicalPath = '',
+  jsonLd,
+} = Astro.props;
+
+const siteUrl = 'https://curfee.com';
+const canonicalUrl = `${siteUrl}${canonicalPath}`;
+const ogImage = `${siteUrl}/assets/og-image.png`;
+const alternate = getAlternateUrl(Astro.url, siteUrl);
+const ogLocale = lang === 'de' ? 'de_DE' : 'en_US';
+const ogLocaleAlt = lang === 'de' ? 'en_US' : 'de_DE';
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; frame-src 'none'; base-uri 'self'; form-action 'self'" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="/assets/fonts/google_sans/google_sans_regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/google_sans/google_sans_medium.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Preconnect for Google Analytics -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="en" href={alternate.en} />
+    <link rel="alternate" hreflang="de" href={alternate.de} />
+    <link rel="alternate" hreflang="x-default" href={alternate.en} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="Curfee" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/assets/favicons/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/favicons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/favicons/favicon_32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/assets/favicons/favicon_16x16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/assets/favicons/apple_touch_icon.png" />
+    <link rel="manifest" href="/assets/favicons/site.webmanifest" />
+    <meta name="theme-color" content="#003366" />
+
+    <!-- Structured Data -->
+    {jsonLd && (
+      Array.isArray(jsonLd)
+        ? jsonLd.map((ld) => (
+            <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />
+          ))
+        : <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+
+    <ClientRouter />
+  </head>
+  <body>
+    <Header lang={lang} translations={translations} />
+
+    <div class="relative min-h-screen overflow-hidden">
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-primary/25 via-brand-tertiary/16 to-brand-secondary/20 mask-radial" />
+        <div class="absolute inset-0 bg-gradient-to-tr from-brand-secondary/22 via-brand-tertiary/18 to-brand-primary/25 mask-radial-2" />
+      </div>
+
+      <div class="relative z-10">
+        <main class="max-w-6xl mx-auto px-4 md:px-6 pt-24 md:pt-28">
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <Footer lang={lang} translations={translations} />
+    <ScrollToTop />
+    <CookieBanner lang={lang} translations={translations} />
+  </body>
+</html>
