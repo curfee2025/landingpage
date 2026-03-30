@@ -17,15 +17,15 @@ const jsonLd = {
   "@type": "WebSite",
   "name": "Curfee",
   "url": "https://curfee.com",
-  "description": "Struktur in Systemen etablieren, die Bestand hat. Diagnose, Begleitung, Sparring.",
+  "description": t['meta.home.jsonld.description'],
   "inLanguage": ["en", "de"],
   "publisher": { "@id": "https://curfee.com/#organization" }
 };
 ---
 
 <Layout
-  title="Curfee — Struktur, die Bestand hat · Diagnose, Begleitung, Sparring"
-  description="Philipp Höllinger, Softwarearchitekt aus Salzburg. Ich begleite Organisationen dabei, Struktur in ihren Systemen zu etablieren, die Bestand hat. Diagnose, Begleitung, Sparring."
+  title={t['meta.home.title']}
+  description={t['meta.home.description']}
   canonicalPath="/de/"
   jsonLd={jsonLd}
   lang={lang}

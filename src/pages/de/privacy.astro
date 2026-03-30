@@ -1,11 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
-import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
 import { localizedRoutes } from '@/configurations/routes';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = 'de' as const;
 const t = getTranslations(lang);
 const routes = localizedRoutes(lang);
 const linkClass = "text-brand-primary hover:underline transition-colors duration-short4 ease-standard";
@@ -14,15 +13,15 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curfee.com/de/" },
+    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/de/" },
     { "@type": "ListItem", "position": 2, "name": t['footer.legal.privacy'], "item": "https://curfee.com/de/privacy" }
   ]
 };
 ---
 
 <Layout
-  title="Datenschutzerklärung — Curfee"
-  description="Datenschutzerklärung für Curfee e.U., Unternehmensberatung im Bereich Informationstechnologie von Philipp Höllinger, Salzburg, Österreich."
+  title={t['meta.privacy.title']}
+  description={t['meta.privacy.description']}
   lang={lang}
   canonicalPath="/de/privacy"
   jsonLd={jsonLd}
@@ -67,22 +66,22 @@ const jsonLd = {
     <!-- Legal text sections -->
     <div class="space-y-10 mb-12">
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['privacy.personal.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.personal.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.personal']}</p>
       </section>
 
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['privacy.rights.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.rights.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.rights']}</p>
       </section>
 
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['privacy.withdrawal.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.withdrawal.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.withdrawal']} <a href={`mailto:${t['imprint.email']}`} class={linkClass}>{t['imprint.email']}</a></p>
       </section>
 
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['privacy.complaint.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.complaint.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed mb-4">{t['privacy.complaint']}</p>
         <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6 text-body-large text-ink-muted">
           <p class="text-title-medium text-ink-primary">{t['privacy.complaint.authority']}</p>
@@ -98,27 +97,27 @@ const jsonLd = {
       </section>
 
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['privacy.ssl.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.ssl.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.ssl']}</p>
       </section>
 
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['privacy.cookies.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.cookies.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.cookies.reference']} <a href={routes.cookies} class={linkClass}>{t['footer.legal.cookies']}</a></p>
       </section>
 
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['privacy.links.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.links.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.links']}</p>
       </section>
 
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['privacy.hosting.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.hosting.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.hosting']}</p>
       </section>
 
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['privacy.analytics.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.analytics.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.analytics']}</p>
         <p class="text-body-large text-ink-muted leading-relaxed mt-2">{t['privacy.analytics.more']} <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class={linkClass}>policies.google.com/privacy</a></p>
       </section>

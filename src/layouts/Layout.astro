@@ -24,9 +24,7 @@ const translations = getTranslations(lang);
 
 const {
   title,
-  description = lang === 'de'
-    ? 'CURFEE – Struktur in Systemen etablieren, die Bestand hat. Diagnose, Begleitung, Sparring.'
-    : 'CURFEE – Establishing structure in systems that lasts. Diagnosis, Guidance, Sparring.',
+  description = translations['meta.home.description'],
   canonicalPath = '',
   jsonLd,
   dateModified,
@@ -52,14 +50,12 @@ const organizationLd = {
     "width": 1200,
     "height": 630
   },
-  "description": lang === 'de'
-    ? "Struktur in Systemen etablieren, die Bestand hat. Diagnose, Begleitung, Sparring."
-    : "Establishing structure in systems that lasts. Diagnosis, Guidance, Sparring.",
+  "description": translations['meta.home.jsonld.description'],
   "founder": {
     "@type": "Person",
     "@id": `${siteUrl}/#founder`,
     "name": "Philipp Höllinger",
-    "jobTitle": "Software Architect"
+    "jobTitle": translations['meta.about.jobTitle']
   },
   "address": {
     "@type": "PostalAddress",
@@ -163,17 +159,18 @@ const speakableLd = {
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
         <div class="absolute inset-0 bg-gradient-to-br from-brand-primary/25 via-brand-tertiary/16 to-brand-secondary/20 mask-radial" />
         <div class="absolute inset-0 bg-gradient-to-tr from-brand-secondary/22 via-brand-tertiary/18 to-brand-primary/25 mask-radial-2" />
+        <div class="absolute inset-0 bg-gradient-to-tl from-brand-tertiary/20 via-brand-primary/10 to-transparent mask-radial-3" />
       </div>
 
       <div class="relative z-10">
         <Header lang={lang} translations={translations} />
-        <main>
+        <main class="pt-12 md:pt-16">
           <slot />
         </main>
+        <Footer lang={lang} translations={translations} />
       </div>
     </div>
 
-    <Footer lang={lang} translations={translations} />
     <ScrollToTop />
     <CookieBanner lang={lang} translations={translations} />
   </body>

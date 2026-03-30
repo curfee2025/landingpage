@@ -288,23 +288,15 @@
     font-weight: 500;
   }
 
-  /* M3 State Layer */
-  .state-hover {
-    background-color: rgba(var(--ink-primary), var(--state-hover));
-  }
-  .state-pressed {
-    background-color: rgba(var(--ink-primary), var(--state-pressed));
-  }
-
   /* M3 Background Gradient Masks */
   .mask-radial {
     mask-image: radial-gradient(120% 80% at 10% 20%, rgba(0, 0, 0, 0.75), transparent);
   }
-  .mask-radial-3 {
-    mask-image: radial-gradient(120% 80% at 90% 80%, rgba(0, 0, 0, 0.75), transparent);
-  }
   .mask-radial-2 {
     mask-image: radial-gradient(100% 70% at 80% 0%, rgba(0, 0, 0, 0.65), transparent);
+  }
+  .mask-radial-3 {
+    mask-image: radial-gradient(100% 60% at 85% 90%, rgba(0, 0, 0, 0.55), transparent);
   }
 }
 

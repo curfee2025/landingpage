@@ -1,19 +1,18 @@
-# Curfee — Software Architecture Consulting
+# Curfee — Structure that lasts
 
-> Software architecture from Salzburg, Austria. Examining systems, designing architectures, anchoring decisions.
+> Software architecture consulting from Salzburg, Austria. Examining systems, establishing structure, anchoring decisions.
 
 Curfee is a software architecture consultancy founded by Philipp Höllinger, based in Salzburg, Austria. The company provides independent, vendor-neutral consulting for organizations that need clarity about their software systems.
 
 ## Services
 
-- [Diagnosis](/services/diagnosis): Systematic examination of existing software systems. Produces an architecture assessment with findings, risk map, and prioritized recommendations. Duration: 2-4 weeks.
-- [Design](/services/design): Architecture design for new systems or major restructuring. Produces an architecture playbook with decisions, component design, and migration path. Duration: 4-8 weeks.
-- [Advisory](/services/advisory): Ongoing architecture guidance embedded in your team. Regular architecture reviews, decision support, and knowledge transfer. Duration: 3-6 months.
-- [Hands-on Architecture](/services/handson): Implementation of architecture in the Spring ecosystem with Domain Driven Design and hexagonal architecture.
+- [Diagnosis](/services/diagnosis): Straight to the root cause. I start with what brought you here — and trace it to its root cause, layer by layer through your system. Concise assessment with root cause, impact, and recommended next steps. Duration: from 2 weeks. Investment: from €10,000.
+- [Guidance](/services/guidance): From root cause to solution. I find the root cause, design the solution, and guide the execution — until the structure stands. Duration: project-dependent. Investment: from €30,000.
+- [Sparring](/services/sparring): Alignment that grows with you. Your system evolves — I evaluate decisions and provide well-founded feedback before they take effect. Duration: ongoing. Investment: on request.
 
 ## About
 
-Philipp Höllinger is a software architect with deep expertise in system analysis, architecture design, and technology consulting. Based in Salzburg, Austria.
+Philipp Höllinger is a software architect with deep expertise in system analysis, architecture design, and structural consulting. Based in Salzburg, Austria.
 
 - Website: https://curfee.com
 - LinkedIn: https://www.linkedin.com/in/phoellinger
@@ -24,10 +23,9 @@ Philipp Höllinger is a software architect with deep expertise in system analysi
 - [Home](https://curfee.com/)
 - [About](https://curfee.com/about)
 - [FAQ](https://curfee.com/faq)
-- [Diagnosis Service](https://curfee.com/services/diagnosis)
-- [Design Service](https://curfee.com/services/design)
-- [Advisory Service](https://curfee.com/services/advisory)
-- [Hands-on Architecture](https://curfee.com/services/handson)
+- [Diagnosis](https://curfee.com/services/diagnosis)
+- [Guidance](https://curfee.com/services/guidance)
+- [Sparring](https://curfee.com/services/sparring)
 - [Legal Notice](https://curfee.com/imprint)
 - [Privacy Policy](https://curfee.com/privacy)
 - [Cookie Policy](https://curfee.com/cookies)

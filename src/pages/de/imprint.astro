@@ -1,25 +1,24 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
-import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = 'de' as const;
 const t = getTranslations(lang);
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curfee.com/de/" },
+    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/de/" },
     { "@type": "ListItem", "position": 2, "name": t['footer.legal.notice'], "item": "https://curfee.com/de/imprint" }
   ]
 };
 ---
 
 <Layout
-  title="Impressum — Curfee"
-  description="Impressum und rechtliche Informationen für Curfee e.U., Unternehmensberatung im Bereich Informationstechnologie von Philipp Höllinger, Salzburg, Österreich."
+  title={t['meta.imprint.title']}
+  description={t['meta.imprint.description']}
   lang={lang}
   canonicalPath="/de/imprint"
   jsonLd={jsonLd}
@@ -33,7 +32,7 @@ const jsonLd = {
     <p class="text-title-medium text-brand-primary font-medium mb-8">{t['imprint.legal.basis']}</p>
 
     <!-- Identity + Contact grouped -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
       <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
         <h2 class="text-label-large text-ink-primary mb-4">{t['imprint.owner']}</h2>
         <div class="text-body-large text-ink-muted">
@@ -62,8 +61,8 @@ const jsonLd = {
     </div>
 
     <!-- Legal basis as structured list -->
-    <section class="mb-12">
-      <h2 class="text-headline-small text-ink-primary mb-6">{t['imprint.legal.heading']}</h2>
+    <section class="mb-10">
+      <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.legal.heading']}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
         <div>
           <span class="text-label-medium font-medium text-ink-muted">{t['imprint.trade.label']}</span>
@@ -94,24 +93,24 @@ const jsonLd = {
     </section>
 
     <!-- Editorial -->
-    <section class="mb-12">
-      <h2 class="text-headline-small text-ink-primary mb-4">{t['imprint.editorial.heading']}</h2>
+    <section class="mb-10">
+      <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.editorial.heading']}</h2>
       <p class="text-body-large text-ink-muted leading-relaxed mb-2">{t['imprint.editorial']}</p>
       <p class="text-body-large text-ink-primary">{t['imprint.editorial.responsible']}</p>
     </section>
 
     <!-- Liability + Copyright as minimal text blocks -->
-    <div class="space-y-10 mb-12">
+    <div class="space-y-10 mb-10">
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['imprint.liability.content.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.liability.content.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['imprint.liability.content']}</p>
       </section>
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['imprint.liability.links.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.liability.links.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['imprint.liability.links']}</p>
       </section>
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-3">{t['imprint.copyright.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.copyright.heading']}</h2>
         <p class="text-body-large text-ink-muted leading-relaxed">{t['imprint.copyright']}</p>
       </section>
     </div>

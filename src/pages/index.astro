@@ -18,15 +18,15 @@ const jsonLd = {
   "@type": "WebSite",
   "name": "Curfee",
   "url": "https://curfee.com",
-  "description": "Establishing structure in systems that lasts. Diagnosis, Guidance, Sparring.",
+  "description": t['meta.home.jsonld.description'],
   "inLanguage": ["en", "de"],
   "publisher": { "@id": "https://curfee.com/#organization" }
 };
 ---
 
 <Layout
-  title="Curfee — Structure that lasts · Diagnosis, Guidance, Sparring"
-  description="Philipp Höllinger, software architect from Salzburg. I help organizations establish structure in their systems that lasts. Diagnosis, Guidance, Sparring."
+  title={t['meta.home.title']}
+  description={t['meta.home.description']}
   canonicalPath="/"
   jsonLd={jsonLd}
   lang={lang}

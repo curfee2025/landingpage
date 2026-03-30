@@ -29,7 +29,7 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curfee.com/de/" },
+      { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/de/" },
       { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://curfee.com/de/faq" }
     ]
   }
@@ -37,8 +37,8 @@ const jsonLd = [
 ---
 
 <Layout
-  title="FAQ — Curfee | Häufige Fragen"
-  description="Antworten auf häufige Fragen zu Curfees Beratungsleistungen: Umfang, Preise, Zeitrahmen und wie Diagnose, Begleitung und Sparring funktionieren."
+  title={t['meta.faq.title']}
+  description={t['meta.faq.description']}
   canonicalPath="/de/faq"
   jsonLd={jsonLd}
   lang={lang}
