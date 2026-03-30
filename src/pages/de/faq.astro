@@ -57,9 +57,13 @@ const jsonLd = [
         <details class="group rounded-md bg-surface-raised border border-stroke-outlineVariant [&>summary]:list-none [&>summary::-webkit-details-marker]:hidden">
           <summary class="flex items-center justify-between cursor-pointer p-6 text-title-medium text-ink-primary hover:text-brand-primary transition-colors duration-short4 ease-standard">
             <span>{q.question}</span>
-            <span class="inline-flex group-open:rotate-180 transition-transform duration-short4 ease-standard flex-shrink-0 ml-4"><Icon name="expand_more" class="w-6 h-6 text-ink-muted" /></span>
+            <span class="flex-shrink-0 ml-4 text-ink-muted"><Icon name="add" class="w-5 h-5 block group-open:hidden" /><Icon name="close" class="w-5 h-5 hidden group-open:block" /></span>
           </summary>
-          <p class="text-body-medium text-ink-muted leading-relaxed px-6 pb-6 cursor-pointer" data-faq-close>{q.answer}</p>
+          <div class="grid grid-rows-[0fr] group-open:grid-rows-[1fr] transition-[grid-template-rows] duration-medium2 ease-standard">
+            <div class="overflow-hidden">
+              <p class="text-body-medium text-ink-muted leading-relaxed px-6 pb-6 cursor-pointer" data-faq-close>{q.answer}</p>
+            </div>
+          </div>
         </details>
       ))}
     </div>
