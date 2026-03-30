@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Google Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ['"Quicksand"', "ui-sans-serif", "system-ui", "sans-serif"],
         body: ['"Google Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
       },
       colors: {

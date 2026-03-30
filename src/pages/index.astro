@@ -1,9 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import HeroSection from '@/components/HeroSection.astro';
-import ResultSection from '@/components/ResultSection.astro';
-import ServicesSection from '@/components/ServicesSection.astro';
+import VisionSection from '@/components/VisionSection.astro';
 import ProcessSection from '@/components/ProcessSection.astro';
+import ServicesSection from '@/components/ServicesSection.astro';
+import CaseStudySection from '@/components/CaseStudySection.astro';
 import AboutSection from '@/components/AboutSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
 import { getLangFromUrl } from '@/i18n/utils';
@@ -32,9 +33,10 @@ const jsonLd = {
   dateModified="2026-03-27"
 >
   <HeroSection translations={t} />
-  <ResultSection translations={t} />
-  <ServicesSection translations={t} lang={lang} />
+  <VisionSection translations={t} />
   <ProcessSection translations={t} />
+  <ServicesSection translations={t} />
+  <CaseStudySection translations={t} />
   <AboutSection translations={t} />
   <ContactSection translations={t} />
 </Layout>

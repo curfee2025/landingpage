@@ -15,14 +15,14 @@ const menuId = 'mobile-menu';
 const currentPath = Astro.url.pathname;
 const isActive = (path: string) => currentPath === path || currentPath === path + '/';
 const isServicePage = currentPath.startsWith(lang === 'de' ? '/de/services' : '/services');
-const navClass = "px-4 py-2 rounded-full text-label-large whitespace-nowrap hover:text-ink-primary hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard";
+const navClass = "px-5 py-2.5 rounded-full text-body-large font-medium whitespace-nowrap hover:text-ink-primary hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard";
 const activeClass = "bg-ink-primary/[0.12] text-brand-primary font-medium";
 const inactiveClass = "text-ink-muted";
 const menuItemClass = "flex items-center gap-3 w-full px-4 py-3 rounded-sm hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard";
 ---
 
 <header class="fixed top-0 left-0 right-0 z-20 border-b border-stroke-subtle backdrop-blur-[12px] backdrop-saturate-[120%]" role="banner" data-header>
-  <div class="mx-auto max-w-6xl flex items-center gap-3 w-full relative h-16 px-4 md:px-6" data-header-shell>
+  <div class="mx-auto max-w-7xl flex items-center gap-3 w-full relative h-20 px-6 md:px-12 lg:px-20" data-header-shell>
     <Logo size="md" lang={lang} />
     <nav class="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2" aria-label="Primary navigation">
       <div class="relative pb-2 -mb-2" data-dropdown>
@@ -35,16 +35,12 @@ const menuItemClass = "flex items-center gap-3 w-full px-4 py-3 rounded-sm hover
             <span class="text-label-large">{t['services.diagnosis.title']}</span>
           </a>
           <a href={routes.design} role="menuitem" tabindex="-1" class:list={[menuItemClass, isActive(routes.design) ? 'text-brand-primary font-medium' : 'text-ink-primary']}>
-            <Icon name="route" class="w-5 h-5 text-ink-muted" />
+            <Icon name="group_work" class="w-5 h-5 text-ink-muted" />
             <span class="text-label-large">{t['services.design.title']}</span>
           </a>
           <a href={routes.advisory} role="menuitem" tabindex="-1" class:list={[menuItemClass, isActive(routes.advisory) ? 'text-brand-primary font-medium' : 'text-ink-primary']}>
             <Icon name="handshake" class="w-5 h-5 text-ink-muted" />
             <span class="text-label-large">{t['services.advisory.title']}</span>
-          </a>
-          <a href={routes.handson} role="menuitem" tabindex="-1" class:list={[menuItemClass, isActive(routes.handson) ? 'text-brand-primary font-medium' : 'text-ink-primary']}>
-            <Icon name="code" class="w-5 h-5 text-ink-muted" />
-            <span class="text-label-large">{t['services.handson.title']}</span>
           </a>
         </div>
       </div>
@@ -52,7 +48,7 @@ const menuItemClass = "flex items-center gap-3 w-full px-4 py-3 rounded-sm hover
       <a href={routes.faq} aria-current={isActive(routes.faq) ? 'page' : undefined} class:list={[navClass, isActive(routes.faq) ? activeClass : inactiveClass]}>{t['navigation.faq']}</a>
     </nav>
     <div class="flex items-center gap-1 ml-auto flex-shrink-0 z-10">
-      <a href={EXTERNAL.email} class="hidden sm:inline-flex items-center justify-center gap-2 bg-brand-primary text-brand-onPrimary px-6 py-3 rounded-full text-label-large font-medium whitespace-nowrap shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 transition-all duration-short4 ease-standard">
+      <a href={EXTERNAL.email} class="hidden sm:inline-flex items-center justify-center gap-2 bg-brand-primary text-brand-onPrimary px-8 py-3.5 rounded-full text-label-large font-medium whitespace-nowrap shadow-elevation-1 hover:shadow-elevation-2 active:shadow-elevation-0 transition-all duration-short4 ease-standard">
         <span>{t['navigation.calltoaction']}</span>
       </a>
       <button type="button" class="md:hidden inline-flex h-12 w-12 items-center justify-center rounded-full text-ink-primary hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard" aria-label="Toggle navigation" aria-expanded="false" aria-controls={menuId} data-menu-toggle>
@@ -62,7 +58,7 @@ const menuItemClass = "flex items-center gap-3 w-full px-4 py-3 rounded-sm hover
     </div>
   </div>
   <div id={menuId} aria-hidden="true" data-mobile-menu class="md:hidden border-b border-stroke-subtle backdrop-blur-[12px] backdrop-saturate-[120%] transition-[max-height,opacity] duration-medium2 ease-standard max-h-0 opacity-0 pointer-events-none overflow-hidden w-full">
-    <div class="max-w-6xl mx-auto px-4 pb-4 space-y-2">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 pb-4 space-y-2">
       <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
         <details class="group [&>summary]:list-none [&>summary::-webkit-details-marker]:hidden" data-mobile-services>
           <summary class:list={["flex items-center justify-between px-4 py-3 text-label-large cursor-pointer hover:bg-ink-primary/[0.08] rounded-full transition-all duration-short4 ease-standard", isServicePage ? 'text-brand-primary font-medium' : 'text-ink-muted']}>
@@ -71,9 +67,8 @@ const menuItemClass = "flex items-center gap-3 w-full px-4 py-3 rounded-sm hover
           </summary>
           <div class="flex flex-col gap-1 pl-4 overflow-hidden animate-[slideDown_200ms_ease-standard]">
             <a href={routes.diagnosis} class:list={["flex items-center gap-3 px-4 py-3 rounded-full text-body-medium hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard", isActive(routes.diagnosis) ? 'text-brand-primary font-medium' : 'text-ink-primary']} data-menu-close><Icon name="search" class="w-5 h-5 text-ink-muted" />{t['services.diagnosis.title']}</a>
-            <a href={routes.design} class:list={["flex items-center gap-3 px-4 py-3 rounded-full text-body-medium hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard", isActive(routes.design) ? 'text-brand-primary font-medium' : 'text-ink-primary']} data-menu-close><Icon name="route" class="w-5 h-5 text-ink-muted" />{t['services.design.title']}</a>
+            <a href={routes.design} class:list={["flex items-center gap-3 px-4 py-3 rounded-full text-body-medium hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard", isActive(routes.design) ? 'text-brand-primary font-medium' : 'text-ink-primary']} data-menu-close><Icon name="group_work" class="w-5 h-5 text-ink-muted" />{t['services.design.title']}</a>
             <a href={routes.advisory} class:list={["flex items-center gap-3 px-4 py-3 rounded-full text-body-medium hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard", isActive(routes.advisory) ? 'text-brand-primary font-medium' : 'text-ink-primary']} data-menu-close><Icon name="handshake" class="w-5 h-5 text-ink-muted" />{t['services.advisory.title']}</a>
-            <a href={routes.handson} class:list={["flex items-center gap-3 px-4 py-3 rounded-full text-body-medium hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard", isActive(routes.handson) ? 'text-brand-primary font-medium' : 'text-ink-primary']} data-menu-close><Icon name="code" class="w-5 h-5 text-ink-muted" />{t['services.handson.title']}</a>
           </div>
         </details>
         <a href={routes.about} class:list={["flex items-center px-4 py-3 rounded-full text-label-large hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard", isActive(routes.about) ? 'text-brand-primary font-medium' : 'text-ink-primary']} data-menu-close>{t['navigation.about']}</a>

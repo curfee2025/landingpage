@@ -103,8 +103,8 @@ const speakableLd = {
     {dateModified && <meta name="article:modified_time" content={dateModified} />}
 
     <!-- Preload critical fonts -->
+    <link rel="preload" href="/assets/fonts/quicksand/quicksand_latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/google_sans/google_sans_regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/assets/fonts/google_sans/google_sans_medium.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Preconnect for Google Analytics -->
     <link rel="preconnect" href="https://www.googletagmanager.com" />
@@ -167,7 +167,7 @@ const speakableLd = {
       </div>
 
       <div class="relative z-10">
-        <main class="max-w-6xl mx-auto px-4 md:px-6 pt-24 md:pt-28">
+        <main class="pt-24 md:pt-28">
           <slot />
         </main>
       </div>

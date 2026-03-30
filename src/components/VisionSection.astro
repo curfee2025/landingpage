@@ -1,0 +1,75 @@
+---
+import Icon from '@/components/shared/Icon.astro';
+
+interface Props {
+  translations: Record<string, string>;
+}
+const { translations: t } = Astro.props;
+---
+
+<section class="py-20 md:py-24" aria-labelledby="vision-heading">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+    <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+      <h2 id="vision-heading" class="text-headline-large md:text-display-small text-ink-primary">{t['about.vision.heading']}</h2>
+    </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+              <Icon name="handshake" class="w-5 h-5 text-brand-primary" />
+            </div>
+            <h3 class="text-title-medium text-ink-primary">{t['about.vision.1.title']}</h3>
+          </div>
+          <p class="text-body-medium text-ink-muted">{t['about.vision.1.description']}</p>
+        </div>
+        <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+              <Icon name="hub" class="w-5 h-5 text-brand-primary" />
+            </div>
+            <h3 class="text-title-medium text-ink-primary">{t['about.vision.2.title']}</h3>
+          </div>
+          <p class="text-body-medium text-ink-muted">{t['about.vision.2.description']}</p>
+        </div>
+        <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+              <Icon name="swap_horiz" class="w-5 h-5 text-brand-primary" />
+            </div>
+            <h3 class="text-title-medium text-ink-primary">{t['about.vision.3.title']}</h3>
+          </div>
+          <p class="text-body-medium text-ink-muted">{t['about.vision.3.description']}</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+              <Icon name="map" class="w-5 h-5 text-brand-primary" />
+            </div>
+            <h3 class="text-title-medium text-ink-primary">{t['about.vision.4.title']}</h3>
+          </div>
+          <p class="text-body-medium text-ink-muted">{t['about.vision.4.description']}</p>
+        </div>
+        <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+              <Icon name="trending_up" class="w-5 h-5 text-brand-primary" />
+            </div>
+            <h3 class="text-title-medium text-ink-primary">{t['about.vision.5.title']}</h3>
+          </div>
+          <p class="text-body-medium text-ink-muted">{t['about.vision.5.description']}</p>
+        </div>
+        <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+              <Icon name="visibility" class="w-5 h-5 text-brand-primary" />
+            </div>
+            <h3 class="text-title-medium text-ink-primary">{t['about.vision.6.title']}</h3>
+          </div>
+          <p class="text-body-medium text-ink-muted">{t['about.vision.6.description']}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
