@@ -10,11 +10,23 @@ const { translations: t } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const routes = localizedRoutes(lang);
 
-const services = [
+const serviceConfigs = [
   { key: 'diagnosis', icon: 'search', href: routes.diagnosis, iconBg: 'bg-brand-primary/10', iconText: 'text-brand-primary', accentBg: 'bg-brand-primary', deliverableBg: 'bg-brand-primary/[0.08]' },
   { key: 'guidance', icon: 'group_work', href: routes.design, iconBg: 'bg-brand-secondary/10', iconText: 'text-brand-secondary', accentBg: 'bg-brand-secondary', deliverableBg: 'bg-brand-secondary/[0.08]' },
   { key: 'sparring', icon: 'handshake', href: routes.advisory, iconBg: 'bg-brand-tertiary/10', iconText: 'text-brand-tertiary', accentBg: 'bg-brand-tertiary', deliverableBg: 'bg-brand-tertiary/[0.08]' },
 ];
+
+const services = serviceConfigs.map(service => {
+  const deliverables: string[] = [];
+  for (let i = 1; i <= 10; i++) {
+    const val = t[`services.${service.key}.deliverable.${i}`];
+    if (val && val !== `services.${service.key}.deliverable.${i}`) deliverables.push(val);
+    else break;
+  }
+  const outcome = t[`services.${service.key}.deliverable`];
+  const hasOutcome = outcome && outcome !== `services.${service.key}.deliverable`;
+  return { ...service, deliverables, outcome: hasOutcome ? outcome : '' };
+});
 ---
 
 <section id="services" class="py-20 md:py-24" aria-labelledby="services-heading">
@@ -22,29 +34,36 @@ const services = [
     <div class="text-center mb-12 md:mb-16">
       <h2 id="services-heading" class="text-headline-large md:text-display-small text-ink-primary">{t['services.heading']}</h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      {services.map((service) => {
-        const deliverable = t[`services.${service.key}.deliverable`];
-        const hasDeliverable = deliverable && deliverable !== `services.${service.key}.deliverable`;
-        return (
-          <a href={service.href} class="flex flex-col rounded-md border border-stroke-outlineVariant bg-surface-raised overflow-hidden transition-all duration-medium2 ease-standard hover:shadow-elevation-2 hover:-translate-y-0.5 cursor-pointer no-underline">
+    <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-[auto_auto_auto_auto_1fr_auto_auto_auto] gap-x-8 gap-y-0 max-w-6xl mx-auto">
+      {services.map((service) => (
+          <a href={service.href} class="grid md:grid-rows-subgrid md:row-span-8 rounded-md border border-stroke-outlineVariant bg-surface-raised overflow-hidden transition-all duration-medium2 ease-standard hover:shadow-elevation-2 hover:-translate-y-0.5 cursor-pointer no-underline mb-8 md:mb-0">
             <div class:list={["h-1.5 w-full", service.accentBg]} />
-            <div class="flex flex-col p-8 md:p-10">
-            <div class:list={["w-12 h-12 rounded-full flex items-center justify-center mb-8", service.iconBg]}>
-              <Icon name={service.icon} class:list={["w-7 h-7", service.iconText]} />
+            <div class="px-8 pt-8 md:px-10 md:pt-10">
+              <div class:list={["w-12 h-12 rounded-full flex items-center justify-center", service.iconBg]}>
+                <Icon name={service.icon} class:list={["w-7 h-7", service.iconText]} />
+              </div>
             </div>
-            <h3 class="text-title-large text-ink-primary mb-3">{t[`services.${service.key}.title`]}</h3>
-            <p class:list={["text-body-medium mb-8", service.iconText]}>{t[`services.${service.key}.subtitle`]}</p>
-            <p class="text-body-medium text-ink-muted mb-8 flex-1">{t[`services.${service.key}.description`]}</p>
-            {hasDeliverable && (
-              <div class:list={["rounded-md p-5 min-h-[96px]", service.deliverableBg]}>
-                <p class="text-body-medium text-ink-primary">{deliverable}</p>
+            <h3 class="text-title-large text-ink-primary px-8 pt-6 md:px-10">{t[`services.${service.key}.title`]}</h3>
+            <p class:list={["text-body-medium px-8 pt-2 md:px-10", service.iconText]}>{t[`services.${service.key}.subtitle`]}</p>
+            <p class="px-8 pt-6 md:px-10 text-body-medium text-ink-muted">{t[`services.${service.key}.description`]}</p>
+            <p class="px-8 pt-3 md:px-10 text-body-medium text-ink-muted">{service.outcome}</p>
+            <div />
+            {service.deliverables.length > 0 && (
+              <div class="px-8 pb-8 pt-6 md:px-10 md:pb-10 flex">
+                <div class:list={["rounded-md p-5 w-full", service.deliverableBg]}>
+                  <ul class="space-y-2">
+                    {service.deliverables.map(item => (
+                      <li class="flex items-start gap-2">
+                        <Icon name="arrow_right_alt" class:list={["w-4 h-4 flex-shrink-0 mt-0.5", service.iconText]} />
+                        <span class="text-body-medium text-ink-primary">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             )}
-            </div>
           </a>
-        );
-      })}
+      ))}
     </div>
   </div>
 </section>
