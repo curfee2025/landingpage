@@ -42,21 +42,63 @@ const steps = [
         </>
       ))}
     </div>
-    <!-- Mobile -->
-    <div class="md:hidden flex flex-col items-center gap-6">
-      {steps.map((step, i) => (
-        <>
-          <div class="flex flex-col items-center text-center">
-            <div class="w-10 h-10 rounded-full border-2 border-brand-primary bg-brand-primary/[0.08] flex items-center justify-center">
-              <Icon name={step.icon} class="w-5 h-5 text-brand-primary" />
-            </div>
-            <h3 class="text-title-medium text-ink-primary mt-2">{step.title}</h3>
+    <!-- Mobile: Snake/S-Pattern -->
+    <div class="md:hidden max-w-xs mx-auto relative">
+      <!-- SVG overlay for all connectors -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 320 280" fill="none" aria-hidden="true" preserveAspectRatio="none">
+        <line x1="100" y1="20" x2="220" y2="20" stroke="rgb(var(--brand-primary) / 0.2)" stroke-width="2" />
+        <path d="M260,20 L272,20 A12,12 0 0,1 284,32 L284,112 A12,12 0 0,1 272,124 L180,124" stroke="rgb(var(--brand-primary) / 0.2)" stroke-width="2" fill="none" />
+        <path d="M140,124 L48,124 A12,12 0 0,0 36,136 L36,216 A12,12 0 0,0 48,228 L60,228" stroke="rgb(var(--brand-primary) / 0.2)" stroke-width="2" fill="none" />
+        <line x1="100" y1="228" x2="220" y2="228" stroke="rgb(var(--brand-primary) / 0.2)" stroke-width="2" />
+      </svg>
+
+      <!-- Row 1: First Call — Approach -->
+      <div class="relative z-10 grid grid-cols-2 items-start">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-10 h-10 rounded-full border-2 border-brand-primary bg-brand-primary/[0.08] flex items-center justify-center">
+            <Icon name={steps[0].icon} class="w-5 h-5 text-brand-primary" />
           </div>
-          {i < steps.length - 1 && (
-            <Icon name="keyboard_arrow_up" class="w-6 h-6 text-ink-muted rotate-180" />
-          )}
-        </>
-      ))}
+          <h3 class="text-title-medium text-ink-primary mt-2">{steps[0].title}</h3>
+        </div>
+        <div class="flex flex-col items-center text-center">
+          <div class="w-10 h-10 rounded-full border-2 border-brand-primary bg-brand-primary/[0.08] flex items-center justify-center">
+            <Icon name={steps[1].icon} class="w-5 h-5 text-brand-primary" />
+          </div>
+          <h3 class="text-title-medium text-ink-primary mt-2">{steps[1].title}</h3>
+        </div>
+      </div>
+
+      <!-- Spacer -->
+      <div class="h-8"></div>
+
+      <!-- Row 2: Scope centered -->
+      <div class="relative z-10 flex justify-center">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-10 h-10 rounded-full border-2 border-brand-primary bg-brand-primary/[0.08] flex items-center justify-center">
+            <Icon name={steps[2].icon} class="w-5 h-5 text-brand-primary" />
+          </div>
+          <h3 class="text-title-medium text-ink-primary mt-2">{steps[2].title}</h3>
+        </div>
+      </div>
+
+      <!-- Spacer -->
+      <div class="h-8"></div>
+
+      <!-- Row 3: Execution — Handover -->
+      <div class="relative z-10 grid grid-cols-2 items-start">
+        <div class="flex flex-col items-center text-center">
+          <div class="w-10 h-10 rounded-full border-2 border-brand-primary bg-brand-primary/[0.08] flex items-center justify-center">
+            <Icon name={steps[3].icon} class="w-5 h-5 text-brand-primary" />
+          </div>
+          <h3 class="text-title-medium text-ink-primary mt-2">{steps[3].title}</h3>
+        </div>
+        <div class="flex flex-col items-center text-center">
+          <div class="w-10 h-10 rounded-full border-2 border-brand-primary bg-brand-primary/[0.08] flex items-center justify-center">
+            <Icon name={steps[4].icon} class="w-5 h-5 text-brand-primary" />
+          </div>
+          <h3 class="text-title-medium text-ink-primary mt-2">{steps[4].title}</h3>
+        </div>
+      </div>
     </div>
   </div>
 </section>
