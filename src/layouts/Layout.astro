@@ -156,11 +156,12 @@ const speakableLd = {
   </head>
   <body>
     <div class="relative min-h-screen overflow-hidden">
-      <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div class="absolute inset-0 bg-gradient-to-br from-brand-primary/25 via-brand-tertiary/16 to-brand-secondary/20 mask-radial" />
-        <div class="absolute inset-0 bg-gradient-to-tr from-brand-secondary/22 via-brand-tertiary/18 to-brand-primary/25 mask-radial-2" />
-        <div class="absolute inset-0 bg-gradient-to-tl from-brand-tertiary/20 via-brand-primary/10 to-transparent mask-radial-3" />
+      <div class="pointer-events-none absolute -inset-32" style="filter: blur(80px);" aria-hidden="true">
+        <div class="absolute inset-0 bg-gradient-to-br from-brand-primary/35 via-brand-tertiary/16 to-brand-secondary/20 mask-radial" />
+        <div class="absolute inset-0 bg-gradient-to-tr from-brand-secondary/22 via-brand-tertiary/18 to-brand-primary/35 mask-radial-2" />
+        <div class="absolute inset-0 bg-gradient-to-tl from-brand-tertiary/20 via-brand-primary/12 to-transparent mask-radial-3" />
       </div>
+      <div class="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 512 512%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%225%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');" />
 
       <div class="relative z-10">
         <Header lang={lang} translations={translations} />

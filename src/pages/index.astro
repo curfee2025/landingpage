@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import HeroSection from '@/components/HeroSection.astro';
+import ObservationsSection from '@/components/ObservationsSection.astro';
 import VisionSection from '@/components/VisionSection.astro';
 import ProcessSection from '@/components/ProcessSection.astro';
 import ServicesSection from '@/components/ServicesSection.astro';
@@ -33,10 +34,11 @@ const jsonLd = {
   dateModified="2026-03-30"
 >
   <HeroSection translations={t} />
+  <ObservationsSection translations={t} />
   <VisionSection translations={t} />
-  <ProcessSection translations={t} />
   <ServicesSection translations={t} />
-  <CaseStudySection translations={t} />
+  <ProcessSection translations={t} />
   <AboutSection translations={t} />
+  <CaseStudySection translations={t} />
   <ContactSection translations={t} />
 </Layout>
