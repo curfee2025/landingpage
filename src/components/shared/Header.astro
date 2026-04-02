@@ -14,7 +14,7 @@ const routes = localizedRoutes(lang);
 const menuId = 'mobile-menu';
 const currentPath = Astro.url.pathname;
 const isActive = (path: string) => currentPath === path || currentPath === path + '/';
-const isServicePage = currentPath.startsWith(lang === 'de' ? '/de/services' : '/services');
+const isServicePage = currentPath.startsWith(lang === 'en' ? '/en/services' : '/services');
 const navClass = "px-5 py-2.5 rounded-full text-body-large font-medium whitespace-nowrap hover:text-ink-primary hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard";
 const activeClass = "bg-ink-primary/[0.12] text-brand-primary font-medium";
 const inactiveClass = "text-ink-muted";

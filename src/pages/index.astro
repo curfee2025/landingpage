@@ -8,10 +8,9 @@ import ServicesSection from '@/components/ServicesSection.astro';
 import CaseStudySection from '@/components/CaseStudySection.astro';
 import AboutSection from '@/components/AboutSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
-import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = 'de' as const;
 const t = getTranslations(lang);
 
 const jsonLd = {

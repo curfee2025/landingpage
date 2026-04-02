@@ -1,10 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
+import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
 import { localizedRoutes } from '@/configurations/routes';
 
-const lang = 'de' as const;
+const lang = getLangFromUrl(Astro.url);
 const t = getTranslations(lang);
 const routes = localizedRoutes(lang);
 const linkClass = "text-brand-primary hover:underline transition-colors duration-short4 ease-standard";
@@ -13,8 +14,8 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/de/" },
-    { "@type": "ListItem", "position": 2, "name": t['footer.legal.privacy'], "item": "https://curfee.com/de/privacy" }
+    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/en/" },
+    { "@type": "ListItem", "position": 2, "name": t['footer.legal.privacy'], "item": "https://curfee.com/en/privacy" }
   ]
 };
 ---
@@ -23,7 +24,7 @@ const jsonLd = {
   title={t['meta.privacy.title']}
   description={t['meta.privacy.description']}
   lang={lang}
-  canonicalPath="/de/privacy"
+  canonicalPath="/en/privacy"
   jsonLd={jsonLd}
   dateModified="2026-03-30"
 >

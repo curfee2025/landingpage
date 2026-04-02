@@ -6,7 +6,7 @@ import { getTranslations } from '@/i18n/translations';
 
 const lang = getLangFromUrl(Astro.url);
 const t = getTranslations(lang);
-const homeUrl = lang === 'de' ? '/de/' : '/';
+const homeUrl = lang === 'en' ? '/en/' : '/';
 ---
 
 <Layout title={t['404.heading']}>

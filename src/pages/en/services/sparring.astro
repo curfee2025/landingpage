@@ -1,8 +1,9 @@
 ---
 import ServicePageTemplate from '@/components/ServicePageTemplate.astro';
+import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
 
-const lang = 'de' as const;
+const lang = getLangFromUrl(Astro.url);
 const t = getTranslations(lang);
 ---
 
@@ -10,7 +11,7 @@ const t = getTranslations(lang);
   serviceKey="sparring" icon="handshake"
   translations={t}
   lang={lang}
-  canonicalPath="/de/services/sparring"
+  canonicalPath="/en/services/sparring"
   pageTitle={t['services.sparring.page.title']}
   pageDesc={t['services.sparring.page.description']}
 />

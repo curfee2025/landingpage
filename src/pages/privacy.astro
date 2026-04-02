@@ -1,11 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
-import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
 import { localizedRoutes } from '@/configurations/routes';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = 'de' as const;
 const t = getTranslations(lang);
 const routes = localizedRoutes(lang);
 const linkClass = "text-brand-primary hover:underline transition-colors duration-short4 ease-standard";

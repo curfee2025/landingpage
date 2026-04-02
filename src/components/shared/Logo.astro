@@ -8,10 +8,10 @@ interface Props {
   lang?: Lang;
 }
 
-const { size = 'md', lang = 'en' } = Astro.props;
+const { size = 'md', lang = 'de' } = Astro.props;
 const iconHeight = size === 'sm' ? 'h-9' : 'h-10';
 const textHeight = size === 'sm' ? 'h-[20px]' : 'h-[24px]';
-const homeHref = lang === 'de' ? '/de/' : '/';
+const homeHref = lang === 'en' ? '/en/' : '/';
 ---
 
 <a href={homeHref} class="flex items-center gap-3 flex-shrink-0 z-10" aria-label="Curfee Home">

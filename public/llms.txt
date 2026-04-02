@@ -32,4 +32,4 @@ Philipp Höllinger is a software architect with deep expertise in system analysi
 
 ## Languages
 
-Available in English (default) and German (/de/).
+Available in German (default) and English (/en/).

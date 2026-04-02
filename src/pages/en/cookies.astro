@@ -1,16 +1,17 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
+import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
-const lang = 'de' as const;
+const lang = getLangFromUrl(Astro.url);
 const t = getTranslations(lang);
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/de/" },
-    { "@type": "ListItem", "position": 2, "name": t['footer.legal.cookies'], "item": "https://curfee.com/de/cookies" }
+    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/en/" },
+    { "@type": "ListItem", "position": 2, "name": t['footer.legal.cookies'], "item": "https://curfee.com/en/cookies" }
   ]
 };
 ---
@@ -19,7 +20,7 @@ const jsonLd = {
   title={t['meta.cookies.title']}
   description={t['meta.cookies.description']}
   lang={lang}
-  canonicalPath="/de/cookies"
+  canonicalPath="/en/cookies"
   jsonLd={jsonLd}
   dateModified="2026-03-30"
 >

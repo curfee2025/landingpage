@@ -1,9 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = 'de' as const;
 const t = getTranslations(lang);
 
 const jsonLd = [
@@ -26,8 +25,8 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": `https://curfee.com${lang === 'de' ? '/de/' : '/'}` },
-      { "@type": "ListItem", "position": 2, "name": t['navigation.about'], "item": `https://curfee.com${lang === 'de' ? '/de/about' : '/about'}` }
+      { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/" },
+      { "@type": "ListItem", "position": 2, "name": t['navigation.about'], "item": "https://curfee.com/about" }
     ]
   }
 ];
@@ -42,7 +41,7 @@ const jsonLd = [
   dateModified="2026-03-30"
 >
 
-  <!-- Who I am -->
+  <!-- Wer ich bin -->
   <section class="mb-20 max-w-3xl mx-auto px-6">
     <picture><source srcset="/assets/profile.webp" type="image/webp" /><img src="/assets/profile.png" alt="Philipp Höllinger" class="w-[160px] h-[200px] object-cover object-top rounded-md mb-8" loading="lazy" /></picture>
     <h1 class="text-display-small md:text-display-medium text-ink-primary mb-8">{t['about.who.heading']}</h1>
@@ -53,7 +52,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- What I've done -->
+  <!-- Was ich gemacht habe -->
   <section class="mb-20 max-w-3xl mx-auto px-6">
     <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.done.heading']}</h2>
     <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
@@ -62,7 +61,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- What I stand for -->
+  <!-- Wofür ich stehe -->
   <section class="mb-20 max-w-3xl mx-auto px-6">
     <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.stand.heading']}</h2>
     <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
@@ -70,7 +69,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- How I work -->
+  <!-- Wie ich arbeite -->
   <section class="mb-20 max-w-3xl mx-auto px-6">
     <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.work.heading']}</h2>
     <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
@@ -78,7 +77,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- Five Principles -->
+  <!-- Fünf Prinzipien -->
   <section class="mb-20 max-w-3xl mx-auto px-6">
     <h2 class="text-headline-large md:text-display-small text-ink-primary mb-12">{t['principles.heading']}</h2>
     <div class="space-y-8">
@@ -101,6 +100,5 @@ const jsonLd = [
       })}
     </div>
   </section>
-
 
 </Layout>

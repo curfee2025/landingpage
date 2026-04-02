@@ -14,17 +14,17 @@ export const ROUTES = {
 } as const;
 
 export function localizedRoutes(lang: Lang) {
-  if (lang === 'de') {
+  if (lang === 'en') {
     return {
-      home: '/de/',
-      about: '/de/about',
-      diagnosis: '/de/services/diagnosis',
-      guidance: '/de/services/guidance',
-      sparring: '/de/services/sparring',
-      faq: '/de/faq',
-      imprint: '/de/imprint',
-      privacy: '/de/privacy',
-      cookies: '/de/cookies',
+      home: '/en/',
+      about: '/en/about',
+      diagnosis: '/en/services/diagnosis',
+      guidance: '/en/services/guidance',
+      sparring: '/en/services/sparring',
+      faq: '/en/faq',
+      imprint: '/en/imprint',
+      privacy: '/en/privacy',
+      cookies: '/en/cookies',
     };
   }
   return ROUTES;

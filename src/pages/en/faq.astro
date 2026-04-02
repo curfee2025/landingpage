@@ -1,9 +1,10 @@
 ---
 import Icon from '@/components/shared/Icon.astro';
 import Layout from '@/layouts/Layout.astro';
+import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
 
-const lang = 'de' as const;
+const lang = getLangFromUrl(Astro.url);
 const t = getTranslations(lang);
 
 const questions = [
@@ -31,8 +32,8 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/de/" },
-      { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://curfee.com/de/faq" }
+      { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": `https://curfee.com${lang === 'en' ? '/en/' : '/'}` },
+      { "@type": "ListItem", "position": 2, "name": "FAQ", "item": `https://curfee.com${lang === 'en' ? '/en/faq' : '/faq'}` }
     ]
   }
 ];
@@ -41,7 +42,7 @@ const jsonLd = [
 <Layout
   title={t['meta.faq.title']}
   description={t['meta.faq.description']}
-  canonicalPath="/de/faq"
+  canonicalPath="/en/faq"
   jsonLd={jsonLd}
   lang={lang}
   dateModified="2026-03-30"

@@ -19,15 +19,15 @@ const currentPath = Astro.url.pathname;
 let otherLangPath: string;
 let otherLangLabel: string;
 
-if (lang === 'de') {
-  // Strip /de prefix to get EN path
-  const basePath = currentPath.replace(/^\/de\/?/, '/') || '/';
+if (lang === 'en') {
+  // Strip /en prefix to get DE path
+  const basePath = currentPath.replace(/^\/en\/?/, '/') || '/';
   otherLangPath = basePath;
-  otherLangLabel = 'English';
-} else {
-  // Add /de prefix for DE path
-  otherLangPath = currentPath === '/' ? '/de/' : `/de${currentPath}`;
   otherLangLabel = 'Deutsch';
+} else {
+  // Add /en prefix for EN path
+  otherLangPath = currentPath === '/' ? '/en/' : `/en${currentPath}`;
+  otherLangLabel = 'English';
 }
 ---
 

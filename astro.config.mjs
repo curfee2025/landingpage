@@ -7,8 +7,8 @@ export default defineConfig({
   site: "https://curfee.com",
   integrations: [tailwind(), sitemap()],
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'de'],
+    defaultLocale: 'de',
+    locales: ['de', 'en'],
     routing: {
       prefixDefaultLocale: false,
     },

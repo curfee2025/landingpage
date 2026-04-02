@@ -1,9 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
-import { getLangFromUrl } from '@/i18n/utils';
 import { getTranslations } from '@/i18n/translations';
-const lang = getLangFromUrl(Astro.url);
+const lang = 'de' as const;
 const t = getTranslations(lang);
 
 const jsonLd = {
