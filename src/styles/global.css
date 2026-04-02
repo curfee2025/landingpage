@@ -289,6 +289,15 @@
   }
 }
 
+/* View Transitions — allow clicks to pass through the transition overlay */
+::view-transition,
+::view-transition-group(*),
+::view-transition-image-pair(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  pointer-events: none;
+}
+
 /* M3 Accessibility — Focus Visible (M3 uses secondary for focus indicators) */
 :focus-visible {
   outline: 3px solid rgb(var(--brand-secondary));

@@ -8,6 +8,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = getTranslations(lang);
 
 const questions = [
+  { question: t['faq.9.question'], answer: t['faq.9.answer'] },
   { question: t['faq.1.question'], answer: t['faq.1.answer'] },
   { question: t['faq.2.question'], answer: t['faq.2.answer'] },
   { question: t['faq.3.question'], answer: t['faq.3.answer'] },
@@ -57,44 +58,91 @@ const jsonLd = [
 
     <div class="divide-y divide-stroke-subtle" data-faq-accordion>
       {questions.map(q => (
-        <details class="group [&>summary]:list-none [&>summary::-webkit-details-marker]:hidden">
-          <summary class="flex items-center justify-between cursor-pointer py-6 text-title-medium text-ink-primary hover:text-brand-primary transition-colors duration-short4 ease-standard">
+        <div>
+          <button
+            type="button"
+            data-faq-trigger
+            aria-expanded="false"
+            class="w-full flex items-center justify-between cursor-pointer py-6 text-title-medium text-ink-primary hover:text-brand-primary transition-colors duration-short4 ease-standard text-left"
+          >
             <span>{q.question}</span>
-            <span class="flex-shrink-0 ml-4 text-ink-muted transition-transform duration-short4 ease-standard group-open:rotate-180"><Icon name="expand_less" class="w-5 h-5" /></span>
-          </summary>
-          <div class="grid grid-rows-[0fr] group-open:grid-rows-[1fr] transition-[grid-template-rows] duration-medium2 ease-standard">
-            <div class="overflow-hidden">
-              <p class="text-body-medium text-ink-muted leading-relaxed pb-6 cursor-pointer" data-faq-close>{q.answer}</p>
+            <span data-faq-icon class="flex-shrink-0 ml-4 text-ink-muted">
+              <Icon name="expand_less" class="w-5 h-5" />
+            </span>
+          </button>
+          <div data-faq-content class="faq-panel" aria-hidden="true">
+            <div class="faq-panel-inner">
+              <p class="text-body-medium text-ink-muted leading-relaxed pb-6">{q.answer}</p>
             </div>
           </div>
-        </details>
+        </div>
       ))}
     </div>
   </div>
 
+  <style>
+    /*
+     * CSS-only accordion panel using grid-template-rows: 0fr/1fr.
+     * This avoids all JS height calculation and scrollHeight quirks.
+     * The collapsed state uses visibility:hidden as a Firefox safeguard:
+     * during view-transition snapshots, Firefox may briefly render content
+     * at natural height before inline styles or class-based rules take effect.
+     * visibility:hidden ensures nothing flashes even if the grid row
+     * momentarily expands during the snapshot frame.
+     */
+    .faq-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 200ms ease-out, visibility 0s linear 200ms;
+      visibility: hidden;
+    }
+    .faq-panel[aria-hidden="false"] {
+      grid-template-rows: 1fr;
+      visibility: visible;
+      transition: grid-template-rows 200ms ease-out, visibility 0s linear 0s;
+    }
+    .faq-panel-inner {
+      overflow: hidden;
+    }
+
+    [data-faq-icon] {
+      transition: transform 200ms ease-out;
+    }
+    button[aria-expanded="true"] [data-faq-icon] {
+      transform: rotate(180deg);
+    }
+  </style>
+
   <script>
-    document.addEventListener('astro:page-load', () => {
+    function initFaq() {
       const container = document.querySelector('[data-faq-accordion]') as HTMLElement | null;
-      if (!container) return;
-      container.addEventListener('click', (e: Event) => {
-        const target = e.target as HTMLElement;
-        const details = target.closest('details') as HTMLDetailsElement | null;
-        if (!details) return;
+      if (!container || container.hasAttribute('data-faq-ready')) return;
+      container.setAttribute('data-faq-ready', '');
 
-        const summary = target.closest('summary');
-        if (summary) {
-          const items = container.querySelectorAll('details') as NodeListOf<HTMLDetailsElement>;
-          items.forEach((item: HTMLDetailsElement) => {
-            if (item !== details && item.open) item.open = false;
+      const triggers = container.querySelectorAll('[data-faq-trigger]') as NodeListOf<HTMLButtonElement>;
+
+      triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+          const panel = trigger.nextElementSibling as HTMLElement;
+
+          // Close all panels first
+          triggers.forEach(t => {
+            t.setAttribute('aria-expanded', 'false');
+            const p = t.nextElementSibling as HTMLElement;
+            p.setAttribute('aria-hidden', 'true');
           });
-          return;
-        }
 
-        if (details.open) {
-          details.open = false;
-        }
+          // Open the clicked panel if it was closed
+          if (!isOpen) {
+            trigger.setAttribute('aria-expanded', 'true');
+            panel.setAttribute('aria-hidden', 'false');
+          }
+        });
       });
-    });
+    }
+    initFaq();
+    document.addEventListener('astro:after-swap', initFaq);
   </script>
 
 </Layout>
