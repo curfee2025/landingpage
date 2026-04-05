@@ -1,14 +1,16 @@
 ---
 import Icon from '@/components/shared/Icon.astro';
 import { localizedRoutes } from '@/configurations/routes';
-import type { Lang } from '@/configurations/i18n';
 
 interface Props {
-  lang: Lang;
-  translations: Record<string, string>;
+  lang: 'de' | 'en';
+  message: string;
+  learnMore: string;
+  accept: string;
+  decline: string;
 }
 
-const { lang, translations: t } = Astro.props;
+const { lang, message, learnMore, accept, decline } = Astro.props;
 const routes = localizedRoutes(lang);
 ---
 
@@ -26,23 +28,15 @@ const routes = localizedRoutes(lang);
     </div>
     <div>
       <p class="text-body-medium text-ink-primary">
-        {t['consent.message']}
-        <a href={routes.cookies} class="text-brand-primary hover:underline transition-colors duration-short4 ease-standard ml-1">{t['consent.learnmore']}</a>
+        {message}
+        <a href={routes.cookies} class="text-brand-primary hover:underline transition-colors duration-short4 ease-standard ml-1">{learnMore}</a>
       </p>
       <div class="flex items-center justify-end gap-3 mt-4">
-        <button
-          type="button"
-          data-consent="decline"
-          class="px-5 py-2 rounded-full text-label-large text-ink-primary hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard"
-        >
-          {t['consent.decline']}
+        <button type="button" data-consent="decline" class="px-5 py-2 rounded-full text-label-large text-ink-primary hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard">
+          {decline}
         </button>
-        <button
-          type="button"
-          data-consent="accept"
-          class="px-5 py-2 rounded-full text-label-large bg-brand-primary text-brand-onPrimary shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 transition-all duration-short4 ease-standard"
-        >
-          {t['consent.accept']}
+        <button type="button" data-consent="accept" class="px-5 py-2 rounded-full text-label-large bg-brand-primary text-brand-onPrimary shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 transition-all duration-short4 ease-standard">
+          {accept}
         </button>
       </div>
     </div>
@@ -55,19 +49,12 @@ const routes = localizedRoutes(lang);
 
   function loadGoogleAnalytics(): void {
     if (document.querySelector(`script[src*="gtag"]`)) return;
-
     const script = document.createElement('script');
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
     script.async = true;
     document.head.appendChild(script);
-
     const inlineScript = document.createElement('script');
-    inlineScript.textContent = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${GA_ID}', { anonymize_ip: true });
-    `;
+    inlineScript.textContent = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}', { anonymize_ip: true });`;
     document.head.appendChild(inlineScript);
   }
 
@@ -98,52 +85,24 @@ const routes = localizedRoutes(lang);
   function initCookieBanner(): void {
     const banner = document.querySelector('[data-cookie-banner]') as HTMLElement | null;
     if (!banner) return;
-
     if (!bannerInitialized) {
       const acceptBtn = banner.querySelector('[data-consent="accept"]') as HTMLButtonElement | null;
       const declineBtn = banner.querySelector('[data-consent="decline"]') as HTMLButtonElement | null;
-
-      acceptBtn?.addEventListener('click', () => {
-        localStorage.setItem(CONSENT_KEY, 'accepted');
-        hideBanner(banner);
-        loadGoogleAnalytics();
-      });
-
-      declineBtn?.addEventListener('click', () => {
-        localStorage.setItem(CONSENT_KEY, 'declined');
-        hideBanner(banner);
-        removeGoogleAnalytics();
-      });
-
+      acceptBtn?.addEventListener('click', () => { localStorage.setItem(CONSENT_KEY, 'accepted'); hideBanner(banner); loadGoogleAnalytics(); });
+      declineBtn?.addEventListener('click', () => { localStorage.setItem(CONSENT_KEY, 'declined'); hideBanner(banner); removeGoogleAnalytics(); });
       bannerInitialized = true;
     }
-
     const consent = localStorage.getItem(CONSENT_KEY);
-
-    if (consent === 'accepted') {
-      loadGoogleAnalytics();
-      return;
-    }
-
-    if (consent === 'declined') {
-      return;
-    }
-
+    if (consent === 'accepted') { loadGoogleAnalytics(); return; }
+    if (consent === 'declined') { return; }
     showBanner(banner);
   }
 
   function initConsentReset(): void {
     document.querySelectorAll('[data-consent-reset]').forEach((btn: Element) => {
-      btn.addEventListener('click', () => {
-        localStorage.removeItem(CONSENT_KEY);
-        const banner = document.querySelector('[data-cookie-banner]') as HTMLElement | null;
-        if (banner) showBanner(banner);
-      });
+      btn.addEventListener('click', () => { localStorage.removeItem(CONSENT_KEY); const banner = document.querySelector('[data-cookie-banner]') as HTMLElement | null; if (banner) showBanner(banner); });
     });
   }
 
-  document.addEventListener('astro:page-load', () => {
-    initCookieBanner();
-    initConsentReset();
-  });
+  document.addEventListener('astro:page-load', () => { initCookieBanner(); initConsentReset(); });
 </script>

@@ -4,27 +4,32 @@ import Header from '@/components/shared/Header.astro';
 import Footer from '@/components/shared/Footer.astro';
 import ScrollToTop from '@/components/shared/ScrollToTop.astro';
 import CookieBanner from '@/components/shared/CookieBanner.astro';
-import { getLangFromUrl, getAlternateUrl } from '@/i18n/utils';
-import { getTranslations } from '@/i18n/translations';
 import '@/styles/global.css';
 
-import type { Lang } from '@/configurations/i18n';
+interface UIStrings {
+  nav: { services: string; about: string; faq: string; cta: string };
+  serviceNames: { diagnosis: string; guidance: string; sparring: string };
+  footer: { notice: string; privacy: string; cookies: string; copyright: string };
+  consent: { message: string; learnMore: string; accept: string; decline: string };
+  meta: { defaultDescription: string; orgDescription: string; jobTitle: string };
+}
 
 interface Props {
   title: string;
   description?: string;
   canonicalPath?: string;
   jsonLd?: object | object[];
-  lang?: Lang;
+  lang?: 'de' | 'en';
   dateModified?: string;
+  ui: UIStrings;
 }
 
-const lang = Astro.props.lang ?? getLangFromUrl(Astro.url);
-const translations = getTranslations(lang);
+const { ui } = Astro.props;
+const lang = Astro.props.lang ?? 'de';
 
 const {
   title,
-  description = translations['meta.home.description'],
+  description = ui.meta.defaultDescription,
   canonicalPath = '',
   jsonLd,
   dateModified,
@@ -33,7 +38,13 @@ const {
 const siteUrl = 'https://curfee.com';
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
 const ogImage = `${siteUrl}/assets/og-image.png`;
-const alternate = getAlternateUrl(Astro.url, siteUrl);
+const _p = Astro.url.pathname;
+const _b = _p.startsWith('/en/') || _p === '/en' ? (_p.replace(/^\/en\/?/, '/') || '/') : _p;
+const _n = _b === '/' ? '/' : _b.replace(/\/$/, '');
+const alternate = {
+  de: `${siteUrl}${_n === '/' ? '/' : _n}`,
+  en: `${siteUrl}${_n === '/' ? '/en/' : `/en${_n}`}`,
+};
 const ogLocale = lang === 'de' ? 'de_DE' : 'en_US';
 const ogLocaleAlt = lang === 'de' ? 'en_US' : 'de_DE';
 
@@ -50,12 +61,12 @@ const organizationLd = {
     "width": 1200,
     "height": 630
   },
-  "description": translations['meta.home.jsonld.description'],
+  "description": ui.meta.orgDescription,
   "founder": {
     "@type": "Person",
     "@id": `${siteUrl}/#founder`,
     "name": "Philipp Höllinger",
-    "jobTitle": translations['meta.about.jobTitle']
+    "jobTitle": ui.meta.jobTitle
   },
   "address": {
     "@type": "PostalAddress",
@@ -162,15 +173,36 @@ const speakableLd = {
       <div class="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 512 512%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%225%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');" />
 
       <div class="relative z-10">
-        <Header lang={lang} translations={translations} />
+        <Header
+          lang={lang}
+          navServices={ui.nav.services}
+          navAbout={ui.nav.about}
+          navFaq={ui.nav.faq}
+          navCta={ui.nav.cta}
+          diagnosisTitle={ui.serviceNames.diagnosis}
+          guidanceTitle={ui.serviceNames.guidance}
+          sparringTitle={ui.serviceNames.sparring}
+        />
         <main class="pt-12 md:pt-16">
           <slot />
         </main>
-        <Footer lang={lang} translations={translations} />
+        <Footer
+          lang={lang}
+          legalNotice={ui.footer.notice}
+          legalPrivacy={ui.footer.privacy}
+          legalCookies={ui.footer.cookies}
+          copyright={ui.footer.copyright}
+        />
       </div>
     </div>
 
     <ScrollToTop />
-    <CookieBanner lang={lang} translations={translations} />
+    <CookieBanner
+      lang={lang}
+      message={ui.consent.message}
+      learnMore={ui.consent.learnMore}
+      accept={ui.consent.accept}
+      decline={ui.consent.decline}
+    />
   </body>
 </html>

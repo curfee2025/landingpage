@@ -1,30 +1,24 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
-import { getLangFromUrl } from '@/i18n/utils';
-import { getTranslations } from '@/i18n/translations';
-
-const lang = getLangFromUrl(Astro.url);
-const t = getTranslations(lang);
-const homeUrl = lang === 'en' ? '/en/' : '/';
 ---
 
-<Layout title={t['404.heading']}>
+<Layout title="Kein System hinter dieser Seite."
+  ui={{
+    nav: { services: "Services", about: "Über mich", faq: "FAQ", cta: "Kontakt" },
+    serviceNames: { diagnosis: "Diagnose", guidance: "Begleitung", sparring: "Sparring" },
+    footer: { notice: "Impressum", privacy: "Datenschutz", cookies: "Cookie-Richtlinie", copyright: "Alle Rechte vorbehalten." },
+    consent: { message: "Diese Website verwendet Cookies zur Analyse der Nutzung.", learnMore: "Mehr erfahren", accept: "Akzeptieren", decline: "Ablehnen" },
+    meta: { defaultDescription: "Philipp Höllinger, Softwarearchitekt aus Salzburg. Ich begleite Organisationen dabei, Struktur in ihren Systemen aufzubauen, die Bestand hat. Diagnose, Begleitung, Sparring.", orgDescription: "Struktur in Systemen aufbauen, die Bestand hat. Diagnose, Begleitung, Sparring.", jobTitle: "Softwarearchitekt" },
+  }}>
   <main class="min-h-[75vh] flex items-center justify-center px-6">
     <div class="text-center max-w-lg">
       <span class="text-display-large text-brand-primary/15 block mb-2 select-none">404</span>
-      <h1 class="text-headline-large text-ink-primary mb-3">
-        {t['404.heading']}
-      </h1>
-      <p class="text-body-large text-ink-muted mb-12">
-        {t['404.description']}
-      </p>
-      <a
-        href={homeUrl}
-        class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-brand-primary text-brand-onPrimary text-label-large font-medium shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 transition-all duration-medium2 ease-standard"
-      >
+      <h1 class="text-headline-large text-ink-primary mb-3">Kein System hinter dieser Seite.</h1>
+      <p class="text-body-large text-ink-muted mb-12">Diese Seite existiert nicht – die Startseite schon.</p>
+      <a href="/" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-brand-primary text-brand-onPrimary text-label-large font-medium shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 transition-all duration-medium2 ease-standard">
         <Icon name="arrow_back" class="w-5 h-5" />
-        {t['404.cta']}
+        Zur Startseite
       </a>
     </div>
   </main>

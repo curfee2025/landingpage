@@ -1,119 +1,58 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
-import { getLangFromUrl } from '@/i18n/utils';
-import { getTranslations } from '@/i18n/translations';
-
-const lang = getLangFromUrl(Astro.url);
-const t = getTranslations(lang);
-
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/en/" },
-    { "@type": "ListItem", "position": 2, "name": t['footer.legal.notice'], "item": "https://curfee.com/en/imprint" }
-  ]
-};
+const lang = 'en' as const;
+const jsonLd = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curfee.com/en/" },
+  { "@type": "ListItem", "position": 2, "name": "Legal Notice", "item": "https://curfee.com/en/imprint" }
+]};
 ---
 
 <Layout
-  title={t['meta.imprint.title']}
-  description={t['meta.imprint.description']}
-  lang={lang}
-  canonicalPath="/en/imprint"
-  jsonLd={jsonLd}
-  dateModified="2026-03-30"
->
+  ui={{
+    nav: { services: "Services", about: "About", faq: "FAQ", cta: "Contact" },
+    serviceNames: { diagnosis: "Diagnosis", guidance: "Guidance", sparring: "Sparring" },
+    footer: { notice: "Legal Notice", privacy: "Privacy Policy", cookies: "Cookie Policy", copyright: "All rights reserved." },
+    consent: { message: "This website uses cookies for usage analysis.", learnMore: "Learn more", accept: "Accept", decline: "Decline" },
+    meta: { defaultDescription: "Philipp Höllinger, software architect from Salzburg. I help organizations build lasting structure in their systems. Diagnosis, Guidance, Sparring.", orgDescription: "Building lasting structure in systems. Diagnosis, Guidance, Sparring.", jobTitle: "Software Architect" },
+  }} title="Legal Notice — Curfee" description="Legal notice and imprint for Curfee e.U., IT management consulting by Philipp Höllinger, Salzburg, Austria." lang={lang} canonicalPath="/en/imprint" jsonLd={jsonLd} dateModified="2026-03-30">
   <div class="max-w-3xl mx-auto px-6">
-    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6">
-      <Icon name="gavel" class="w-6 h-6 text-brand-primary" />
-    </div>
-    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">{t['imprint.heading']}</h1>
-    <p class="text-title-medium text-brand-primary font-medium mb-8">{t['imprint.legal.basis']}</p>
-
-    <!-- Identity + Contact grouped -->
+    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6"><Icon name="gavel" class="w-6 h-6 text-brand-primary" /></div>
+    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">Legal Notice</h1>
+    <p class="text-title-medium text-brand-primary font-medium mb-8">Information obligation pursuant to §5 E-Commerce Act (ECG) and disclosure obligation pursuant to §24 Media Act</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
       <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <h2 class="text-label-large text-ink-primary mb-4">{t['imprint.owner']}</h2>
+        <h2 class="text-label-large text-ink-primary mb-4">Media owner</h2>
         <div class="text-body-large text-ink-muted">
-          <p class="text-title-medium text-ink-primary">{t['imprint.company']}</p>
-          <p class="mt-1">{t['imprint.name']}</p>
-          <div class="mt-3 leading-snug">
-            <p>{t['imprint.address.street']}</p>
-            <p>{t['imprint.address.city']}</p>
-            <p>{t['imprint.address.country']}</p>
-          </div>
+          <p class="text-title-medium text-ink-primary">Curfee e.U.</p>
+          <p class="mt-1">Philipp Höllinger</p>
+          <div class="mt-3 leading-snug"><p>Lieferinger Hauptstraße 49A</p><p>5020 Salzburg</p><p>Austria</p></div>
         </div>
       </div>
       <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <h2 class="text-label-large text-ink-primary mb-4">{t['imprint.contact']}</h2>
+        <h2 class="text-label-large text-ink-primary mb-4">Contact</h2>
         <div class="space-y-4">
-          <div>
-            <span class="text-label-large font-medium text-ink-muted">{t['imprint.email.label']}</span>
-            <p><a href={`mailto:${t['imprint.email']}`} class="text-body-large text-brand-primary hover:underline transition-colors duration-short4 ease-standard">{t['imprint.email']}</a></p>
-          </div>
-          <div>
-            <span class="text-label-large font-medium text-ink-muted">{t['imprint.phone.label']}</span>
-            <p><a href={`tel:${t['imprint.phone'].replace(/\s/g, '')}`} class="text-body-large text-brand-primary hover:underline transition-colors duration-short4 ease-standard">{t['imprint.phone']}</a></p>
-          </div>
+          <div><span class="text-label-large font-medium text-ink-muted">Email</span><p><a href="mailto:office@curfee.com" class="text-body-large text-brand-primary hover:underline transition-colors duration-short4 ease-standard">office@curfee.com</a></p></div>
+          <div><span class="text-label-large font-medium text-ink-muted">Phone</span><p><a href="tel:+4367763024228" class="text-body-large text-brand-primary hover:underline transition-colors duration-short4 ease-standard">+43 677 630 242 28</a></p></div>
         </div>
       </div>
     </div>
-
-    <!-- Legal basis as structured list -->
     <section class="mb-10">
-      <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.legal.heading']}</h2>
+      <h2 class="text-headline-small text-ink-primary mb-8">Legal basis</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <div>
-          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.trade.label']}</span>
-          <p class="text-body-large text-ink-primary mt-1">{t['imprint.trade']}</p>
-        </div>
-        <div>
-          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.form.label']}</span>
-          <p class="text-body-large text-ink-primary mt-1">{t['imprint.form']}</p>
-        </div>
-        <div>
-          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.authority.label']}</span>
-          <p class="text-body-large text-ink-primary mt-1">{t['imprint.authority']}</p>
-        </div>
-        <div>
-          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.gisa.label']}</span>
-          <p class="text-body-large text-ink-primary mt-1">{t['imprint.gisa']}</p>
-        </div>
-        <div>
-          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.law.label']}</span>
-          <p class="text-body-large text-ink-primary mt-1">{t['imprint.law']}</p>
-          <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener noreferrer" class="text-body-small text-brand-primary hover:underline transition-colors duration-short4 ease-standard">{t['imprint.lawlink']}</a>
-        </div>
-        <div>
-          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.wko.label']}</span>
-          <p class="text-body-large text-ink-primary mt-1">{t['imprint.wko']}</p>
-        </div>
+        <div><span class="text-label-medium font-medium text-ink-muted">Business activity</span><p class="text-body-large text-ink-primary mt-1">Services in automatic data processing and information technology, management consulting</p></div>
+        <div><span class="text-label-medium font-medium text-ink-muted">Type of trade</span><p class="text-body-large text-ink-primary mt-1">Regulated trade (reglementiertes Gewerbe)</p></div>
+        <div><span class="text-label-medium font-medium text-ink-muted">Trade authority</span><p class="text-body-large text-ink-primary mt-1">Magistrate's Office of the City of Salzburg</p></div>
+        <div><span class="text-label-medium font-medium text-ink-muted">GISA number</span><p class="text-body-large text-ink-primary mt-1">39453891</p></div>
+        <div><span class="text-label-medium font-medium text-ink-muted">Legal basis</span><p class="text-body-large text-ink-primary mt-1">Austrian Trade Regulation Act (Gewerbeordnung)</p><a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener noreferrer" class="text-body-small text-brand-primary hover:underline transition-colors duration-short4 ease-standard">Available at www.ris.bka.gv.at</a></div>
+        <div><span class="text-label-medium font-medium text-ink-muted">Chamber membership</span><p class="text-body-large text-ink-primary mt-1">Member of the Austrian Economic Chamber (WKO)</p></div>
       </div>
     </section>
-
-    <!-- Editorial -->
-    <section class="mb-10">
-      <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.editorial.heading']}</h2>
-      <p class="text-body-large text-ink-muted leading-relaxed mb-2">{t['imprint.editorial']}</p>
-      <p class="text-body-large text-ink-primary">{t['imprint.editorial.responsible']}</p>
-    </section>
-
-    <!-- Liability + Copyright as minimal text blocks -->
+    <section class="mb-10"><h2 class="text-headline-small text-ink-primary mb-8">Editorial policy</h2><p class="text-body-large text-ink-muted leading-relaxed mb-2">This publication provides analyses, contributions, and commentary on current developments in electronic data processing and information technology.</p><p class="text-body-large text-ink-primary">Responsible for content: Philipp Höllinger</p></section>
     <div class="space-y-10 mb-10">
-      <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.liability.content.heading']}</h2>
-        <p class="text-body-large text-ink-muted leading-relaxed">{t['imprint.liability.content']}</p>
-      </section>
-      <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.liability.links.heading']}</h2>
-        <p class="text-body-large text-ink-muted leading-relaxed">{t['imprint.liability.links']}</p>
-      </section>
-      <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.copyright.heading']}</h2>
-        <p class="text-body-large text-ink-muted leading-relaxed">{t['imprint.copyright']}</p>
-      </section>
+      <section><h2 class="text-headline-small text-ink-primary mb-8">Liability for the content of this website</h2><p class="text-body-large text-ink-muted leading-relaxed">The media owner strives to provide correct and up-to-date information but accepts no liability for its accuracy, completeness, or timeliness. Should any legal infringement become known, such content will be removed immediately.</p></section>
+      <section><h2 class="text-headline-small text-ink-primary mb-8">Liability for outgoing links</h2><p class="text-body-large text-ink-muted leading-relaxed">This website contains links to external third-party websites over whose content the media owner has no influence. Therefore, the media owner assumes no liability for this external content. The respective provider or operator of the linked pages is always responsible for their content. The linked pages were checked for possible legal violations at the time of linking — no illegal content was identifiable at that time. Permanent content monitoring of the linked pages cannot reasonably be expected without concrete evidence of a legal violation. Should any legal infringement become known, such links will be removed immediately.</p></section>
+      <section><h2 class="text-headline-small text-ink-primary mb-8">Copyright</h2><p class="text-body-large text-ink-muted leading-relaxed">The use of texts and images from this website without express consent is not permitted. The reproduction, editing, distribution, and any kind of use not permitted under Austrian copyright law require the written consent of Curfee e.U. Insofar as the content on this page was not created by the media owner, the copyrights of third parties are respected. In particular, third-party content is identified as such. Should you nevertheless become aware of a copyright infringement, please notify the media owner accordingly. Should any legal infringement become known, such content will be removed immediately.</p></section>
     </div>
   </div>
 </Layout>

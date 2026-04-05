@@ -1,17 +1,43 @@
 ---
 import ServicePageTemplate from '@/components/ServicePageTemplate.astro';
-import { getLangFromUrl } from '@/i18n/utils';
-import { getTranslations } from '@/i18n/translations';
-
-const lang = getLangFromUrl(Astro.url);
-const t = getTranslations(lang);
 ---
 
 <ServicePageTemplate
-  serviceKey="diagnosis" icon="search"
-  translations={t}
-  lang={lang}
+  icon="search"
+  title="Diagnosis"
+  subtitle="Straight to the root cause"
+  introduction="You have something specific on your mind and want certainty. I work through your system until the full picture is clear. After that, you have what you need — grounded in concrete evidence from your system."
+  processHeading="How it works"
+  processSteps={[
+    { title: "First call", description: "We get to know each other and talk about your situation." },
+    { title: "Scope & access", description: "We define the scope. I get access to the relevant parts of the system." },
+    { title: "Investigation", description: "I investigate everything within scope until the full picture is clear." },
+    { title: "Result", description: "I summarize what I found: root cause, impact, and recommended next steps." },
+    { title: "Final walkthrough", description: "We go through the results together. You get the assessment and the recommended next steps." }
+  ]}
+  deliverablesHeading="What you get"
+  deliverables={["Concise assessment of your system", "Identified root causes with concrete evidence from your system", "Clear classification by urgency and impact", "Recommended next steps"]}
+  idealHeading="Your situation"
+  idealClients={[
+    "You are working with a systems and tooling landscape that has grown organically — and you no longer know where the real risks and dependencies lie.",
+    "Any change — to tools, processes, or systems — has unforeseen consequences, because the dependencies and connections are no longer traceable.",
+    "You want confidence before making decisions — based on concrete evidence, not gut feeling."
+  ]}
+  differentiatorHeading="The standard"
+  differentiator="Each insight points to a precise location within your system. The path from symptom to root cause is traceable step by step and can be independently verified. The results are ready to act on."
+  scopeExcludedHeading="Not included"
+  scopeExcluded={["Isolated fixes without structural context", "Implementation of changes", "Technology evaluation or vendor comparison", "Team coaching or training"]}
+  callToAction="Tell me what's on your mind"
+  breadcrumbHome="Home"
+  lang="en"
   canonicalPath="/en/services/diagnosis"
-  pageTitle={t['services.diagnosis.page.title']}
-  pageDesc={t['services.diagnosis.page.description']}
+  pageTitle="Diagnosis — Curfee"
+  pageDesc="I trace the issue to its root cause, through your entire system. Concise assessment."
+  ui={{
+    nav: { services: "Services", about: "About", faq: "FAQ", cta: "Contact" },
+    serviceNames: { diagnosis: "Diagnosis", guidance: "Guidance", sparring: "Sparring" },
+    footer: { notice: "Legal Notice", privacy: "Privacy Policy", cookies: "Cookie Policy", copyright: "All rights reserved." },
+    consent: { message: "This website uses cookies for usage analysis.", learnMore: "Learn more", accept: "Accept", decline: "Decline" },
+    meta: { defaultDescription: "Philipp Höllinger, software architect from Salzburg. I help organizations build lasting structure in their systems. Diagnosis, Guidance, Sparring.", orgDescription: "Building lasting structure in systems. Diagnosis, Guidance, Sparring.", jobTitle: "Software Architect" },
+  }}
 />

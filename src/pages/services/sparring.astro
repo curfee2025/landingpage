@@ -1,16 +1,42 @@
 ---
 import ServicePageTemplate from '@/components/ServicePageTemplate.astro';
-import { getTranslations } from '@/i18n/translations';
-
-const lang = 'de' as const;
-const t = getTranslations(lang);
 ---
 
 <ServicePageTemplate
-  serviceKey="sparring" icon="handshake"
-  translations={t}
-  lang={lang}
+  icon="handshake"
+  title="Sparring"
+  subtitle="Ausrichtung, die mitwächst"
+  introduction="Dein System entwickelt sich weiter, und mit ihm die Entscheidungen, die seine Zukunft formen. Du willst jemanden, der dein System kennt und den Kontext versteht. Ich bewerte Entscheidungen, gebe ehrliches Feedback und sorge dafür, dass die Ausrichtung stimmt."
+  processHeading="So funktioniert es"
+  processSteps={[
+    { title: "Erstgespräch", description: "Wir lernen uns kennen und besprechen dein Anliegen." },
+    { title: "Onboarding", description: "Ich lerne dein System, deine Rahmenbedingungen und deine Ziele kennen." },
+    { title: "Laufendes Feedback", description: "Ich bewerte strukturelle Entscheidungen und gebe fundiertes Feedback." },
+    { title: "Anpassung", description: "Der Rhythmus richtet sich nach den Entscheidungen, die anstehen." }
+  ]}
+  deliverablesHeading="Was du bekommst"
+  deliverables={["Konkretes Feedback auf strukturelle Entscheidungen", "Laufende Ausrichtung, die mit deinem System mitwächst", "Ein fester Ansprechpartner, der dein System kennt"]}
+  idealHeading="Deine Situation"
+  idealClients={[
+    "Deine Systeme entwickeln sich weiter – und mit ihnen die Entscheidungen, die darüber bestimmen, ob Zusammenhänge und Abhängigkeiten noch beherrschbar bleiben.",
+    "Teams und Bereiche entwickeln eigene Tool-Stacks und Abläufe. Du willst jemanden, der die gemeinsame Ausrichtung im Blick behält – bevor die System- und Tool-Landschaft auseinanderdriftet.",
+    "Du schätzt fundiertes Feedback, das das gesamte System einbezieht."
+  ]}
+  differentiatorHeading="Der Anspruch"
+  differentiator="Mein Feedback bezieht immer den Gesamtkontext deines Systems ein – nicht nur die Entscheidung, die gerade ansteht, sondern wie sie sich an den bestehenden Standards, Konventionen und Richtlinien ausrichtet."
+  scopeExcludedHeading="Nicht enthalten"
+  scopeExcluded={["Projektgebundene Arbeit mit definiertem Ende", "Implementierungsarbeit", "Projektmanagement oder Koordination"]}
+  callToAction="Erzähl mir von deinem Anliegen"
+  breadcrumbHome="Startseite"
+  lang="de"
   canonicalPath="/services/sparring"
-  pageTitle={t['services.sparring.page.title']}
-  pageDesc={t['services.sparring.page.description']}
+  pageTitle="Sparring – Curfee"
+  pageDesc="Laufendes Feedback auf strukturelle Entscheidungen. Dein System entwickelt sich weiter – ich sorge dafür, dass die Ausrichtung stimmt."
+  ui={{
+    nav: { services: "Services", about: "Über mich", faq: "FAQ", cta: "Kontakt" },
+    serviceNames: { diagnosis: "Diagnose", guidance: "Begleitung", sparring: "Sparring" },
+    footer: { notice: "Impressum", privacy: "Datenschutz", cookies: "Cookie-Richtlinie", copyright: "Alle Rechte vorbehalten." },
+    consent: { message: "Diese Website verwendet Cookies zur Analyse der Nutzung.", learnMore: "Mehr erfahren", accept: "Akzeptieren", decline: "Ablehnen" },
+    meta: { defaultDescription: "Philipp Höllinger, Softwarearchitekt aus Salzburg. Ich begleite Organisationen dabei, Struktur in ihren Systemen aufzubauen, die Bestand hat. Diagnose, Begleitung, Sparring.", orgDescription: "Struktur in Systemen aufbauen, die Bestand hat. Diagnose, Begleitung, Sparring.", jobTitle: "Softwarearchitekt" },
+  }}
 />

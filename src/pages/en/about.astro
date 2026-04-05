@@ -1,10 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getLangFromUrl } from '@/i18n/utils';
-import { getTranslations } from '@/i18n/translations';
-
-const lang = getLangFromUrl(Astro.url);
-const t = getTranslations(lang);
+const lang = 'en' as const;
 
 const jsonLd = [
   {
@@ -12,110 +8,145 @@ const jsonLd = [
     "@type": "Person",
     "@id": "https://curfee.com/#founder",
     "name": "Philipp Höllinger",
-    "jobTitle": t['meta.about.jobTitle'],
-    "url": "https://curfee.com/en/about",
+    "jobTitle": "Software Architect",
+    "url": "https://curfee.com/about",
     "worksFor": { "@id": "https://curfee.com/#organization" },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Salzburg",
-      "addressCountry": "AT"
-    },
+    "address": { "@type": "PostalAddress", "addressLocality": "Salzburg", "addressCountry": "AT" },
     "sameAs": ["https://www.linkedin.com/in/phoellinger"]
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": `https://curfee.com${lang === 'en' ? '/en/' : '/'}` },
-      { "@type": "ListItem", "position": 2, "name": t['navigation.about'], "item": `https://curfee.com${lang === 'en' ? '/en/about' : '/about'}` }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curfee.com/en/" },
+      { "@type": "ListItem", "position": 2, "name": "About", "item": "https://curfee.com/en/about" }
     ]
   }
 ];
 ---
 
 <Layout
-  title={t['meta.about.title']}
-  description={t['meta.about.description']}
+  ui={{
+    nav: { services: "Services", about: "About", faq: "FAQ", cta: "Contact" },
+    serviceNames: { diagnosis: "Diagnosis", guidance: "Guidance", sparring: "Sparring" },
+    footer: { notice: "Legal Notice", privacy: "Privacy Policy", cookies: "Cookie Policy", copyright: "All rights reserved." },
+    consent: { message: "This website uses cookies for usage analysis.", learnMore: "Learn more", accept: "Accept", decline: "Decline" },
+    meta: { defaultDescription: "Philipp Höllinger, software architect from Salzburg. I help organizations build lasting structure in their systems. Diagnosis, Guidance, Sparring.", orgDescription: "Building lasting structure in systems. Diagnosis, Guidance, Sparring.", jobTitle: "Software Architect" },
+  }}
+  title="About — Curfee | Philipp Höllinger, Software Architect"
+  description="Philipp Höllinger, software architect from Salzburg. An obsession with the things that go unnoticed. The details that shape the future of a system."
   canonicalPath="/en/about"
   jsonLd={jsonLd}
   lang={lang}
   dateModified="2026-03-30"
 >
 
-  <!-- Who I am -->
   <section class="mb-20 max-w-3xl mx-auto px-6">
     <picture><source srcset="/assets/profile.webp" type="image/webp" /><img src="/assets/profile.png" alt="Philipp Höllinger" class="w-[160px] h-[200px] object-cover object-top rounded-md mb-8" loading="lazy" /></picture>
-    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-8">{t['about.who.heading']}</h1>
+    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-8">Philipp Höllinger</h1>
     <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
-      <p>{t['about.who.1']}</p>
-      <p>{t['about.who.2']}</p>
-      <p>{t['about.who.3']}</p>
-      <p>{t['about.who.4']}</p>
+      <p>I anchor decisions in structure — across software, tools, and organizations. My career began in logistics — coordinating processes between goods, people, and procedures. From there, I moved into software development and finally into architecture: automotive industry, public sector, software consulting.</p>
+      <p>What I observed: the more tools, processes, and people interact with each other, the more important it becomes that decisions last and are anchored in structure — not held in individual minds, not enforced through discipline — especially as teams grow, people change, and requirements shift.</p>
+      <p>Structure always exists. The question is whether it was intentionally designed — or simply emerged because no one was responsible for it. Responsibility often doesn't arise from a decision, but by accident — someone grows into a role without truly being in charge, and often without the decision-making authority or the expertise it requires. The role that would need to be accountable for structural quality doesn't exist in most projects — and its absence goes unnoticed until the consequences surface.</p>
+      <p>What drives me: an obsession with the things that go unnoticed. The details that shape the future of a system.</p>
     </div>
   </section>
 
-  <!-- What I've done -->
   <section class="mb-20 max-w-3xl mx-auto px-6">
-    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.done.heading']}</h2>
+    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">What I've done</h2>
     <div class="space-y-10">
-      {[1, 2, 3].map(i => (
+      <div>
+        <h3 class="text-title-large text-ink-primary mb-3">Justice</h3>
+        <p class="text-body-large text-ink-muted leading-relaxed">A booking system that didn't prevent errors — it enabled them. No transactional integrity, no validation rules, no database constraints. Rooms were double-booked, bookings in the past were possible, conflicting bookings went unchecked. The root cause wasn't poor development — it was the absence of structure that would have prevented these errors by design. I put that structure in place. Duplicate entries disappeared, performance improved by 20% — and for the first time, people could rely on a booked room actually being available for them.</p>
+      </div>
+      <div>
+        <h3 class="text-title-large text-ink-primary mb-3">Public Administration</h3>
+        <p class="text-body-large text-ink-muted leading-relaxed">The EU Single Digital Gateway required administrative information to be available in a structured, multilingual, and machine-readable format — in German and English for EU citizens, crawlable for EU infrastructure. I designed a system that lets editors create and update content, tag it with metadata, and publish it automatically. A structured translation workflow was integrated — the first application of its kind in the region.</p>
+      </div>
+      <div>
+        <h3 class="text-title-large text-ink-primary mb-3">Tourism & Leisure</h3>
+        <p class="text-body-large text-ink-muted leading-relaxed">For seven years, one student per region spent three months each summer reading emails and manually entering events. Five regions, five students, every year. The root cause wasn't a staffing problem. There was no standardized input format, no shared foundation. I designed a form that event organizers fill out themselves, an automated import that loads the data daily, and an approval mechanism for review and editing. What used to be a summer job is now a click.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-20 max-w-3xl mx-auto px-6">
+    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">What I stand for</h2>
+    <div class="space-y-8">
+      <div class="flex items-center gap-6">
+        <span class="text-headline-large md:text-display-small text-brand-primary/50 font-display flex-shrink-0 w-10 md:w-14 select-none leading-none">1</span>
         <div>
-          <h3 class="text-title-large text-ink-primary mb-3">{t[`about.done.example.${i}.heading`]}</h3>
-          <p class="text-body-large text-ink-muted leading-relaxed">{t[`about.done.example.${i}.text`]}</p>
+          <h3 class="text-title-large text-ink-primary mb-1">Root cause over symptom</h3>
+          <p class="text-body-large text-ink-muted leading-relaxed">Real solutions start with understanding what is actually going on.</p>
         </div>
-      ))}
+      </div>
+      <div class="flex items-center gap-6">
+        <span class="text-headline-large md:text-display-small text-brand-primary/50 font-display flex-shrink-0 w-10 md:w-14 select-none leading-none">2</span>
+        <div>
+          <h3 class="text-title-large text-ink-primary mb-1">Structure over discipline</h3>
+          <p class="text-body-large text-ink-muted leading-relaxed">What holds must be embedded in the system, not in individual behavior.</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6">
+        <span class="text-headline-large md:text-display-small text-brand-primary/50 font-display flex-shrink-0 w-10 md:w-14 select-none leading-none">3</span>
+        <div>
+          <h3 class="text-title-large text-ink-primary mb-1">Lasting over workaround</h3>
+          <p class="text-body-large text-ink-muted leading-relaxed">What I build outlasts people and technologies.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- What I stand for -->
   <section class="mb-20 max-w-3xl mx-auto px-6">
-    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.stand.heading']}</h2>
-    <div class="space-y-8">
-      {[1, 2, 3].map(i => (
-        <div class="flex items-center gap-6">
-          <span class="text-headline-large md:text-display-small text-brand-primary/50 font-display flex-shrink-0 w-10 md:w-14 select-none leading-none">{i}</span>
-          <div>
-            <h3 class="text-title-large text-ink-primary mb-1">{t[`about.stand.${i}.title`]}</h3>
-            <p class="text-body-large text-ink-muted leading-relaxed">{t[`about.stand.${i}.description`]}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- How I work -->
-  <section class="mb-20 max-w-3xl mx-auto px-6">
-    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.work.heading']}</h2>
+    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">How I work</h2>
     <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
-      {[1, 2, 3, 4, 5].map(i => (
-        <p>{t[`about.work.${i}`]}</p>
-      ))}
+      <p>I don't deliver quick answers — I deliver the right one.</p>
+      <p>I approach every system without assumptions about where the root cause lies — I know the problem, but not where its root cause lies. Whether it's a software architecture, a tool landscape, a process, or an organizational structure — I always start high-level: what interacts with the problem, what connects to what, what influences what. Only when the full picture is clear do I go deeper.</p>
+      <p>That also means: I look at more than seems necessary at first glance. Because root causes rarely sit where the symptom is visible.</p>
+      <p>Once the root cause is found, I strip everything back to what matters. What lies between symptom and root cause and contributes nothing to the solution falls away. What remains gets embedded in a structure that anchors decisions, dependencies, and connections — and holds independently of me.</p>
+      <p>Depending on the problem, I work alone or involve the team. For diagnosis, I decide based on the situation. For guidance, the team is always part of the process — because I don't implement; I design the structure and guide the execution.</p>
     </div>
   </section>
 
-  <!-- Five Principles -->
   <section class="mb-20 max-w-3xl mx-auto px-6">
-    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-12">{t['principles.heading']}</h2>
+    <h2 class="text-headline-large md:text-display-small text-ink-primary mb-12">Five principles</h2>
     <div class="space-y-8">
-      {[1, 2, 3, 4, 5].map(i => {
-        const title = t[`principles.${i}.title`];
-        const firstLetter = title.charAt(0);
-        const rest = title.slice(1);
-        const isLast = i === 5;
-        return (
-          <div class="flex items-start gap-6 min-h-[3.5rem]">
-            <span class="text-display-small text-brand-primary font-display leading-none w-12 flex-shrink-0 text-center">{isLast ? 'EE' : firstLetter}</span>
-            <div>
-              <h3 class="text-title-large text-ink-primary mb-1">
-                <span class="text-brand-primary">{firstLetter}</span>{rest}
-              </h3>
-              <p class="text-body-large text-ink-muted">{t[`principles.${i}.description`]}</p>
-            </div>
-          </div>
-        );
-      })}
+      <div class="flex items-start gap-6 min-h-[3.5rem]">
+        <span class="text-display-small text-brand-primary font-display leading-none w-12 flex-shrink-0 text-center">C</span>
+        <div>
+          <h3 class="text-title-large text-ink-primary mb-1"><span class="text-brand-primary">C</span>uriosity</h3>
+          <p class="text-body-large text-ink-muted">I approach every system without assumptions and examine what is actually there.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-6 min-h-[3.5rem]">
+        <span class="text-display-small text-brand-primary font-display leading-none w-12 flex-shrink-0 text-center">U</span>
+        <div>
+          <h3 class="text-title-large text-ink-primary mb-1"><span class="text-brand-primary">U</span>nderstanding</h3>
+          <p class="text-body-large text-ink-muted">I dig into the existing structures, dependencies, and connections.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-6 min-h-[3.5rem]">
+        <span class="text-display-small text-brand-primary font-display leading-none w-12 flex-shrink-0 text-center">R</span>
+        <div>
+          <h3 class="text-title-large text-ink-primary mb-1"><span class="text-brand-primary">R</span>eflection</h3>
+          <p class="text-body-large text-ink-muted">I validate my findings from multiple directions until the full picture holds.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-6 min-h-[3.5rem]">
+        <span class="text-display-small text-brand-primary font-display leading-none w-12 flex-shrink-0 text-center">F</span>
+        <div>
+          <h3 class="text-title-large text-ink-primary mb-1"><span class="text-brand-primary">F</span>oresight</h3>
+          <p class="text-body-large text-ink-muted">I assess what the system needs to deliver in the future — and what it takes to get there.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-6 min-h-[3.5rem]">
+        <span class="text-display-small text-brand-primary font-display leading-none w-12 flex-shrink-0 text-center">EE</span>
+        <div>
+          <h3 class="text-title-large text-ink-primary mb-1"><span class="text-brand-primary">E</span>ssence</h3>
+          <p class="text-body-large text-ink-muted">I reduce to what truly matters.</p>
+        </div>
+      </div>
     </div>
   </section>
-
 
 </Layout>

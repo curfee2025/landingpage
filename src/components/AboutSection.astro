@@ -1,8 +1,11 @@
 ---
 interface Props {
-  translations: Record<string, string>;
+  heading: string;
+  texts: string[];
+  emphasizedText: string;
+  tags: string[];
 }
-const { translations: t } = Astro.props;
+const { heading, texts, emphasizedText, tags } = Astro.props;
 ---
 
 <section id="about" class="py-20 md:py-28" aria-labelledby="about-heading">
@@ -10,7 +13,7 @@ const { translations: t } = Astro.props;
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-12 md:mb-16">
         <h2 id="about-heading" class="text-headline-large md:text-display-small text-ink-primary mb-8">
-          {t['about.heading']}
+          {heading}
         </h2>
         <picture>
           <source srcset="/assets/profile.webp" type="image/webp" />
@@ -18,16 +21,13 @@ const { translations: t } = Astro.props;
         </picture>
       </div>
       <div class="space-y-4 text-body-large text-ink-muted leading-relaxed">
-        <p>{t['about.text.1']}</p>
-        <p>{t['about.text.2']}</p>
-        <p>{t['about.text.3']}</p>
-        <p>{t['about.text.4']}</p>
-        <p class="text-ink-primary font-medium">{t['about.text.5']}</p>
+        {texts.map(t => <p>{t}</p>)}
+        <p class="text-ink-primary font-medium">{emphasizedText}</p>
       </div>
       <div class="flex flex-wrap justify-center gap-3 mt-8">
-        <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{t['about.tag.1']}</span>
-        <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{t['about.tag.2']}</span>
-        <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{t['about.tag.3']}</span>
+        {tags.map(tag => (
+          <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{tag}</span>
+        ))}
       </div>
     </div>
   </div>

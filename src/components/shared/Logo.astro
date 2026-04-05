@@ -1,11 +1,9 @@
 ---
 import logoIconRaw from '@/assets/logos/logo-icon_filled.svg?raw';
 import logoTextOnlyRaw from '@/assets/logos/logo_text_only.svg?raw';
-import type { Lang } from '@/configurations/i18n';
-
 interface Props {
   size?: 'sm' | 'md';
-  lang?: Lang;
+  lang?: 'de' | 'en';
 }
 
 const { size = 'md', lang = 'de' } = Astro.props;

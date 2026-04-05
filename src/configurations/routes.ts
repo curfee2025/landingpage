@@ -1,6 +1,4 @@
 import { BRAND } from '@/configurations/brand';
-import type { Lang } from '@/configurations/i18n';
-
 export const ROUTES = {
   home: '/',
   about: '/about',
@@ -13,7 +11,7 @@ export const ROUTES = {
   cookies: '/cookies',
 } as const;
 
-export function localizedRoutes(lang: Lang) {
+export function localizedRoutes(lang: 'de' | 'en') {
   if (lang === 'en') {
     return {
       home: '/en/',

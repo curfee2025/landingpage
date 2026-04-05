@@ -2,14 +2,16 @@
 import Icon from '@/components/shared/Icon.astro';
 import { localizedRoutes } from '@/configurations/routes';
 import { BRAND } from '@/configurations/brand';
-import type { Lang } from '@/configurations/i18n';
 
 interface Props {
-  lang: Lang;
-  translations: Record<string, string>;
+  lang: 'de' | 'en';
+  legalNotice: string;
+  legalPrivacy: string;
+  legalCookies: string;
+  copyright: string;
 }
 
-const { lang, translations: t } = Astro.props;
+const { lang, legalNotice, legalPrivacy, legalCookies, copyright } = Astro.props;
 const routes = localizedRoutes(lang);
 const year = new Date().getFullYear();
 const linkClass = "text-body-medium text-ink-onSurfaceVariant px-3 py-2 rounded-full hover:bg-ink-primary/[0.08] active:bg-ink-primary/[0.12] transition-all duration-short4 ease-standard";
@@ -20,12 +22,10 @@ let otherLangPath: string;
 let otherLangLabel: string;
 
 if (lang === 'en') {
-  // Strip /en prefix to get DE path
   const basePath = currentPath.replace(/^\/en\/?/, '/') || '/';
   otherLangPath = basePath;
   otherLangLabel = 'Deutsch';
 } else {
-  // Add /en prefix for EN path
   otherLangPath = currentPath === '/' ? '/en/' : `/en${currentPath}`;
   otherLangLabel = 'English';
 }
@@ -34,14 +34,14 @@ if (lang === 'en') {
 <footer class="border-t border-stroke-subtle pt-10 pb-10" style="padding-bottom: max(2.5rem, env(safe-area-inset-bottom, 2.5rem));" role="contentinfo">
   <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <nav class="flex flex-wrap items-center justify-center gap-2 mb-6" aria-label="Footer navigation">
-      <a href={routes.imprint} class={linkClass}>{t['footer.legal.notice']}</a>
+      <a href={routes.imprint} class={linkClass}>{legalNotice}</a>
       <span class="text-ink-muted" aria-hidden="true">&middot;</span>
-      <a href={routes.privacy} class={linkClass}>{t['footer.legal.privacy']}</a>
+      <a href={routes.privacy} class={linkClass}>{legalPrivacy}</a>
       <span class="text-ink-muted" aria-hidden="true">&middot;</span>
-      <a href={routes.cookies} class={linkClass}>{t['footer.legal.cookies']}</a>
+      <a href={routes.cookies} class={linkClass}>{legalCookies}</a>
     </nav>
     <div class="flex flex-wrap items-center justify-center gap-4 text-body-small text-ink-muted">
-      <span>&copy; {year} {BRAND.name} · {t['footer.copyright']}</span>
+      <span>&copy; {year} {BRAND.name} · {copyright}</span>
       <a href={BRAND.linkedin} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-ink-onSurfaceVariant hover:text-ink-primary px-3 py-2 rounded-full hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard" aria-label="LinkedIn">
         <Icon name="linkedin" class="w-4 h-4" />
         LinkedIn

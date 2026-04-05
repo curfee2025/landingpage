@@ -1,24 +1,28 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
-import { getLangFromUrl } from '@/i18n/utils';
-import { getTranslations } from '@/i18n/translations';
-const lang = getLangFromUrl(Astro.url);
-const t = getTranslations(lang);
+const lang = 'en' as const;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/en/" },
-    { "@type": "ListItem", "position": 2, "name": t['footer.legal.cookies'], "item": "https://curfee.com/en/cookies" }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curfee.com/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Cookie Policy", "item": "https://curfee.com/en/cookies" }
   ]
 };
 ---
 
 <Layout
-  title={t['meta.cookies.title']}
-  description={t['meta.cookies.description']}
+  ui={{
+    nav: { services: "Services", about: "About", faq: "FAQ", cta: "Contact" },
+    serviceNames: { diagnosis: "Diagnosis", guidance: "Guidance", sparring: "Sparring" },
+    footer: { notice: "Legal Notice", privacy: "Privacy Policy", cookies: "Cookie Policy", copyright: "All rights reserved." },
+    consent: { message: "This website uses cookies for usage analysis.", learnMore: "Learn more", accept: "Accept", decline: "Decline" },
+    meta: { defaultDescription: "Philipp Höllinger, software architect from Salzburg. I help organizations build lasting structure in their systems. Diagnosis, Guidance, Sparring.", orgDescription: "Building lasting structure in systems. Diagnosis, Guidance, Sparring.", jobTitle: "Software Architect" },
+  }}
+  title="Cookie Policy — Curfee"
+  description="Cookie policy for Curfee e.U., IT management consulting by Philipp Höllinger, Salzburg, Austria."
   lang={lang}
   canonicalPath="/en/cookies"
   jsonLd={jsonLd}
@@ -28,109 +32,98 @@ const jsonLd = {
     <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6">
       <Icon name="cookie" class="w-6 h-6 text-brand-primary" />
     </div>
-    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">{t['cookies.heading']}</h1>
-    <p class="text-title-medium text-brand-primary font-medium mb-8">{t['cookies.updated']}</p>
+    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">Cookie Policy</h1>
+    <p class="text-title-medium text-brand-primary font-medium mb-8">Last updated: 19 March 2026</p>
 
     <div class="space-y-10 mb-12">
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">{t['cookies.what.heading']}</h2>
-        <p class="text-body-large text-ink-muted leading-relaxed">{t['cookies.what']}</p>
+        <h2 class="text-headline-small text-ink-primary mb-8">What are cookies</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">Cookies are small text files that are stored on the user's device when visiting a website. They serve to make websites more user-friendly and efficient. Cookies fall into two categories: first-party cookies, which are set by the website being visited, and third-party cookies, which are set by external services integrated into the website.</p>
       </section>
-
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">{t['cookies.legal.heading']}</h2>
-        <p class="text-body-large text-ink-muted leading-relaxed">{t['cookies.legal']}</p>
+        <h2 class="text-headline-small text-ink-primary mb-8">Legal basis</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">The use of cookies is governed by § 165(3) of the Austrian Telecommunications Act 2021 (TKG 2021), which implements Art. 5(3) of the ePrivacy Directive. Strictly necessary cookies are set on the basis of the legitimate interests of the data controller pursuant to Art. 6(1)(f) GDPR, as they are required for the proper operation of the website. Non-essential cookies are only set with the explicit consent of the user pursuant to Art. 6(1)(a) GDPR.</p>
       </section>
-
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">{t['cookies.types.heading']}</h2>
+        <h2 class="text-headline-small text-ink-primary mb-8">Types of cookies used</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
           <div>
-            <span class="text-label-large text-ink-primary">{t['cookies.types.necessary.label']}</span>
-            <p class="text-body-large text-ink-muted mt-2">{t['cookies.types.necessary']}</p>
+            <span class="text-label-large text-ink-primary">Necessary cookies</span>
+            <p class="text-body-large text-ink-muted mt-2">These cookies are required for the basic functionality and security of the website. They are set without consent. Legal basis: Art. 6(1)(f) GDPR.</p>
           </div>
           <div>
-            <span class="text-label-large text-ink-primary">{t['cookies.types.analytics.label']}</span>
-            <p class="text-body-large text-ink-muted mt-2">{t['cookies.types.analytics']}</p>
+            <span class="text-label-large text-ink-primary">Analytics cookies (Google Analytics)</span>
+            <p class="text-body-large text-ink-muted mt-2">These cookies are used to measure website usage and to improve the website based on usage data. They are only set with the explicit consent of the user. Legal basis: Art. 6(1)(a) GDPR. Provider: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. Cookie storage period in browser: 2 years. Data retention: 14 months. Further details are provided in the privacy policy.</p>
           </div>
         </div>
       </section>
-
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">{t['cookies.list.heading']}</h2>
-        <!-- Desktop: Grid-Tabelle -->
+        <h2 class="text-headline-small text-ink-primary mb-8">Cookie list</h2>
         <div class="hidden sm:block rounded-md bg-surface-raised border border-stroke-outlineVariant p-6 space-y-6">
           <div class="grid grid-cols-5 gap-4 pb-4 border-b border-stroke-outlineVariant">
-            <span class="text-label-medium text-ink-primary">{t['cookies.list.name']}</span>
-            <span class="text-label-medium text-ink-primary">{t['cookies.list.provider']}</span>
-            <span class="text-label-medium text-ink-primary">{t['cookies.list.purpose']}</span>
-            <span class="text-label-medium text-ink-primary">{t['cookies.list.duration']}</span>
-            <span class="text-label-medium text-ink-primary">{t['cookies.list.type']}</span>
+            <span class="text-label-medium text-ink-primary">Name</span>
+            <span class="text-label-medium text-ink-primary">Provider</span>
+            <span class="text-label-medium text-ink-primary">Purpose</span>
+            <span class="text-label-medium text-ink-primary">Duration</span>
+            <span class="text-label-medium text-ink-primary">Type</span>
           </div>
           <div class="grid grid-cols-5 gap-4 pb-4 border-b border-stroke-outlineVariant">
             <span class="text-body-large text-ink-muted font-mono">_ga</span>
             <span class="text-body-large text-ink-muted">Google Analytics</span>
-            <span class="text-body-large text-ink-muted">{t['cookies.list.ga.purpose']}</span>
-            <span class="text-body-large text-ink-muted">{t['cookies.list.ga.duration']}</span>
-            <span class="text-body-large text-ink-muted">{t['cookies.list.ga.type']}</span>
+            <span class="text-body-large text-ink-muted">Identifies unique users</span>
+            <span class="text-body-large text-ink-muted">2 years</span>
+            <span class="text-body-large text-ink-muted">Analytics</span>
           </div>
           <div class="grid grid-cols-5 gap-4 pb-4 border-b border-stroke-outlineVariant">
-            <span class="text-body-large text-ink-muted font-mono">{t['cookies.list.gastar.name']}</span>
+            <span class="text-body-large text-ink-muted font-mono">_ga_*</span>
             <span class="text-body-large text-ink-muted">Google Analytics</span>
-            <span class="text-body-large text-ink-muted">{t['cookies.list.gastar.purpose']}</span>
-            <span class="text-body-large text-ink-muted">{t['cookies.list.gastar.duration']}</span>
-            <span class="text-body-large text-ink-muted">{t['cookies.list.gastar.type']}</span>
+            <span class="text-body-large text-ink-muted">Stores session state</span>
+            <span class="text-body-large text-ink-muted">2 years</span>
+            <span class="text-body-large text-ink-muted">Analytics</span>
           </div>
           <div class="grid grid-cols-5 gap-4">
             <span class="text-body-large text-ink-muted font-mono">curfee-consent</span>
             <span class="text-body-large text-ink-muted">Curfee e.U.</span>
-            <span class="text-body-large text-ink-muted">{t['cookies.list.consent.purpose']}</span>
-            <span class="text-body-large text-ink-muted">{t['cookies.list.consent.duration']}</span>
-            <span class="text-body-large text-ink-muted">{t['cookies.list.consent.type']}</span>
+            <span class="text-body-large text-ink-muted">Stores cookie consent preference</span>
+            <span class="text-body-large text-ink-muted">30 days</span>
+            <span class="text-body-large text-ink-muted">Necessary</span>
           </div>
         </div>
-        <!-- Mobile: gestapelte Cards -->
         <div class="sm:hidden space-y-4">
           <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-4 space-y-2">
             <span class="text-label-medium text-ink-primary font-mono block">_ga</span>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.provider']}:</span> Google Analytics</div>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.purpose']}:</span> {t['cookies.list.ga.purpose']}</div>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.duration']}:</span> {t['cookies.list.ga.duration']}</div>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.type']}:</span> {t['cookies.list.ga.type']}</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Provider:</span> Google Analytics</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Purpose:</span> Identifies unique users</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Duration:</span> 2 years</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Type:</span> Analytics</div>
           </div>
           <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-4 space-y-2">
-            <span class="text-label-medium text-ink-primary font-mono block">{t['cookies.list.gastar.name']}</span>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.provider']}:</span> Google Analytics</div>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.purpose']}:</span> {t['cookies.list.gastar.purpose']}</div>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.duration']}:</span> {t['cookies.list.gastar.duration']}</div>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.type']}:</span> {t['cookies.list.gastar.type']}</div>
+            <span class="text-label-medium text-ink-primary font-mono block">_ga_*</span>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Provider:</span> Google Analytics</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Purpose:</span> Stores session state</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Duration:</span> 2 years</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Type:</span> Analytics</div>
           </div>
           <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-4 space-y-2">
             <span class="text-label-medium text-ink-primary font-mono block">curfee-consent</span>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.provider']}:</span> Curfee e.U.</div>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.purpose']}:</span> {t['cookies.list.consent.purpose']}</div>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.duration']}:</span> {t['cookies.list.consent.duration']}</div>
-            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">{t['cookies.list.type']}:</span> {t['cookies.list.consent.type']}</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Provider:</span> Curfee e.U.</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Purpose:</span> Stores cookie consent preference</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Duration:</span> 30 days</div>
+            <div class="text-body-medium text-ink-muted"><span class="text-label-medium text-ink-primary">Type:</span> Necessary</div>
           </div>
         </div>
       </section>
-
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">{t['cookies.manage.heading']}</h2>
-        <p class="text-body-large text-ink-muted leading-relaxed mb-6">{t['cookies.manage']}</p>
-        <button
-          type="button"
-          data-consent-reset
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-label-large text-ink-primary border border-stroke-outlineVariant hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard"
-        >
+        <h2 class="text-headline-small text-ink-primary mb-8">Managing cookies</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed mb-6">Cookies can be managed and deleted at any time via the browser settings. Consent to non-essential cookies can be withdrawn at any time. Instructions for managing cookies can be found in the help sections of the respective browser.</p>
+        <button type="button" data-consent-reset class="inline-flex items-center gap-2 px-6 py-3 rounded-full text-label-large text-ink-primary border border-stroke-outlineVariant hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard">
           <Icon name="cookie" class="w-5 h-5" />
-          {t['consent.settings']}
+          Cookie settings
         </button>
       </section>
-
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">{t['cookies.updates.heading']}</h2>
-        <p class="text-body-large text-ink-muted leading-relaxed">{t['cookies.updates']}</p>
+        <h2 class="text-headline-small text-ink-primary mb-8">Updates to this policy</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">This cookie policy may be updated to reflect changes in the cookies used or for legal reasons. The date of the last update is shown at the top of this page.</p>
       </section>
     </div>
   </div>

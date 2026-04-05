@@ -8,37 +8,120 @@ import ServicesSection from '@/components/ServicesSection.astro';
 import CaseStudySection from '@/components/CaseStudySection.astro';
 import AboutSection from '@/components/AboutSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
-import { getLangFromUrl } from '@/i18n/utils';
-import { getTranslations } from '@/i18n/translations';
-
-const lang = getLangFromUrl(Astro.url);
-const t = getTranslations(lang);
+const lang = 'en' as const;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Curfee",
   "url": "https://curfee.com",
-  "description": t['meta.home.jsonld.description'],
+  "description": "Building lasting structure in systems. Diagnosis, Guidance, Sparring.",
   "inLanguage": ["en", "de"],
   "publisher": { "@id": "https://curfee.com/#organization" }
 };
 ---
 
 <Layout
-  title={t['meta.home.title']}
-  description={t['meta.home.description']}
+  ui={{
+    nav: { services: "Services", about: "About", faq: "FAQ", cta: "Contact" },
+    serviceNames: { diagnosis: "Diagnosis", guidance: "Guidance", sparring: "Sparring" },
+    footer: { notice: "Legal Notice", privacy: "Privacy Policy", cookies: "Cookie Policy", copyright: "All rights reserved." },
+    consent: { message: "This website uses cookies for usage analysis.", learnMore: "Learn more", accept: "Accept", decline: "Decline" },
+    meta: { defaultDescription: "Philipp Höllinger, software architect from Salzburg. I help organizations build lasting structure in their systems. Diagnosis, Guidance, Sparring.", orgDescription: "Building lasting structure in systems. Diagnosis, Guidance, Sparring.", jobTitle: "Software Architect" },
+  }}
+  title="Curfee — Structure that lasts · Diagnosis, Guidance, Sparring"
+  description="Philipp Höllinger, software architect from Salzburg. I help organizations build lasting structure in their systems. Diagnosis, Guidance, Sparring."
   canonicalPath="/en/"
   jsonLd={jsonLd}
   lang={lang}
   dateModified="2026-03-30"
 >
-  <HeroSection translations={t} />
-  <ObservationsSection translations={t} />
-  <VisionSection translations={t} />
-  <ServicesSection translations={t} />
-  <ProcessSection translations={t} />
-  <AboutSection translations={t} />
-  <CaseStudySection translations={t} />
-  <ContactSection translations={t} />
+  <HeroSection
+    heading="I help organizations build lasting structure in their systems."
+    subtitle="Dependencies no one can fully trace anymore. Connections that have been lost. Decisions anchored nowhere. I work through it — until the root cause is visible and the structure holds."
+    badges={["Software Architecture", "Tool Landscape", "Organizational Structure"]}
+  />
+  <ObservationsSection
+    heading="What I observe"
+    observations={[
+      "Key person dependencies: knowledge and decisions that rest with individuals — and walk out the door when they leave.",
+      "Shadow IT: teams adopting their own tools and processes — without a shared standard.",
+      "Governance and guidelines that exist on paper — but never take hold, because they rely on discipline rather than structure.",
+      "Systems that keep getting added to rather than properly structured — even though changes have long been a risk.",
+      "Software architectures, systems, and tooling that have outgrown everyone's understanding — where dependencies and connections are no longer fully visible, and every addition makes things more opaque."
+    ]}
+  />
+  <VisionSection
+    heading="What is possible"
+    cards={[
+      { icon: "handshake", title: "Shared alignment", description: "People with different interests — aligned by a shared foundation.", color: "primary" as const },
+      { icon: "hub", title: "Seamless tool integration", description: "New tools and systems that integrate seamlessly into the existing landscape — because the structure defines the boundaries.", color: "primary" as const },
+      { icon: "shield", title: "Resilient foundation", description: "Requirements and priorities that shift — supported by a structure designed to handle it.", color: "secondary" as const },
+      { icon: "map", title: "Lasting decisions", description: "Decisions that outlast people and technologies — embedded in the structure.", color: "secondary" as const },
+      { icon: "trending_up", title: "Compound improvements", description: "Improvements that build on the last. And strengthen the foundation for the next.", color: "tertiary" as const },
+      { icon: "visibility", title: "Transparent traceability", description: "Dependencies and connections that are visible — and decisions that anyone can trace, because they are anchored in the structure.", color: "tertiary" as const }
+    ]}
+  />
+  <ServicesSection
+    heading="How I support you"
+    services={[
+      {
+        title: "Diagnosis",
+        subtitle: "Straight to the root cause",
+        description: "You want certainty about what is really going on in your systems and tooling. I work through it layer by layer until the full picture is clear.",
+        outcome: "Concrete evidence from your system. No guesswork.",
+        deliverables: ["Concise assessment of your system", "Identified root causes with concrete evidence from your system", "Clear classification by urgency and impact", "Recommended next steps"],
+        icon: "search",
+        href: "/en/services/diagnosis",
+        iconBg: "bg-brand-primary/10",
+        iconText: "text-brand-primary",
+        accentBg: "bg-brand-primary",
+        deliverableBg: "bg-brand-primary/[0.08]",
+      },
+      {
+        title: "Guidance",
+        subtitle: "From root cause to solution",
+        description: "The root cause is known — or we find it together. Now you want a solution that is built to hold — and someone who guides its implementation.",
+        outcome: "What I build is built to last — beyond the project, beyond individual people and technologies.",
+        deliverables: ["Root cause identified and resolved", "Standards, conventions, and guidelines embedded in the structure", "Implementation guidance from start to finish"],
+        icon: "group_work",
+        href: "/en/services/guidance",
+        iconBg: "bg-brand-secondary/10",
+        iconText: "text-brand-secondary",
+        accentBg: "bg-brand-secondary",
+        deliverableBg: "bg-brand-secondary/[0.08]",
+      },
+      {
+        title: "Sparring",
+        subtitle: "Alignment that grows with your system",
+        description: "You want someone who knows the full context and stays oriented.",
+        outcome: "Every decision is evaluated in the context of your entire system — not in isolation.",
+        deliverables: ["Concrete feedback on structural decisions", "Ongoing alignment that grows with your system", "A dedicated contact who knows your system"],
+        icon: "handshake",
+        href: "/en/services/sparring",
+        iconBg: "bg-brand-tertiary/10",
+        iconText: "text-brand-tertiary",
+        accentBg: "bg-brand-tertiary",
+        deliverableBg: "bg-brand-tertiary/[0.08]",
+      }
+    ]}
+  />
+  <ProcessSection
+    heading="How it works"
+    steps={[
+      { title: "First call", icon: "chat" },
+      { title: "Approach", icon: "explore" },
+      { title: "Scope", icon: "crop_free" },
+      { title: "Execution", icon: "construction" },
+      { title: "Result", icon: "task_alt" }
+    ]}
+  />
+  <AboutSection
+    heading="Who I am"
+    texts={["Philipp Höllinger from Salzburg. I anchor decisions in structure — across software, tools, and organizations. I have an eye for the things that go unnoticed. The details that shape the future of a system.", "My career began in logistics — coordinating processes between goods, people, and procedures. From there, I moved into software development and finally into architecture: automotive industry, public sector, software consulting.", "What I observed along the way: the more people, tools, and AI come into play, the more important it becomes that decisions once made actually last.", "I establish the structure that ensures exactly that."]}
+    emphasizedText="That is why I founded Curfee."
+    tags={["Root cause over symptom", "Structure over discipline", "Lasting solutions over workarounds"]}
+  />
+  <CaseStudySection heading="Case Studies" placeholder="Coming soon." />
+  <ContactSection heading="Let's talk about what you're dealing with." buttonText="Contact" />
 </Layout>
