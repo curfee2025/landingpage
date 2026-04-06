@@ -1,61 +1,126 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
+import { getTranslations } from '@/i18n/translations';
+import { localizedRoutes } from '@/configurations/routes';
+
 const lang = 'de' as const;
+const t = getTranslations(lang);
+const routes = localizedRoutes(lang);
 const linkClass = "text-brand-primary hover:underline transition-colors duration-short4 ease-standard";
-const jsonLd = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-  { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://curfee.com/" },
-  { "@type": "ListItem", "position": 2, "name": "Datenschutz", "item": "https://curfee.com/privacy" }
-]};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/" },
+    { "@type": "ListItem", "position": 2, "name": t['footer.legal.privacy'], "item": "https://curfee.com/privacy" }
+  ]
+};
 ---
 
 <Layout
-  ui={{
-    nav: { services: "Services", about: "Über mich", faq: "FAQ", cta: "Kontakt" },
-    serviceNames: { diagnosis: "Diagnose", guidance: "Begleitung", sparring: "Sparring" },
-    footer: { notice: "Impressum", privacy: "Datenschutz", cookies: "Cookie-Richtlinie", copyright: "Alle Rechte vorbehalten." },
-    consent: { message: "Diese Website verwendet Cookies zur Analyse der Nutzung.", learnMore: "Mehr erfahren", accept: "Akzeptieren", decline: "Ablehnen" },
-    meta: { defaultDescription: "Philipp Höllinger, Softwarearchitekt aus Salzburg. Ich begleite Organisationen dabei, Struktur in ihren Systemen aufzubauen, die Bestand hat. Diagnose, Begleitung, Sparring.", orgDescription: "Struktur in Systemen aufbauen, die Bestand hat. Diagnose, Begleitung, Sparring.", jobTitle: "Softwarearchitekt" },
-  }} title="Datenschutzerklärung – Curfee" description="Datenschutzerklärung für Curfee e.U., Unternehmensberatung im Bereich Informationstechnologie von Philipp Höllinger, Salzburg, Österreich." lang={lang} canonicalPath="/privacy" jsonLd={jsonLd} dateModified="2026-03-30">
+  title={t['meta.privacy.title']}
+  description={t['meta.privacy.description']}
+  lang={lang}
+  canonicalPath="/privacy"
+  jsonLd={jsonLd}
+  dateModified="2026-03-30"
+>
   <div class="max-w-3xl mx-auto px-6">
-    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6"><Icon name="shield" class="w-6 h-6 text-brand-primary" /></div>
-    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">Datenschutzerklärung</h1>
-    <p class="text-title-medium text-brand-primary font-medium mb-8">Diese Datenschutzerklärung informiert die Nutzer dieser Website gemäß Art. 13 der Datenschutz-Grundverordnung (DSGVO) über die Art, den Umfang und den Zweck der Verarbeitung personenbezogener Daten durch den Verantwortlichen.</p>
+    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6">
+      <Icon name="shield" class="w-6 h-6 text-brand-primary" />
+    </div>
+    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">{t['privacy.heading']}</h1>
+    <p class="text-title-medium text-brand-primary font-medium mb-8">{t['privacy.scope']}</p>
+
+    <!-- Controller + Contact Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <h2 class="text-label-large text-ink-primary mb-4">Verantwortlicher</h2>
-        <div class="text-body-large text-ink-muted"><p class="text-title-medium text-ink-primary">Curfee e.U.</p><p class="mt-1">Philipp Höllinger</p><div class="mt-3 leading-snug"><p>Lieferinger Hauptstraße 49A</p><p>5020 Salzburg</p><p>Österreich</p></div></div>
+        <h2 class="text-label-large text-ink-primary mb-4">{t['privacy.controller.heading']}</h2>
+        <div class="text-body-large text-ink-muted">
+          <p class="text-title-medium text-ink-primary">{t['imprint.company']}</p>
+          <p class="mt-1">{t['imprint.name']}</p>
+          <div class="mt-3 leading-snug">
+            <p>{t['imprint.address.street']}</p>
+            <p>{t['imprint.address.city']}</p>
+            <p>{t['imprint.address.country']}</p>
+          </div>
+        </div>
       </div>
       <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <h2 class="text-label-large text-ink-primary mb-4">Kontakt</h2>
+        <h2 class="text-label-large text-ink-primary mb-4">{t['imprint.contact']}</h2>
         <div class="space-y-4">
-          <div><span class="text-label-large font-medium text-ink-muted">E-Mail</span><p><a href="mailto:office@curfee.com" class={linkClass}>office@curfee.com</a></p></div>
-          <div><span class="text-label-large font-medium text-ink-muted">Telefon</span><p><a href="tel:+4367763024228" class={linkClass}>+43 677 630 242 28</a></p></div>
+          <div>
+            <span class="text-label-large font-medium text-ink-muted">{t['imprint.email.label']}</span>
+            <p><a href={`mailto:${t['imprint.email']}`} class={linkClass}>{t['imprint.email']}</a></p>
+          </div>
+          <div>
+            <span class="text-label-large font-medium text-ink-muted">{t['privacy.phone.label']}</span>
+            <p><a href={`tel:${t['imprint.phone'].replace(/\s/g, '')}`} class={linkClass}>{t['imprint.phone']}</a></p>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Legal text sections -->
     <div class="space-y-10 mb-12">
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Verarbeitung personenbezogener Daten</h2><p class="text-body-large text-ink-muted leading-relaxed">Personenbezogene Daten werden auf dieser Website nur im technisch notwendigen Umfang erhoben. Die Verarbeitung erfolgt zweckgebunden und datenminimiert. Die erhobenen Daten werden unter keinen Umständen ohne Rechtsgrundlage an Dritte weitergegeben. Die Verarbeitung personenbezogener Daten erfolgt auf Grundlage folgender Rechtsgrundlagen: Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO – die betroffene Person hat ihre Einwilligung zur Verarbeitung der sie betreffenden personenbezogenen Daten für einen oder mehrere bestimmte Zwecke gegeben. Vertragserfüllung gemäß Art. 6 Abs. 1 lit. b DSGVO – die Verarbeitung ist für die Erfüllung eines Vertrags erforderlich, dessen Vertragspartei die betroffene Person ist, oder zur Durchführung vorvertraglicher Maßnahmen. Berechtigtes Interesse gemäß Art. 6 Abs. 1 lit. f DSGVO – die Verarbeitung ist zur Wahrung der berechtigten Interessen des Verantwortlichen oder eines Dritten erforderlich, sofern nicht die Interessen oder Grundrechte und Grundfreiheiten der betroffenen Person überwiegen.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Rechte der betroffenen Personen</h2><p class="text-body-large text-ink-muted leading-relaxed">Als betroffene Person stehen Ihnen folgende Rechte zu: Recht auf Auskunft (Art. 15 DSGVO) – Sie haben das Recht, eine Bestätigung darüber zu verlangen, ob personenbezogene Daten verarbeitet werden, sowie Auskunft über diese Daten und deren Verarbeitung. Recht auf Berichtigung (Art. 16 DSGVO) – Sie haben das Recht, die Berichtigung fehlerhafter oder unvollständiger personenbezogener Daten zu verlangen. Recht auf Löschung (Art. 17 DSGVO) – Sie haben das Recht, die Löschung Ihrer personenbezogenen Daten zu verlangen, sofern die gesetzlichen Voraussetzungen vorliegen. Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO) – Sie haben das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Recht auf Datenübertragbarkeit (Art. 20 DSGVO) – Sie haben das Recht, Ihre personenbezogenen Daten in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten. Recht auf Widerspruch (Art. 21 DSGVO) – Sie haben das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung Sie betreffender personenbezogener Daten Widerspruch einzulegen.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Widerrufsrecht</h2><p class="text-body-large text-ink-muted leading-relaxed">Gemäß Art. 7 Abs. 3 DSGVO haben Sie das Recht, eine erteilte Einwilligung jederzeit zu widerrufen. Die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung wird dadurch nicht berührt. Den Widerruf können Sie per E-Mail erklären. <a href="mailto:office@curfee.com" class={linkClass}>office@curfee.com</a></p></section>
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">Beschwerderecht bei der Aufsichtsbehörde</h2>
-        <p class="text-body-large text-ink-muted leading-relaxed mb-4">Sollten Sie der Ansicht sein, dass die Verarbeitung Ihrer personenbezogenen Daten gegen die DSGVO verstößt, haben Sie gemäß Art. 77 DSGVO das Recht, eine Beschwerde bei der zuständigen Aufsichtsbehörde einzureichen.</p>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.personal.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.personal']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.rights.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.rights']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.withdrawal.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.withdrawal']} <a href={`mailto:${t['imprint.email']}`} class={linkClass}>{t['imprint.email']}</a></p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.complaint.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed mb-4">{t['privacy.complaint']}</p>
         <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6 text-body-large text-ink-muted">
-          <p class="text-title-medium text-ink-primary">Österreichische Datenschutzbehörde</p>
-          <p class="mt-1">Barichgasse 40–42</p><p>1030 Wien</p><p>Österreich</p>
+          <p class="text-title-medium text-ink-primary">{t['privacy.complaint.authority']}</p>
+          <p class="mt-1">{t['privacy.complaint.address.street']}</p>
+          <p>{t['privacy.complaint.address.city']}</p>
+          <p>{t['privacy.complaint.address.country']}</p>
           <div class="mt-3 space-y-1">
-            <p>Telefon: <a href="tel:+43152152-0" class={linkClass}>+43 1 521 52-0</a></p>
-            <p>E-Mail: <a href="mailto:dsb@dsb.gv.at" class={linkClass}>dsb@dsb.gv.at</a></p>
-            <p>Website: <a href="https://www.dsb.gv.at" target="_blank" rel="noopener noreferrer" class={linkClass}>www.dsb.gv.at</a></p>
+            <p>{t['privacy.phone.label']}: <a href={`tel:${t['privacy.complaint.phone'].replace(/\s/g, '')}`} class={linkClass}>{t['privacy.complaint.phone']}</a></p>
+            <p>{t['imprint.email.label']}: <a href={`mailto:${t['privacy.complaint.email']}`} class={linkClass}>{t['privacy.complaint.email']}</a></p>
+            <p>Website: <a href={`https://${t['privacy.complaint.website']}`} target="_blank" rel="noopener noreferrer" class={linkClass}>{t['privacy.complaint.website']}</a></p>
           </div>
         </div>
       </section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">SSL/TLS-Verschlüsselung</h2><p class="text-body-large text-ink-muted leading-relaxed">Diese Website nutzt aus Sicherheitsgründen und zum Schutz der Übertragung personenbezogener Daten eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie am Schloss-Symbol in der Adresszeile und daran, dass die Adresszeile mit „https://” beginnt.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Cookies</h2><p class="text-body-large text-ink-muted leading-relaxed">Details zu den auf dieser Website verwendeten Cookies sind in der Cookie-Richtlinie zu finden. <a href="/cookies" class={linkClass}>Cookie-Richtlinie</a></p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Links zu fremden Websites</h2><p class="text-body-large text-ink-muted leading-relaxed">Diese Website enthält Links zu Websites Dritter. Beim Aufrufen dieser externen Links können Daten an den jeweiligen Betreiber übermittelt werden. Für die Inhalte und Datenverarbeitung durch Dritte übernimmt der Verantwortliche keine Haftung. Es wird empfohlen, die Datenschutzerklärungen der verlinkten Websites zu prüfen.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Hosting</h2><p class="text-body-large text-ink-muted leading-relaxed">Diese Website wird auf GitHub Pages gehostet, einem Dienst der GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA. Beim Aufruf dieser Website werden automatisch Informationen in sogenannten Server-Logfiles erfasst, die der Browser automatisch übermittelt. Dazu gehören: IP-Adresse, Datum und Uhrzeit des Zugriffs, angeforderte Ressourcen, verwendeter Browser und Betriebssystem. Diese Daten werden temporär zu Sicherheitszwecken gespeichert und nach kurzer Zeit gelöscht. Die Verarbeitung erfolgt auf Grundlage des berechtigten Interesses gemäß Art. 6 Abs. 1 lit. f DSGVO zur Sicherstellung des störungsfreien Betriebs der Website. Für die Übermittlung personenbezogener Daten in die USA (Drittland) setzt GitHub Standardvertragsklauseln gemäß Art. 46 Abs. 2 lit. c DSGVO ein. GitHub ist zudem unter dem EU-US Data Privacy Framework zertifiziert.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Google Analytics</h2><p class="text-body-large text-ink-muted leading-relaxed">Diese Website verwendet Google Analytics, einen Webanalysedienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Google Analytics wird ausschließlich mit Einwilligung des Nutzers gemäß Art. 6 Abs. 1 lit. a DSGVO aktiviert. Die Einwilligungspräferenz wird für 30 Tage gespeichert. Folgende Daten werden erfasst: besuchte Seiten und Zeitstempel, Interaktionen auf der Website, Traffic-Quelle, Geräte- und Browserinformationen, geografische Informationen (Land/Region), IP-Adresse (anonymisiert). Die Daten werden 14 Monate aufbewahrt. Google setzt Standardvertragsklauseln gemäß Art. 46 Abs. 2 lit. c DSGVO ein und ist unter dem EU-US Data Privacy Framework zertifiziert.</p><p class="text-body-large text-ink-muted leading-relaxed mt-2">Weitere Informationen zum Umgang mit Nutzerdaten bei Google Analytics sind in der Datenschutzerklärung von Google zu finden. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class={linkClass}>policies.google.com/privacy</a></p></section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.ssl.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.ssl']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.cookies.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.cookies.reference']} <a href={routes.cookies} class={linkClass}>{t['footer.legal.cookies']}</a></p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.links.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.links']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.hosting.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.hosting']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.analytics.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.analytics']}</p>
+        <p class="text-body-large text-ink-muted leading-relaxed mt-2">{t['privacy.analytics.more']} <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class={linkClass}>policies.google.com/privacy</a></p>
+      </section>
     </div>
   </div>
 </Layout>

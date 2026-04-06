@@ -8,14 +8,17 @@ import ServicesSection from '@/components/ServicesSection.astro';
 import CaseStudySection from '@/components/CaseStudySection.astro';
 import AboutSection from '@/components/AboutSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
+import { getTranslations } from '@/i18n/translations';
+
 const lang = 'de' as const;
+const t = getTranslations(lang);
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Curfee",
   "url": "https://curfee.com",
-  "description": "Struktur in Systemen aufbauen, die Bestand hat. Diagnose, Begleitung, Sparring.",
+  "description": t['meta.home.jsonld.description'],
   "inLanguage": "de",
   "availableLanguage": ["de", "en"],
   "publisher": { "@id": "https://curfee.com/#organization" }
@@ -23,106 +26,19 @@ const jsonLd = {
 ---
 
 <Layout
-  ui={{
-    nav: { services: "Services", about: "Über mich", faq: "FAQ", cta: "Kontakt" },
-    serviceNames: { diagnosis: "Diagnose", guidance: "Begleitung", sparring: "Sparring" },
-    footer: { notice: "Impressum", privacy: "Datenschutz", cookies: "Cookie-Richtlinie", copyright: "Alle Rechte vorbehalten." },
-    consent: { message: "Diese Website verwendet Cookies zur Analyse der Nutzung.", learnMore: "Mehr erfahren", accept: "Akzeptieren", decline: "Ablehnen" },
-    meta: { defaultDescription: "Philipp Höllinger, Softwarearchitekt aus Salzburg. Ich begleite Organisationen dabei, Struktur in ihren Systemen aufzubauen, die Bestand hat. Diagnose, Begleitung, Sparring.", orgDescription: "Struktur in Systemen aufbauen, die Bestand hat. Diagnose, Begleitung, Sparring.", jobTitle: "Softwarearchitekt" },
-  }}
-  title="Curfee – Struktur, die Bestand hat · Diagnose, Begleitung, Sparring"
-  description="Philipp Höllinger, Softwarearchitekt aus Salzburg. Ich begleite Organisationen dabei, Struktur in ihren Systemen aufzubauen, die Bestand hat. Diagnose, Begleitung, Sparring."
+  title={t['meta.home.title']}
+  description={t['meta.home.description']}
   canonicalPath="/"
   jsonLd={jsonLd}
   lang={lang}
   dateModified="2026-03-30"
 >
-  <HeroSection
-    heading="Ich begleite Organisationen dabei, Struktur in ihren Systemen aufzubauen, die Bestand hat."
-    subtitle="Abhängigkeiten, die niemand mehr vollständig überblickt. Zusammenhänge, die verloren gegangen sind. Entscheidungen, die nirgendwo verankert sind. Ich arbeite mich durch – bis die Ursache sichtbar ist und die Struktur steht."
-    badges={["Software-Architektur", "Tool-Landschaft", "Organisationsstruktur"]}
-  />
-  <ObservationsSection
-    heading="Was ich beobachte"
-    observations={[
-      "Key-Person-Dependencies: Wissen und Entscheidungen, die bei Einzelnen hängen – und mit ihnen gehen.",
-      "Schatten-IT: Teams, die eigene Tools und Abläufe etablieren – ohne gemeinsamen Standard.",
-      "Governance und Richtlinien, die auf Papier existieren – aber nicht greifen, weil sie auf Disziplin beruhen statt auf Verankerung in der Struktur.",
-      "Systeme, die erweitert statt strukturiert werden – obwohl Änderungen längst ein Risiko darstellen.",
-      "Software-Architekturen, System- und Tool-Landschaften, die so gewachsen sind, dass Abhängigkeiten und Zusammenhänge niemand mehr vollständig überblickt – und die mit jeder Erweiterung undurchsichtiger werden."
-    ]}
-  />
-  <VisionSection
-    heading="Was möglich ist"
-    cards={[
-      { icon: "handshake", title: "Gemeinsame Ausrichtung", description: "Menschen mit unterschiedlichen Interessen – ausgerichtet durch ein gemeinsames Fundament.", color: "primary" as const },
-      { icon: "hub", title: "Reibungslose Tool-Integration", description: "Neue Tools und Systeme, die sich reibungslos in die bestehende Landschaft integrieren – weil die Struktur den Rahmen vorgibt.", color: "primary" as const },
-      { icon: "shield", title: "Belastbare Basis", description: "Anforderungen und Prioritäten, die sich ändern, getragen von einer Struktur, die dafür ausgelegt ist.", color: "secondary" as const },
-      { icon: "map", title: "Beständige Entscheidungen", description: "Entscheidungen, die Personen und Technologien überdauern – verankert in der Struktur.", color: "secondary" as const },
-      { icon: "trending_up", title: "Aufbauende Verbesserungen", description: "Verbesserungen, die auf der letzten aufbauen. Und das Fundament für die nächste stärken.", color: "tertiary" as const },
-      { icon: "visibility", title: "Transparente Nachvollziehbarkeit", description: "Abhängigkeiten und Zusammenhänge, die sichtbar sind – und Entscheidungen, die jeder nachvollziehen kann, weil sie in der Struktur verankert sind.", color: "tertiary" as const }
-    ]}
-  />
-  <ServicesSection
-    heading="Wie ich dich dabei unterstütze"
-    services={[
-      {
-        title: "Diagnose",
-        subtitle: "Direkt zur Ursache",
-        description: "Du willst Gewissheit darüber, was in deiner System- und Tool-Landschaft wirklich vor sich geht. Ich arbeite mich Schicht für Schicht durch, bis der gesamte Umfang erfasst ist.",
-        outcome: "Konkrete Befunde aus deinem System. Keine Vermutungen.",
-        deliverables: ["Kompakte Einschätzung deines Systems", "Identifizierte Ursachen mit konkreten Belegen aus deinem System", "Klare Einordnung nach Dringlichkeit und Tragweite", "Empfohlene nächste Schritte"],
-        icon: "search",
-        href: "/services/diagnosis",
-        iconBg: "bg-brand-primary/10",
-        iconText: "text-brand-primary",
-        accentBg: "bg-brand-primary",
-        deliverableBg: "bg-brand-primary/[0.08]",
-      },
-      {
-        title: "Begleitung",
-        subtitle: "Von der Ursache zur Lösung",
-        description: "Die Ursache ist bekannt – oder wir finden sie gemeinsam. Du willst eine Lösung, die strukturell Bestand hat – und jemanden, der die Umsetzung begleitet.",
-        outcome: "Was ich aufbaue, hat Bestand – über das Projekt, einzelne Menschen und Technologien hinaus.",
-        deliverables: ["Identifizierte und behobene Ursache", "Standards, Konventionen und Richtlinien, verankert in der Struktur", "Begleitung der Umsetzung von Anfang bis Ende"],
-        icon: "group_work",
-        href: "/services/guidance",
-        iconBg: "bg-brand-secondary/10",
-        iconText: "text-brand-secondary",
-        accentBg: "bg-brand-secondary",
-        deliverableBg: "bg-brand-secondary/[0.08]",
-      },
-      {
-        title: "Sparring",
-        subtitle: "Ausrichtung, die mitwächst",
-        description: "Du willst jemanden, der den Gesamtkontext kennt und den Überblick behält.",
-        outcome: "Jede Entscheidung wird im Kontext deines gesamten Systems bewertet – nicht isoliert.",
-        deliverables: ["Konkretes Feedback auf strukturelle Entscheidungen", "Laufende Ausrichtung, die mit deinem System mitwächst", "Ein fester Ansprechpartner, der dein System kennt"],
-        icon: "handshake",
-        href: "/services/sparring",
-        iconBg: "bg-brand-tertiary/10",
-        iconText: "text-brand-tertiary",
-        accentBg: "bg-brand-tertiary",
-        deliverableBg: "bg-brand-tertiary/[0.08]",
-      }
-    ]}
-  />
-  <ProcessSection
-    heading="Wie es abläuft"
-    steps={[
-      { title: "Erstgespräch", icon: "chat" },
-      { title: "Ansatz", icon: "explore" },
-      { title: "Umfang", icon: "crop_free" },
-      { title: "Umsetzung", icon: "construction" },
-      { title: "Ergebnis", icon: "task_alt" }
-    ]}
-  />
-  <AboutSection
-    heading="Wer ich bin"
-    texts={["Philipp Höllinger aus Salzburg. Ich verankere Entscheidungen in Strukturen – über Software, Tools und Organisationen hinweg. Mein Blick gilt den Dingen, die unbemerkt bleiben. Den Details, die die Zukunft eines Systems formen.", "Meine Laufbahn begann in der Logistik – Koordination von Abläufen zwischen Waren, Menschen und Prozessen. Von dort ging es in die Softwareentwicklung und schließlich in die Architektur: Automobilindustrie, öffentlicher Sektor, Software Consulting.", "Was ich dabei beobachtet habe: Je mehr Menschen, Tools und KI zum Einsatz kommen, desto wichtiger wird es, dass einmal getroffene Entscheidungen Bestand haben.", "Ich etabliere die Struktur, die genau das sicherstellt."]}
-    emphasizedText="Dafür habe ich Curfee gegründet."
-    tags={["Ursache statt Symptom", "Struktur statt Disziplin", "Bestand statt Workaround"]}
-  />
-  <CaseStudySection heading="Aus der Praxis" placeholder="Kommt bald." />
-  <ContactSection heading="Sprechen wir über dein Anliegen." buttonText="Kontakt" />
+  <HeroSection translations={t} />
+  <ObservationsSection translations={t} />
+  <VisionSection translations={t} />
+  <ServicesSection translations={t} />
+  <ProcessSection translations={t} />
+  <AboutSection translations={t} />
+  <CaseStudySection translations={t} />
+  <ContactSection translations={t} />
 </Layout>

@@ -1,24 +1,25 @@
 ---
 import { EXTERNAL } from '@/configurations/routes';
 
+import type { Translations } from '@/i18n/translations';
+
 interface Props {
-  heading: string;
-  buttonText: string;
+  translations: Translations;
 }
-const { heading, buttonText } = Astro.props;
+const { translations: t } = Astro.props;
 ---
 
 <section id="contact" class="py-20 md:py-28" aria-labelledby="contact-heading">
   <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
   <div class="text-center max-w-3xl mx-auto">
     <h2 id="contact-heading" class="text-headline-large md:text-display-small text-ink-primary">
-      {heading}
+      {t['calltoaction.heading']}
     </h2>
     <a
       href={EXTERNAL.email}
       class="inline-flex items-center justify-center gap-2 border border-brand-primary text-brand-primary px-8 py-4 rounded-full text-label-large font-medium hover:bg-brand-primary/[0.08] active:bg-brand-primary/[0.12] transition-all duration-medium2 ease-standard mt-12 md:mt-16"
     >
-      {buttonText}
+      {t['calltoaction.button']}
     </a>
   </div>
   </div>

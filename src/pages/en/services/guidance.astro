@@ -1,43 +1,16 @@
 ---
 import ServicePageTemplate from '@/components/ServicePageTemplate.astro';
+import { getTranslations } from '@/i18n/translations';
+
+const lang = 'en' as const;
+const t = getTranslations(lang);
 ---
 
 <ServicePageTemplate
-  icon="group_work"
-  title="Guidance"
-  subtitle="From root cause to solution"
-  introduction="The root cause is known, or we find it together. I design the solution and guide the implementation. The implementation itself is done by those with the expertise in the relevant systems, tools, or processes. I make sure the structure holds."
-  processHeading="How it works"
-  processSteps={[
-    { title: "First call", description: "We get to know each other and talk about what brought you here." },
-    { title: "Root cause", description: "We find the root cause, or build on what is already understood." },
-    { title: "Design", description: "I design the solution: the structure that resolves the root cause." },
-    { title: "Implementation guidance", description: "I guide the process. The implementation is done by those who know the systems, tools, and processes." },
-    { title: "Completion", description: "The root cause is resolved. The result is embedded in the structure." }
-  ]}
-  deliverablesHeading="What you get"
-  deliverables={["Root cause identified and resolved", "Standards, conventions, and guidelines embedded in the structure", "Implementation guidance from start to finish"]}
-  idealHeading="Your situation"
-  idealClients={[
-    "The root cause is known, or you want to find it together and resolve it directly.",
-    "Guidelines and standards exist — but are not followed, because there is no structure to anchor them. It should not be discipline that ensures compliance, but the structure itself.",
-    "You want solutions that survive the next staff turnover, tool migration, or reorganization — not just a quick fix that treats the symptom."
-  ]}
-  differentiatorHeading="The standard"
-  differentiator="Standards, conventions, and guidelines — embedded in the structure — that apply to every person and every tool. Each decision builds on the previous one and strengthens the foundation for the next."
-  scopeExcludedHeading="Not included"
-  scopeExcluded={["Hands-on implementation", "Technology evaluation or vendor comparison", "Post-project maintenance"]}
-  callToAction="Tell me what's on your mind"
-  breadcrumbHome="Home"
-  lang="en"
+  serviceKey="guidance" icon="group_work"
+  translations={t}
+  lang={lang}
   canonicalPath="/en/services/guidance"
-  pageTitle="Guidance — Curfee"
-  pageDesc="From root cause to solution. I design the solution and guide its implementation until the structure stands."
-  ui={{
-    nav: { services: "Services", about: "About", faq: "FAQ", cta: "Contact" },
-    serviceNames: { diagnosis: "Diagnosis", guidance: "Guidance", sparring: "Sparring" },
-    footer: { notice: "Legal Notice", privacy: "Privacy Policy", cookies: "Cookie Policy", copyright: "All rights reserved." },
-    consent: { message: "This website uses cookies for usage analysis.", learnMore: "Learn more", accept: "Accept", decline: "Decline" },
-    meta: { defaultDescription: "Philipp Höllinger, software architect from Salzburg. I help organizations build lasting structure in their systems. Diagnosis, Guidance, Sparring.", orgDescription: "Building lasting structure in systems. Diagnosis, Guidance, Sparring.", jobTitle: "Software Architect" },
-  }}
+  pageTitle={t['services.guidance.page.title']}
+  pageDesc={t['services.guidance.page.description']}
 />

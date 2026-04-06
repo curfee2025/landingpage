@@ -1,18 +1,21 @@
 ---
 import Icon from '@/components/shared/Icon.astro';
 import Layout from '@/layouts/Layout.astro';
+import { getTranslations } from '@/i18n/translations';
+
 const lang = 'de' as const;
+const t = getTranslations(lang);
 
 const questions = [
-  { question: "Für wen ist das relevant?", answer: "Für alle, die mit Software-Architekturen, System- und Tool-Landschaften oder Prozessen arbeiten, die gewachsen sind – und Klarheit über Abhängigkeiten, Zusammenhänge und die Verankerung von Entscheidungen wollen." },
-  { question: "Wie läuft das Erstgespräch ab?", answer: "Ungezwungen. Du erzählst, was dich beschäftigt, ich höre zu. Danach wissen wir beide, ob und wie ich helfen kann." },
-  { question: "Implementierst du selbst?", answer: "Nein. Ich entwerfe die Lösung und begleite dein Team durch die Umsetzung. Die Implementierung überlasse ich denjenigen, die in den jeweiligen Systemen, Tools oder Prozessen die Expertise haben." },
-  { question: "Was passiert nach der Diagnose?", answer: "Du entscheidest. Die Diagnose steht für sich – du kannst damit eigenständig weiterarbeiten. Wenn du willst, begleite ich dich im nächsten Schritt weiter." },
-  { question: "Arbeitest du remote oder vor Ort?", answer: "Beides – kommt auf das Szenario an. Der Großteil der Arbeit findet remote statt. Vor Ort, wenn es sinnvoll ist." },
-  { question: "Lassen sich die Services kombinieren?", answer: "Ja. Ein typischer Weg beginnt mit der Diagnose, geht weiter in die Begleitung und entwickelt sich zum Sparring. Jeder Service steht für sich, aber sie bauen aufeinander auf." },
-  { question: "Was genau verankerst du in der Struktur?", answer: "Standards, Richtlinien und Konventionen, quer über Software, Tools und Organisationen. Direkt in der Struktur verankert, sodass sie für alle und alles automatisch gelten, ohne auf individuelle Disziplin angewiesen zu sein. Sie gelten unabhängig davon, wer kommt und geht." },
-  { question: "Wie lange dauert ein typisches Engagement?", answer: "Das hängt vom Umfang der Systeme und Strukturen ab, die wir gemeinsam durchleuchten. Den Umfang definieren wir gemeinsam im Erstgespräch." },
-  { question: "Arbeitest du in agilen Frameworks?", answer: "Nein. Meine Arbeit erfordert konzentrierte, ununterbrochene Analyse und den Freiraum, der tiefes Denken erst ermöglicht. Ich passe mich dem Rhythmus deines Teams an, aber die Analyse selbst braucht Tiefe und Konzentration." }
+  { question: t['faq.9.question'], answer: t['faq.9.answer'] },
+  { question: t['faq.1.question'], answer: t['faq.1.answer'] },
+  { question: t['faq.2.question'], answer: t['faq.2.answer'] },
+  { question: t['faq.3.question'], answer: t['faq.3.answer'] },
+  { question: t['faq.4.question'], answer: t['faq.4.answer'] },
+  { question: t['faq.5.question'], answer: t['faq.5.answer'] },
+  { question: t['faq.6.question'], answer: t['faq.6.answer'] },
+  { question: t['faq.7.question'], answer: t['faq.7.answer'] },
+  { question: t['faq.8.question'], answer: t['faq.8.answer'] },
 ];
 
 const jsonLd = [
@@ -29,7 +32,7 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://curfee.com/" },
+      { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/" },
       { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://curfee.com/faq" }
     ]
   }
@@ -37,15 +40,8 @@ const jsonLd = [
 ---
 
 <Layout
-  ui={{
-    nav: { services: "Services", about: "Über mich", faq: "FAQ", cta: "Kontakt" },
-    serviceNames: { diagnosis: "Diagnose", guidance: "Begleitung", sparring: "Sparring" },
-    footer: { notice: "Impressum", privacy: "Datenschutz", cookies: "Cookie-Richtlinie", copyright: "Alle Rechte vorbehalten." },
-    consent: { message: "Diese Website verwendet Cookies zur Analyse der Nutzung.", learnMore: "Mehr erfahren", accept: "Akzeptieren", decline: "Ablehnen" },
-    meta: { defaultDescription: "Philipp Höllinger, Softwarearchitekt aus Salzburg. Ich begleite Organisationen dabei, Struktur in ihren Systemen aufzubauen, die Bestand hat. Diagnose, Begleitung, Sparring.", orgDescription: "Struktur in Systemen aufbauen, die Bestand hat. Diagnose, Begleitung, Sparring.", jobTitle: "Softwarearchitekt" },
-  }}
-  title="FAQ – Curfee | Häufige Fragen"
-  description="Antworten auf häufige Fragen zu Curfees Beratungsleistungen: Umfang, Zeitrahmen und wie Diagnose, Begleitung und Sparring funktionieren."
+  title={t['meta.faq.title']}
+  description={t['meta.faq.description']}
   canonicalPath="/faq"
   jsonLd={jsonLd}
   lang={lang}
@@ -56,15 +52,22 @@ const jsonLd = [
     <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6">
       <Icon name="help" class="w-6 h-6 text-brand-primary" />
     </div>
-    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">Häufige Fragen</h1>
-    <p class="text-title-medium text-brand-primary font-medium mb-12">Deine Frage ist nicht dabei? Klären wir im Erstgespräch.</p>
+    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">{t['faq.heading']}</h1>
+    <p class="text-title-medium text-brand-primary font-medium mb-12">{t['faq.subtitle']}</p>
 
     <div class="divide-y divide-stroke-subtle" data-faq-accordion>
       {questions.map(q => (
         <div>
-          <button type="button" data-faq-trigger aria-expanded="false" class="w-full flex items-center justify-between cursor-pointer py-6 text-title-medium text-ink-primary hover:text-brand-primary transition-colors duration-short4 ease-standard text-left">
+          <button
+            type="button"
+            data-faq-trigger
+            aria-expanded="false"
+            class="w-full flex items-center justify-between cursor-pointer py-6 text-title-medium text-ink-primary hover:text-brand-primary transition-colors duration-short4 ease-standard text-left"
+          >
             <span>{q.question}</span>
-            <span data-faq-icon class="flex-shrink-0 ml-4 text-ink-muted"><Icon name="expand_less" class="w-5 h-5" /></span>
+            <span data-faq-icon class="flex-shrink-0 ml-4 text-ink-muted">
+              <Icon name="expand_less" class="w-5 h-5" />
+            </span>
           </button>
           <div data-faq-content class="faq-panel" aria-hidden="true">
             <div class="faq-panel-inner">
@@ -77,25 +80,63 @@ const jsonLd = [
   </div>
 
   <style>
-    .faq-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 200ms ease-out, visibility 0s linear 200ms; visibility: hidden; }
-    .faq-panel[aria-hidden="false"] { grid-template-rows: 1fr; visibility: visible; transition: grid-template-rows 200ms ease-out, visibility 0s linear 0s; }
-    .faq-panel-inner { overflow: hidden; }
-    [data-faq-icon] { transition: transform 200ms ease-out; }
-    button[aria-expanded="true"] [data-faq-icon] { transform: rotate(180deg); }
+    /*
+     * CSS-only accordion panel using grid-template-rows: 0fr/1fr.
+     * This avoids all JS height calculation and scrollHeight quirks.
+     * The collapsed state uses visibility:hidden as a Firefox safeguard:
+     * during view-transition snapshots, Firefox may briefly render content
+     * at natural height before inline styles or class-based rules take effect.
+     * visibility:hidden ensures nothing flashes even if the grid row
+     * momentarily expands during the snapshot frame.
+     */
+    .faq-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 200ms ease-out, visibility 0s linear 200ms;
+      visibility: hidden;
+    }
+    .faq-panel[aria-hidden="false"] {
+      grid-template-rows: 1fr;
+      visibility: visible;
+      transition: grid-template-rows 200ms ease-out, visibility 0s linear 0s;
+    }
+    .faq-panel-inner {
+      overflow: hidden;
+    }
+
+    [data-faq-icon] {
+      transition: transform 200ms ease-out;
+    }
+    button[aria-expanded="true"] [data-faq-icon] {
+      transform: rotate(180deg);
+    }
   </style>
 
   <script>
     function initFaq() {
-      const container = document.querySelector('[data-faq-accordion]');
+      const container = document.querySelector('[data-faq-accordion]') as HTMLElement | null;
       if (!container || container.hasAttribute('data-faq-ready')) return;
       container.setAttribute('data-faq-ready', '');
-      const triggers = container.querySelectorAll('[data-faq-trigger]');
+
+      const triggers = container.querySelectorAll('[data-faq-trigger]') as NodeListOf<HTMLButtonElement>;
+
       triggers.forEach(trigger => {
         trigger.addEventListener('click', () => {
           const isOpen = trigger.getAttribute('aria-expanded') === 'true';
-          const panel = trigger.nextElementSibling;
-          triggers.forEach(t => { t.setAttribute('aria-expanded', 'false'); t.nextElementSibling.setAttribute('aria-hidden', 'true'); });
-          if (!isOpen) { trigger.setAttribute('aria-expanded', 'true'); panel.setAttribute('aria-hidden', 'false'); }
+          const panel = trigger.nextElementSibling as HTMLElement;
+
+          // Close all panels first
+          triggers.forEach(t => {
+            t.setAttribute('aria-expanded', 'false');
+            const p = t.nextElementSibling as HTMLElement;
+            p.setAttribute('aria-hidden', 'true');
+          });
+
+          // Open the clicked panel if it was closed
+          if (!isOpen) {
+            trigger.setAttribute('aria-expanded', 'true');
+            panel.setAttribute('aria-hidden', 'false');
+          }
         });
       });
     }

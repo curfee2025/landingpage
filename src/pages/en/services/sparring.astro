@@ -1,42 +1,16 @@
 ---
 import ServicePageTemplate from '@/components/ServicePageTemplate.astro';
+import { getTranslations } from '@/i18n/translations';
+
+const lang = 'en' as const;
+const t = getTranslations(lang);
 ---
 
 <ServicePageTemplate
-  icon="handshake"
-  title="Sparring"
-  subtitle="Alignment that grows with your system"
-  introduction="Your system evolves, and with it the decisions that shape its future. You want someone who knows your system and understands the context. I evaluate decisions, provide honest feedback, and make sure the structural direction holds."
-  processHeading="How it works"
-  processSteps={[
-    { title: "First call", description: "We get to know each other and talk about what brought you here." },
-    { title: "Onboarding", description: "I learn your system, your constraints, and your goals." },
-    { title: "Ongoing feedback", description: "I evaluate structural decisions and provide concrete, grounded feedback." },
-    { title: "Adaptation", description: "The rhythm adapts to the decisions at hand." }
-  ]}
-  deliverablesHeading="What you get"
-  deliverables={["Concrete feedback on structural decisions", "Ongoing alignment that grows with your system", "A dedicated contact who knows your system"]}
-  idealHeading="Your situation"
-  idealClients={[
-    "Your systems are evolving — and with them the decisions that determine whether dependencies and connections remain manageable.",
-    "Teams and departments are building their own tooling and workflows. You want someone who ensures the shared direction holds — before the system landscape diverges.",
-    "You value well-founded feedback that considers the entire system."
-  ]}
-  differentiatorHeading="The standard"
-  differentiator="My feedback always considers the full context of your system — not just the decision at hand, but how it aligns with the standards, conventions, and guidelines already in place."
-  scopeExcludedHeading="Not included"
-  scopeExcluded={["Fixed-scope project work", "Implementation work", "Project management or coordination"]}
-  callToAction="Tell me what's on your mind"
-  breadcrumbHome="Home"
-  lang="en"
+  serviceKey="sparring" icon="handshake"
+  translations={t}
+  lang={lang}
   canonicalPath="/en/services/sparring"
-  pageTitle="Sparring — Curfee"
-  pageDesc="Ongoing feedback on structural decisions. Your system evolves — I make sure the structural direction holds."
-  ui={{
-    nav: { services: "Services", about: "About", faq: "FAQ", cta: "Contact" },
-    serviceNames: { diagnosis: "Diagnosis", guidance: "Guidance", sparring: "Sparring" },
-    footer: { notice: "Legal Notice", privacy: "Privacy Policy", cookies: "Cookie Policy", copyright: "All rights reserved." },
-    consent: { message: "This website uses cookies for usage analysis.", learnMore: "Learn more", accept: "Accept", decline: "Decline" },
-    meta: { defaultDescription: "Philipp Höllinger, software architect from Salzburg. I help organizations build lasting structure in their systems. Diagnosis, Guidance, Sparring.", orgDescription: "Building lasting structure in systems. Diagnosis, Guidance, Sparring.", jobTitle: "Software Architect" },
-  }}
+  pageTitle={t['services.sparring.page.title']}
+  pageDesc={t['services.sparring.page.description']}
 />

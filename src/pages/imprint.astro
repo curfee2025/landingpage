@@ -1,58 +1,118 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
+import { getTranslations } from '@/i18n/translations';
+
 const lang = 'de' as const;
-const jsonLd = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-  { "@type": "ListItem", "position": 1, "name": "Startseite", "item": "https://curfee.com/" },
-  { "@type": "ListItem", "position": 2, "name": "Impressum", "item": "https://curfee.com/imprint" }
-]};
+const t = getTranslations(lang);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/" },
+    { "@type": "ListItem", "position": 2, "name": t['footer.legal.notice'], "item": "https://curfee.com/imprint" }
+  ]
+};
 ---
 
 <Layout
-  ui={{
-    nav: { services: "Services", about: "Über mich", faq: "FAQ", cta: "Kontakt" },
-    serviceNames: { diagnosis: "Diagnose", guidance: "Begleitung", sparring: "Sparring" },
-    footer: { notice: "Impressum", privacy: "Datenschutz", cookies: "Cookie-Richtlinie", copyright: "Alle Rechte vorbehalten." },
-    consent: { message: "Diese Website verwendet Cookies zur Analyse der Nutzung.", learnMore: "Mehr erfahren", accept: "Akzeptieren", decline: "Ablehnen" },
-    meta: { defaultDescription: "Philipp Höllinger, Softwarearchitekt aus Salzburg. Ich begleite Organisationen dabei, Struktur in ihren Systemen aufzubauen, die Bestand hat. Diagnose, Begleitung, Sparring.", orgDescription: "Struktur in Systemen aufbauen, die Bestand hat. Diagnose, Begleitung, Sparring.", jobTitle: "Softwarearchitekt" },
-  }} title="Impressum – Curfee" description="Impressum und rechtliche Informationen für Curfee e.U., Unternehmensberatung im Bereich Informationstechnologie von Philipp Höllinger, Salzburg, Österreich." lang={lang} canonicalPath="/imprint" jsonLd={jsonLd} dateModified="2026-03-30">
+  title={t['meta.imprint.title']}
+  description={t['meta.imprint.description']}
+  lang={lang}
+  canonicalPath="/imprint"
+  jsonLd={jsonLd}
+  dateModified="2026-03-30"
+>
   <div class="max-w-3xl mx-auto px-6">
-    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6"><Icon name="gavel" class="w-6 h-6 text-brand-primary" /></div>
-    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">Impressum</h1>
-    <p class="text-title-medium text-brand-primary font-medium mb-8">Informationspflicht laut § 5 E-Commerce-Gesetz (ECG) sowie Offenlegungspflicht laut § 24 Mediengesetz</p>
+    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6">
+      <Icon name="gavel" class="w-6 h-6 text-brand-primary" />
+    </div>
+    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">{t['imprint.heading']}</h1>
+    <p class="text-title-medium text-brand-primary font-medium mb-8">{t['imprint.legal.basis']}</p>
+
+    <!-- Identity + Contact grouped -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
       <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <h2 class="text-label-large text-ink-primary mb-4">Medieninhaber</h2>
+        <h2 class="text-label-large text-ink-primary mb-4">{t['imprint.owner']}</h2>
         <div class="text-body-large text-ink-muted">
-          <p class="text-title-medium text-ink-primary">Curfee e.U.</p>
-          <p class="mt-1">Philipp Höllinger</p>
-          <div class="mt-3 leading-snug"><p>Lieferinger Hauptstraße 49A</p><p>5020 Salzburg</p><p>Österreich</p></div>
+          <p class="text-title-medium text-ink-primary">{t['imprint.company']}</p>
+          <p class="mt-1">{t['imprint.name']}</p>
+          <div class="mt-3 leading-snug">
+            <p>{t['imprint.address.street']}</p>
+            <p>{t['imprint.address.city']}</p>
+            <p>{t['imprint.address.country']}</p>
+          </div>
         </div>
       </div>
       <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <h2 class="text-label-large text-ink-primary mb-4">Kontakt</h2>
+        <h2 class="text-label-large text-ink-primary mb-4">{t['imprint.contact']}</h2>
         <div class="space-y-4">
-          <div><span class="text-label-large font-medium text-ink-muted">E-Mail</span><p><a href="mailto:office@curfee.com" class="text-body-large text-brand-primary hover:underline transition-colors duration-short4 ease-standard">office@curfee.com</a></p></div>
-          <div><span class="text-label-large font-medium text-ink-muted">Telefon</span><p><a href="tel:+4367763024228" class="text-body-large text-brand-primary hover:underline transition-colors duration-short4 ease-standard">+43 677 630 242 28</a></p></div>
+          <div>
+            <span class="text-label-large font-medium text-ink-muted">{t['imprint.email.label']}</span>
+            <p><a href={`mailto:${t['imprint.email']}`} class="text-body-large text-brand-primary hover:underline transition-colors duration-short4 ease-standard">{t['imprint.email']}</a></p>
+          </div>
+          <div>
+            <span class="text-label-large font-medium text-ink-muted">{t['imprint.phone.label']}</span>
+            <p><a href={`tel:${t['imprint.phone'].replace(/\s/g, '')}`} class="text-body-large text-brand-primary hover:underline transition-colors duration-short4 ease-standard">{t['imprint.phone']}</a></p>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Legal basis as structured list -->
     <section class="mb-10">
-      <h2 class="text-headline-small text-ink-primary mb-8">Gesetzliche Grundlage</h2>
+      <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.legal.heading']}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <div><span class="text-label-medium font-medium text-ink-muted">Unternehmensgegenstand</span><p class="text-body-large text-ink-primary mt-1">Dienstleistungen in der automatischen Datenverarbeitung und Informationstechnik, Unternehmensberatung</p></div>
-        <div><span class="text-label-medium font-medium text-ink-muted">Gewerbeart</span><p class="text-body-large text-ink-primary mt-1">Reglementiertes Gewerbe</p></div>
-        <div><span class="text-label-medium font-medium text-ink-muted">Gewerbebehörde</span><p class="text-body-large text-ink-primary mt-1">Magistrat der Stadt Salzburg</p></div>
-        <div><span class="text-label-medium font-medium text-ink-muted">GISA-Zahl</span><p class="text-body-large text-ink-primary mt-1">39453891</p></div>
-        <div><span class="text-label-medium font-medium text-ink-muted">Gesetzliche Grundlage</span><p class="text-body-large text-ink-primary mt-1">Gewerbeordnung</p><a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener noreferrer" class="text-body-small text-brand-primary hover:underline transition-colors duration-short4 ease-standard">Einsehbar unter www.ris.bka.gv.at</a></div>
-        <div><span class="text-label-medium font-medium text-ink-muted">Kammerzugehörigkeit</span><p class="text-body-large text-ink-primary mt-1">Mitglied der Wirtschaftskammer Österreich (WKO)</p></div>
+        <div>
+          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.trade.label']}</span>
+          <p class="text-body-large text-ink-primary mt-1">{t['imprint.trade']}</p>
+        </div>
+        <div>
+          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.form.label']}</span>
+          <p class="text-body-large text-ink-primary mt-1">{t['imprint.form']}</p>
+        </div>
+        <div>
+          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.authority.label']}</span>
+          <p class="text-body-large text-ink-primary mt-1">{t['imprint.authority']}</p>
+        </div>
+        <div>
+          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.gisa.label']}</span>
+          <p class="text-body-large text-ink-primary mt-1">{t['imprint.gisa']}</p>
+        </div>
+        <div>
+          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.law.label']}</span>
+          <p class="text-body-large text-ink-primary mt-1">{t['imprint.law']}</p>
+          <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener noreferrer" class="text-body-small text-brand-primary hover:underline transition-colors duration-short4 ease-standard">{t['imprint.lawlink']}</a>
+        </div>
+        <div>
+          <span class="text-label-medium font-medium text-ink-muted">{t['imprint.wko.label']}</span>
+          <p class="text-body-large text-ink-primary mt-1">{t['imprint.wko']}</p>
+        </div>
       </div>
     </section>
-    <section class="mb-10"><h2 class="text-headline-small text-ink-primary mb-8">Blattlinie</h2><p class="text-body-large text-ink-muted leading-relaxed mb-2">Dieses Medium bietet Analysen, Beiträge und Kommentare zu aktuellen Entwicklungen der elektronischen Datenverarbeitung und Informationstechnik.</p><p class="text-body-large text-ink-primary">Verantwortlich für den Inhalt: Philipp Höllinger</p></section>
+
+    <!-- Editorial -->
+    <section class="mb-10">
+      <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.editorial.heading']}</h2>
+      <p class="text-body-large text-ink-muted leading-relaxed mb-2">{t['imprint.editorial']}</p>
+      <p class="text-body-large text-ink-primary">{t['imprint.editorial.responsible']}</p>
+    </section>
+
+    <!-- Liability + Copyright as minimal text blocks -->
     <div class="space-y-10 mb-10">
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Haftung für die Inhalte dieser Webseite</h2><p class="text-body-large text-ink-muted leading-relaxed">Der Medieninhaber bemüht sich, korrekte und aktuelle Informationen bereitzustellen, übernimmt jedoch keine Haftung für deren Richtigkeit, Vollständigkeit und Aktualität. Bei Bekanntwerden von Rechtsverletzungen werden diese Inhalte umgehend entfernt.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Haftung für ausgehende Links</h2><p class="text-body-large text-ink-muted leading-relaxed">Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte der Medieninhaber keinen Einfluss hat. Für diese fremden Inhalte kann daher keine Haftung übernommen werden. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft – rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden derartige Links umgehend entfernt.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Urheberrecht</h2><p class="text-body-large text-ink-muted leading-relaxed">Die Verwendung von Texten und Bildern dieser Webseite ist ohne ausdrückliche Genehmigung nicht gestattet. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des österreichischen Urheberrechts bedürfen der schriftlichen Genehmigung von Curfee e.U. Soweit die Inhalte auf dieser Seite nicht vom Medieninhaber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden derartige Inhalte umgehend entfernt.</p></section>
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.liability.content.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['imprint.liability.content']}</p>
+      </section>
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.liability.links.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['imprint.liability.links']}</p>
+      </section>
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['imprint.copyright.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['imprint.copyright']}</p>
+      </section>
     </div>
   </div>
 </Layout>

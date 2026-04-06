@@ -1,11 +1,21 @@
 ---
 import Icon from '@/components/shared/Icon.astro';
 
+import type { Translations } from '@/i18n/translations';
+
 interface Props {
-  heading: string;
-  cards: { icon: string; title: string; description: string; color: 'primary' | 'secondary' | 'tertiary' }[];
+  translations: Translations;
 }
-const { heading, cards } = Astro.props;
+const { translations: t } = Astro.props;
+
+const cards = [
+  { icon: 'handshake', title: t['about.vision.1.title'], description: t['about.vision.1.description'], color: 'primary' as const },
+  { icon: 'hub', title: t['about.vision.2.title'], description: t['about.vision.2.description'], color: 'primary' as const },
+  { icon: 'shield', title: t['about.vision.3.title'], description: t['about.vision.3.description'], color: 'secondary' as const },
+  { icon: 'map', title: t['about.vision.4.title'], description: t['about.vision.4.description'], color: 'secondary' as const },
+  { icon: 'trending_up', title: t['about.vision.5.title'], description: t['about.vision.5.description'], color: 'tertiary' as const },
+  { icon: 'visibility', title: t['about.vision.6.title'], description: t['about.vision.6.description'], color: 'tertiary' as const },
+];
 
 const colorMap = {
   primary: { bg: 'bg-brand-primary/10', text: 'text-brand-primary' },
@@ -17,7 +27,7 @@ const colorMap = {
 <section class="py-20 md:py-24" aria-labelledby="vision-heading">
   <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-      <h2 id="vision-heading" class="text-headline-large md:text-display-small text-ink-primary">{heading}</h2>
+      <h2 id="vision-heading" class="text-headline-large md:text-display-small text-ink-primary">{t['about.vision.heading']}</h2>
     </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         {cards.slice(0, 3).map((card) => (

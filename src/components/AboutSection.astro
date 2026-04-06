@@ -1,11 +1,10 @@
 ---
+import type { Translations } from '@/i18n/translations';
+
 interface Props {
-  heading: string;
-  texts: string[];
-  emphasizedText: string;
-  tags: string[];
+  translations: Translations;
 }
-const { heading, texts, emphasizedText, tags } = Astro.props;
+const { translations: t } = Astro.props;
 ---
 
 <section id="about" class="py-20 md:py-28" aria-labelledby="about-heading">
@@ -13,7 +12,7 @@ const { heading, texts, emphasizedText, tags } = Astro.props;
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-12 md:mb-16">
         <h2 id="about-heading" class="text-headline-large md:text-display-small text-ink-primary mb-8">
-          {heading}
+          {t['about.heading']}
         </h2>
         <picture>
           <source srcset="/assets/profile.webp" type="image/webp" />
@@ -21,13 +20,16 @@ const { heading, texts, emphasizedText, tags } = Astro.props;
         </picture>
       </div>
       <div class="space-y-4 text-body-large text-ink-muted leading-relaxed">
-        {texts.map(t => <p>{t}</p>)}
-        <p class="text-ink-primary font-medium">{emphasizedText}</p>
+        <p>{t['about.text.1']}</p>
+        <p>{t['about.text.2']}</p>
+        <p>{t['about.text.3']}</p>
+        <p>{t['about.text.4']}</p>
+        <p class="text-ink-primary font-medium">{t['about.text.5']}</p>
       </div>
       <div class="flex flex-wrap justify-center gap-3 mt-8">
-        {tags.map(tag => (
-          <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{tag}</span>
-        ))}
+        <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{t['about.tag.1']}</span>
+        <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{t['about.tag.2']}</span>
+        <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{t['about.tag.3']}</span>
       </div>
     </div>
   </div>

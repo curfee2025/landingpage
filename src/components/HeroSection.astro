@@ -1,23 +1,23 @@
 ---
+import type { Translations } from '@/i18n/translations';
+
 interface Props {
-  heading: string;
-  subtitle: string;
-  badges: string[];
+  translations: Translations;
 }
-const { heading, subtitle, badges } = Astro.props;
+const { translations: t } = Astro.props;
 ---
 
 <section class="py-16 md:py-24" aria-labelledby="hero-heading">
   <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <div class="max-w-4xl mx-auto text-center">
       <h1 id="hero-heading" class="text-headline-large md:text-display-small lg:text-display-medium text-ink-primary leading-tight tracking-tight">
-        {heading}
+        {t['hero.heading']}
       </h1>
-      <p class="text-body-large text-ink-muted mt-6">{subtitle}</p>
+      <p class="text-body-large text-ink-muted mt-6">{t['hero.subtitle']}</p>
       <div class="flex flex-wrap justify-center gap-3 mt-10">
-        {badges.map(b => (
-          <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{b}</span>
-        ))}
+        <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{t['hero.badge.1']}</span>
+        <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{t['hero.badge.2']}</span>
+        <span class="text-label-large text-brand-primary bg-brand-primary/[0.08] px-4 py-2 rounded-full">{t['hero.badge.3']}</span>
       </div>
     </div>
   </div>

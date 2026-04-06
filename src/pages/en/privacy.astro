@@ -1,61 +1,126 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
+import { getTranslations } from '@/i18n/translations';
+import { localizedRoutes } from '@/configurations/routes';
+
 const lang = 'en' as const;
+const t = getTranslations(lang);
+const routes = localizedRoutes(lang);
 const linkClass = "text-brand-primary hover:underline transition-colors duration-short4 ease-standard";
-const jsonLd = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://curfee.com/en/" },
-  { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://curfee.com/en/privacy" }
-]};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/en/" },
+    { "@type": "ListItem", "position": 2, "name": t['footer.legal.privacy'], "item": "https://curfee.com/en/privacy" }
+  ]
+};
 ---
 
 <Layout
-  ui={{
-    nav: { services: "Services", about: "About", faq: "FAQ", cta: "Contact" },
-    serviceNames: { diagnosis: "Diagnosis", guidance: "Guidance", sparring: "Sparring" },
-    footer: { notice: "Legal Notice", privacy: "Privacy Policy", cookies: "Cookie Policy", copyright: "All rights reserved." },
-    consent: { message: "This website uses cookies for usage analysis.", learnMore: "Learn more", accept: "Accept", decline: "Decline" },
-    meta: { defaultDescription: "Philipp Höllinger, software architect from Salzburg. I help organizations build lasting structure in their systems. Diagnosis, Guidance, Sparring.", orgDescription: "Building lasting structure in systems. Diagnosis, Guidance, Sparring.", jobTitle: "Software Architect" },
-  }} title="Privacy Policy — Curfee" description="Privacy policy for Curfee e.U., IT management consulting by Philipp Höllinger, Salzburg, Austria." lang={lang} canonicalPath="/en/privacy" jsonLd={jsonLd} dateModified="2026-03-30">
+  title={t['meta.privacy.title']}
+  description={t['meta.privacy.description']}
+  lang={lang}
+  canonicalPath="/en/privacy"
+  jsonLd={jsonLd}
+  dateModified="2026-03-30"
+>
   <div class="max-w-3xl mx-auto px-6">
-    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6"><Icon name="shield" class="w-6 h-6 text-brand-primary" /></div>
-    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">Privacy Policy</h1>
-    <p class="text-title-medium text-brand-primary font-medium mb-8">This privacy policy informs users of this website, in accordance with Art. 13 of the General Data Protection Regulation (GDPR), about the nature, scope, and purpose of the processing of personal data by the data controller.</p>
+    <div class="w-12 h-12 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6">
+      <Icon name="shield" class="w-6 h-6 text-brand-primary" />
+    </div>
+    <h1 class="text-display-small md:text-display-medium text-ink-primary mb-2">{t['privacy.heading']}</h1>
+    <p class="text-title-medium text-brand-primary font-medium mb-8">{t['privacy.scope']}</p>
+
+    <!-- Controller + Contact Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <h2 class="text-label-large text-ink-primary mb-4">Data controller</h2>
-        <div class="text-body-large text-ink-muted"><p class="text-title-medium text-ink-primary">Curfee e.U.</p><p class="mt-1">Philipp Höllinger</p><div class="mt-3 leading-snug"><p>Lieferinger Hauptstraße 49A</p><p>5020 Salzburg</p><p>Austria</p></div></div>
+        <h2 class="text-label-large text-ink-primary mb-4">{t['privacy.controller.heading']}</h2>
+        <div class="text-body-large text-ink-muted">
+          <p class="text-title-medium text-ink-primary">{t['imprint.company']}</p>
+          <p class="mt-1">{t['imprint.name']}</p>
+          <div class="mt-3 leading-snug">
+            <p>{t['imprint.address.street']}</p>
+            <p>{t['imprint.address.city']}</p>
+            <p>{t['imprint.address.country']}</p>
+          </div>
+        </div>
       </div>
       <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6">
-        <h2 class="text-label-large text-ink-primary mb-4">Contact</h2>
+        <h2 class="text-label-large text-ink-primary mb-4">{t['imprint.contact']}</h2>
         <div class="space-y-4">
-          <div><span class="text-label-large font-medium text-ink-muted">Email</span><p><a href="mailto:office@curfee.com" class={linkClass}>office@curfee.com</a></p></div>
-          <div><span class="text-label-large font-medium text-ink-muted">Phone</span><p><a href="tel:+4367763024228" class={linkClass}>+43 677 630 242 28</a></p></div>
+          <div>
+            <span class="text-label-large font-medium text-ink-muted">{t['imprint.email.label']}</span>
+            <p><a href={`mailto:${t['imprint.email']}`} class={linkClass}>{t['imprint.email']}</a></p>
+          </div>
+          <div>
+            <span class="text-label-large font-medium text-ink-muted">{t['privacy.phone.label']}</span>
+            <p><a href={`tel:${t['imprint.phone'].replace(/\s/g, '')}`} class={linkClass}>{t['imprint.phone']}</a></p>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- Legal text sections -->
     <div class="space-y-10 mb-12">
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Processing of personal data</h2><p class="text-body-large text-ink-muted leading-relaxed">Personal data is collected on this website only to the extent that is technically necessary. Processing is subject to purpose limitation and data minimisation. Collected data is under no circumstances disclosed to third parties without a legal basis. The processing of personal data is based on the following legal grounds: Consent pursuant to Art. 6(1)(a) GDPR — the data subject has given consent to the processing of their personal data for one or more specific purposes. Performance of a contract pursuant to Art. 6(1)(b) GDPR — processing is necessary for the performance of a contract to which the data subject is party, or in order to take steps at the request of the data subject prior to entering into a contract. Legitimate interests pursuant to Art. 6(1)(f) GDPR — processing is necessary for the purposes of the legitimate interests pursued by the controller or by a third party, except where such interests are overridden by the interests or fundamental rights and freedoms of the data subject.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Rights of data subjects</h2><p class="text-body-large text-ink-muted leading-relaxed">As a data subject, you have the following rights: Right of access (Art. 15 GDPR) — You have the right to obtain confirmation as to whether personal data is being processed, as well as information about such data and its processing. Right to rectification (Art. 16 GDPR) — You have the right to request the rectification of inaccurate or incomplete personal data. Right to erasure (Art. 17 GDPR) — You have the right to request the erasure of your personal data, subject to the conditions laid down in Art. 17 GDPR. Right to restriction of processing (Art. 18 GDPR) — You have the right to request the restriction of processing of your personal data. Right to data portability (Art. 20 GDPR) — You have the right to receive your personal data in a structured, commonly used, and machine-readable format. Right to object (Art. 21 GDPR) — You have the right to object at any time, on grounds relating to your particular situation, to the processing of personal data concerning you.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Right to withdraw consent</h2><p class="text-body-large text-ink-muted leading-relaxed">Pursuant to Art. 7(3) GDPR, you have the right to withdraw consent at any time. The lawfulness of processing carried out on the basis of consent before its withdrawal is not affected. Withdrawal can be declared by email. <a href="mailto:office@curfee.com" class={linkClass}>office@curfee.com</a></p></section>
       <section>
-        <h2 class="text-headline-small text-ink-primary mb-8">Right to lodge a complaint</h2>
-        <p class="text-body-large text-ink-muted leading-relaxed mb-4">If you believe that the processing of your personal data violates the GDPR, you have the right, pursuant to Art. 77 GDPR, to lodge a complaint with the competent supervisory authority.</p>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.personal.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.personal']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.rights.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.rights']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.withdrawal.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.withdrawal']} <a href={`mailto:${t['imprint.email']}`} class={linkClass}>{t['imprint.email']}</a></p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.complaint.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed mb-4">{t['privacy.complaint']}</p>
         <div class="rounded-md bg-surface-raised border border-stroke-outlineVariant p-6 text-body-large text-ink-muted">
-          <p class="text-title-medium text-ink-primary">Austrian Data Protection Authority (Datenschutzbehörde)</p>
-          <p class="mt-1">Barichgasse 40–42</p><p>1030 Vienna</p><p>Austria</p>
+          <p class="text-title-medium text-ink-primary">{t['privacy.complaint.authority']}</p>
+          <p class="mt-1">{t['privacy.complaint.address.street']}</p>
+          <p>{t['privacy.complaint.address.city']}</p>
+          <p>{t['privacy.complaint.address.country']}</p>
           <div class="mt-3 space-y-1">
-            <p>Phone: <a href="tel:+43152152-0" class={linkClass}>+43 1 521 52-0</a></p>
-            <p>Email: <a href="mailto:dsb@dsb.gv.at" class={linkClass}>dsb@dsb.gv.at</a></p>
-            <p>Website: <a href="https://www.dsb.gv.at" target="_blank" rel="noopener noreferrer" class={linkClass}>www.dsb.gv.at</a></p>
+            <p>{t['privacy.phone.label']}: <a href={`tel:${t['privacy.complaint.phone'].replace(/\s/g, '')}`} class={linkClass}>{t['privacy.complaint.phone']}</a></p>
+            <p>{t['imprint.email.label']}: <a href={`mailto:${t['privacy.complaint.email']}`} class={linkClass}>{t['privacy.complaint.email']}</a></p>
+            <p>Website: <a href={`https://${t['privacy.complaint.website']}`} target="_blank" rel="noopener noreferrer" class={linkClass}>{t['privacy.complaint.website']}</a></p>
           </div>
         </div>
       </section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">SSL/TLS encryption</h2><p class="text-body-large text-ink-muted leading-relaxed">For security reasons and to protect the transmission of personal data, this website uses SSL or TLS encryption. An encrypted connection can be identified by the padlock icon in the address bar and by the address beginning with "https://".</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Cookies</h2><p class="text-body-large text-ink-muted leading-relaxed">Details on the cookies used on this website are provided in the cookie policy. <a href="/en/cookies" class={linkClass}>Cookie Policy</a></p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Links to third-party websites</h2><p class="text-body-large text-ink-muted leading-relaxed">This website contains links to third-party websites. When accessing these external links, data may be transmitted to the respective operator. The controller accepts no liability for the content and data processing by third parties. Users are encouraged to review the privacy policies of linked websites.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Hosting</h2><p class="text-body-large text-ink-muted leading-relaxed">This website is hosted on GitHub Pages, a service provided by GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA. When accessing this website, information is automatically recorded in so-called server log files. This includes: IP address, date and time of access, requested resources, browser and operating system used. This data is stored temporarily for security purposes and deleted after a short period. Processing is based on the legitimate interest pursuant to Art. 6(1)(f) GDPR to ensure the uninterrupted operation of the website. For the transfer of personal data to the USA (third country), GitHub employs standard contractual clauses pursuant to Art. 46(2)(c) GDPR. GitHub is also certified under the EU-US Data Privacy Framework.</p></section>
-      <section><h2 class="text-headline-small text-ink-primary mb-8">Google Analytics</h2><p class="text-body-large text-ink-muted leading-relaxed">This website uses Google Analytics, a web analytics service provided by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. Google Analytics is activated exclusively with the consent of the user pursuant to Art. 6(1)(a) GDPR. Consent preferences are stored for 30 days. The following data is collected: pages visited and timestamps, interactions on the website, traffic source, device and browser information, geographic information (country/region), IP address (anonymized). Data is retained for 14 months. Google employs standard contractual clauses pursuant to Art. 46(2)(c) GDPR and is certified under the EU-US Data Privacy Framework.</p><p class="text-body-large text-ink-muted leading-relaxed mt-2">Further information on how Google Analytics handles user data can be found in Google's privacy policy. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class={linkClass}>policies.google.com/privacy</a></p></section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.ssl.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.ssl']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.cookies.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.cookies.reference']} <a href={routes.cookies} class={linkClass}>{t['footer.legal.cookies']}</a></p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.links.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.links']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.hosting.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.hosting']}</p>
+      </section>
+
+      <section>
+        <h2 class="text-headline-small text-ink-primary mb-8">{t['privacy.analytics.heading']}</h2>
+        <p class="text-body-large text-ink-muted leading-relaxed">{t['privacy.analytics']}</p>
+        <p class="text-body-large text-ink-muted leading-relaxed mt-2">{t['privacy.analytics.more']} <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class={linkClass}>policies.google.com/privacy</a></p>
+      </section>
     </div>
   </div>
 </Layout>

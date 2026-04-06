@@ -3,7 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
 import { getTranslations } from '@/i18n/translations';
 
-const lang = 'de' as const;
+const lang = 'en' as const;
 const t = getTranslations(lang);
 ---
 
@@ -13,7 +13,7 @@ const t = getTranslations(lang);
       <span class="text-display-large text-brand-primary/15 block mb-2 select-none">404</span>
       <h1 class="text-headline-large text-ink-primary mb-3">{t['404.heading']}</h1>
       <p class="text-body-large text-ink-muted mb-12">{t['404.description']}</p>
-      <a href="/" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-brand-primary text-brand-onPrimary text-label-large font-medium shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 transition-all duration-medium2 ease-standard">
+      <a href="/en/" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-brand-primary text-brand-onPrimary text-label-large font-medium shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 transition-all duration-medium2 ease-standard">
         <Icon name="arrow_back" class="w-5 h-5" />
         {t['404.cta']}
       </a>

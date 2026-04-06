@@ -4,32 +4,27 @@ import Header from '@/components/shared/Header.astro';
 import Footer from '@/components/shared/Footer.astro';
 import ScrollToTop from '@/components/shared/ScrollToTop.astro';
 import CookieBanner from '@/components/shared/CookieBanner.astro';
+import { getTranslations } from '@/i18n/translations';
+import { getAlternateUrl } from '@/i18n/utils';
 import '@/styles/global.css';
 
-interface UIStrings {
-  nav: { services: string; about: string; faq: string; cta: string };
-  serviceNames: { diagnosis: string; guidance: string; sparring: string };
-  footer: { notice: string; privacy: string; cookies: string; copyright: string };
-  consent: { message: string; learnMore: string; accept: string; decline: string };
-  meta: { defaultDescription: string; orgDescription: string; jobTitle: string };
-}
+import type { Lang } from '@/configurations/i18n';
 
 interface Props {
   title: string;
   description?: string;
   canonicalPath?: string;
   jsonLd?: object | object[];
-  lang?: 'de' | 'en';
+  lang?: Lang;
   dateModified?: string;
-  ui: UIStrings;
 }
 
-const { ui } = Astro.props;
 const lang = Astro.props.lang ?? 'de';
+const t = getTranslations(lang);
 
 const {
   title,
-  description = ui.meta.defaultDescription,
+  description = t['meta.home.description'],
   canonicalPath = '',
   jsonLd,
   dateModified,
@@ -38,13 +33,7 @@ const {
 const siteUrl = 'https://curfee.com';
 const canonicalUrl = `${siteUrl}${canonicalPath}`;
 const ogImage = `${siteUrl}/assets/og-image.png`;
-const _p = Astro.url.pathname;
-const _b = _p.startsWith('/en/') || _p === '/en' ? (_p.replace(/^\/en\/?/, '/') || '/') : _p;
-const _n = _b === '/' ? '/' : _b.replace(/\/$/, '');
-const alternate = {
-  de: `${siteUrl}${_n === '/' ? '/' : _n}`,
-  en: `${siteUrl}${_n === '/' ? '/en/' : `/en${_n}`}`,
-};
+const alternate = getAlternateUrl(Astro.url, siteUrl);
 const ogLocale = lang === 'de' ? 'de_DE' : 'en_US';
 const ogLocaleAlt = lang === 'de' ? 'en_US' : 'de_DE';
 
@@ -62,12 +51,12 @@ const organizationLd = {
     "height": 630
   },
   "image": `${siteUrl}/assets/og-image.png`,
-  "description": ui.meta.orgDescription,
+  "description": t['meta.home.jsonld.description'],
   "founder": {
     "@type": "Person",
     "@id": `${siteUrl}/#founder`,
     "name": "Philipp Höllinger",
-    "jobTitle": ui.meta.jobTitle,
+    "jobTitle": t['meta.about.jobTitle'],
     "knowsAbout": ["Software Architecture", "System Analysis", "Organizational Structure"],
     "worksFor": { "@id": `${siteUrl}/#organization` }
   },
@@ -199,36 +188,15 @@ const speakableLd = {
       <div class="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-overlay" aria-hidden="true" style="background-image: url('/assets/noise.svg'); contain: strict;" />
 
       <div class="relative z-10">
-        <Header
-          lang={lang}
-          navServices={ui.nav.services}
-          navAbout={ui.nav.about}
-          navFaq={ui.nav.faq}
-          navCta={ui.nav.cta}
-          diagnosisTitle={ui.serviceNames.diagnosis}
-          guidanceTitle={ui.serviceNames.guidance}
-          sparringTitle={ui.serviceNames.sparring}
-        />
+        <Header lang={lang} />
         <main class="pt-12 md:pt-16">
           <slot />
         </main>
-        <Footer
-          lang={lang}
-          legalNotice={ui.footer.notice}
-          legalPrivacy={ui.footer.privacy}
-          legalCookies={ui.footer.cookies}
-          copyright={ui.footer.copyright}
-        />
+        <Footer lang={lang} />
       </div>
     </div>
 
     <ScrollToTop />
-    <CookieBanner
-      lang={lang}
-      message={ui.consent.message}
-      learnMore={ui.consent.learnMore}
-      accept={ui.consent.accept}
-      decline={ui.consent.decline}
-    />
+    <CookieBanner lang={lang} />
   </body>
 </html>
