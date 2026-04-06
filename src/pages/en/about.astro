@@ -42,7 +42,7 @@ const jsonLd = [
 >
 
   <!-- Who I am -->
-  <section class="mb-20 max-w-3xl mx-auto px-6">
+  <section class="py-20 md:py-28 max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <picture><source srcset="/assets/profile.webp" type="image/webp" /><img src="/assets/profile.png" alt="Philipp Höllinger" class="w-[160px] h-[200px] object-cover object-top rounded-md mb-8" loading="lazy" /></picture>
     <h1 class="text-display-small md:text-display-medium text-ink-primary mb-8">{t['about.who.heading']}</h1>
     <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
@@ -54,28 +54,36 @@ const jsonLd = [
   </section>
 
   <!-- What I've done -->
-  <section class="mb-20 max-w-3xl mx-auto px-6">
+  <section class="py-20 md:py-28 max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.done.heading']}</h2>
     <div class="space-y-10">
-      {[1, 2, 3].map(i => (
+      {[
+        { heading: t['about.done.example.1.heading'], text: t['about.done.example.1.text'] },
+        { heading: t['about.done.example.2.heading'], text: t['about.done.example.2.text'] },
+        { heading: t['about.done.example.3.heading'], text: t['about.done.example.3.text'] },
+      ].map(ex => (
         <div>
-          <h3 class="text-title-large text-ink-primary mb-3">{t[`about.done.example.${i}.heading`]}</h3>
-          <p class="text-body-large text-ink-muted leading-relaxed">{t[`about.done.example.${i}.text`]}</p>
+          <h3 class="text-title-large text-ink-primary mb-3">{ex.heading}</h3>
+          <p class="text-body-large text-ink-muted leading-relaxed">{ex.text}</p>
         </div>
       ))}
     </div>
   </section>
 
   <!-- What I stand for -->
-  <section class="mb-20 max-w-3xl mx-auto px-6">
+  <section class="py-20 md:py-28 max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.stand.heading']}</h2>
     <div class="space-y-8">
-      {[1, 2, 3].map(i => (
+      {[
+        { title: t['about.stand.1.title'], description: t['about.stand.1.description'] },
+        { title: t['about.stand.2.title'], description: t['about.stand.2.description'] },
+        { title: t['about.stand.3.title'], description: t['about.stand.3.description'] },
+      ].map((item, i) => (
         <div class="flex items-center gap-6">
-          <span class="text-headline-large md:text-display-small text-brand-primary/50 font-display flex-shrink-0 w-10 md:w-14 select-none leading-none">{i}</span>
+          <span class="text-headline-large md:text-display-small text-brand-primary/50 font-display flex-shrink-0 w-10 md:w-14 select-none leading-none">{i + 1}</span>
           <div>
-            <h3 class="text-title-large text-ink-primary mb-1">{t[`about.stand.${i}.title`]}</h3>
-            <p class="text-body-large text-ink-muted leading-relaxed">{t[`about.stand.${i}.description`]}</p>
+            <h3 class="text-title-large text-ink-primary mb-1">{item.title}</h3>
+            <p class="text-body-large text-ink-muted leading-relaxed">{item.description}</p>
           </div>
         </div>
       ))}
@@ -83,24 +91,31 @@ const jsonLd = [
   </section>
 
   <!-- How I work -->
-  <section class="mb-20 max-w-3xl mx-auto px-6">
+  <section class="py-20 md:py-28 max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <h2 class="text-headline-large md:text-display-small text-ink-primary mb-8">{t['about.work.heading']}</h2>
     <div class="space-y-6 text-body-large text-ink-muted leading-relaxed">
-      {[1, 2, 3, 4, 5].map(i => (
-        <p>{t[`about.work.${i}`]}</p>
-      ))}
+      <p>{t['about.work.1']}</p>
+      <p>{t['about.work.2']}</p>
+      <p>{t['about.work.3']}</p>
+      <p>{t['about.work.4']}</p>
+      <p>{t['about.work.5']}</p>
     </div>
   </section>
 
   <!-- Five Principles -->
-  <section class="mb-20 max-w-3xl mx-auto px-6">
+  <section class="py-20 md:py-28 max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <h2 class="text-headline-large md:text-display-small text-ink-primary mb-12">{t['principles.heading']}</h2>
     <div class="space-y-8">
-      {[1, 2, 3, 4, 5].map(i => {
-        const title = t[`principles.${i}.title`];
-        const firstLetter = title.charAt(0);
-        const rest = title.slice(1);
-        const isLast = i === 5;
+      {[
+        { title: t['principles.1.title'], description: t['principles.1.description'] },
+        { title: t['principles.2.title'], description: t['principles.2.description'] },
+        { title: t['principles.3.title'], description: t['principles.3.description'] },
+        { title: t['principles.4.title'], description: t['principles.4.description'] },
+        { title: t['principles.5.title'], description: t['principles.5.description'] },
+      ].map((p, i) => {
+        const firstLetter = p.title.charAt(0);
+        const rest = p.title.slice(1);
+        const isLast = i === 4;
         return (
           <div class="flex items-start gap-6 min-h-[3.5rem]">
             <span class="text-display-small text-brand-primary font-display leading-none w-12 flex-shrink-0 text-center">{isLast ? 'EE' : firstLetter}</span>
@@ -108,7 +123,7 @@ const jsonLd = [
               <h3 class="text-title-large text-ink-primary mb-1">
                 <span class="text-brand-primary">{firstLetter}</span>{rest}
               </h3>
-              <p class="text-body-large text-ink-muted">{t[`principles.${i}.description`]}</p>
+              <p class="text-body-large text-ink-muted">{p.description}</p>
             </div>
           </div>
         );

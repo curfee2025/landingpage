@@ -265,16 +265,17 @@
     font-weight: 500;
   }
 
-  /* M3 Background Gradient Masks */
-  .mask-radial {
-    mask-image: radial-gradient(120% 80% at 10% 20%, rgba(0, 0, 0, 0.75), transparent);
+  /* M3 Disabled States — container 12% on-surface, content 38% on-surface */
+  .state-disabled {
+    pointer-events: none;
   }
-  .mask-radial-2 {
-    mask-image: radial-gradient(100% 70% at 80% 0%, rgba(0, 0, 0, 0.65), transparent);
+  .state-disabled-container {
+    background-color: rgb(var(--ink-primary) / 0.12);
   }
-  .mask-radial-3 {
-    mask-image: radial-gradient(100% 60% at 85% 90%, rgba(0, 0, 0, 0.55), transparent);
+  .state-disabled-content {
+    color: rgb(var(--ink-primary) / 0.38);
   }
+
 }
 
 /* M3 Animation — Slide Down */

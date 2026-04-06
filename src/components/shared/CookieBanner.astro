@@ -22,7 +22,7 @@ const routes = localizedRoutes(lang);
   aria-live="polite"
 >
   <div class="flex items-start gap-4">
-    <div class="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center flex-shrink-0">
+    <div class="w-10 h-10 rounded-full bg-brand-primary/[0.08] flex items-center justify-center flex-shrink-0">
       <Icon name="cookie" class="w-5 h-5 text-brand-primary" />
     </div>
     <div>
@@ -31,10 +31,10 @@ const routes = localizedRoutes(lang);
         <a href={routes.cookies} class="text-brand-primary hover:underline transition-colors duration-short4 ease-standard ml-1">{t['consent.learnmore']}</a>
       </p>
       <div class="flex items-center justify-end gap-3 mt-4">
-        <button type="button" data-consent="decline" class="px-5 py-2 rounded-full text-label-large text-ink-primary hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard">
+        <button type="button" data-consent="decline" class="px-5 py-3 rounded-full text-label-large text-ink-primary hover:bg-ink-primary/[0.08] active:bg-ink-primary/[0.12] disabled:text-ink-primary/[0.38] disabled:pointer-events-none transition-all duration-short4 ease-standard">
           {t['consent.decline']}
         </button>
-        <button type="button" data-consent="accept" class="px-5 py-2 rounded-full text-label-large bg-brand-primary text-brand-onPrimary shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 transition-all duration-short4 ease-standard">
+        <button type="button" data-consent="accept" class="px-5 py-3 rounded-full text-label-large bg-brand-primary text-brand-onPrimary shadow-elevation-0 hover:shadow-elevation-1 active:shadow-elevation-0 disabled:bg-ink-primary/[0.12] disabled:text-ink-primary/[0.38] disabled:shadow-none disabled:pointer-events-none transition-all duration-short4 ease-standard">
           {t['consent.accept']}
         </button>
       </div>

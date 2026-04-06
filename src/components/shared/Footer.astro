@@ -13,7 +13,7 @@ const { lang } = Astro.props;
 const t = getTranslations(lang);
 const routes = localizedRoutes(lang);
 const year = new Date().getFullYear();
-const linkClass = "text-body-medium text-ink-onSurfaceVariant px-3 py-2 rounded-full hover:bg-ink-primary/[0.08] active:bg-ink-primary/[0.12] transition-all duration-short4 ease-standard";
+const linkClass = "text-body-medium text-ink-onSurfaceVariant px-3 py-3 rounded-full hover:bg-ink-primary/[0.08] active:bg-ink-primary/[0.12] transition-all duration-short4 ease-standard";
 
 const currentPath = Astro.url.pathname;
 let otherLangPath: string;
@@ -40,11 +40,11 @@ if (lang === 'en') {
     </nav>
     <div class="flex flex-wrap items-center justify-center gap-4 text-body-small text-ink-muted">
       <span>&copy; {year} {BRAND.name} · {t['footer.copyright']}</span>
-      <a href={BRAND.linkedin} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-ink-onSurfaceVariant hover:text-ink-primary px-3 py-2 rounded-full hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard" aria-label="LinkedIn">
+      <a href={BRAND.linkedin} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-ink-onSurfaceVariant hover:text-ink-primary px-3 py-3 rounded-full hover:bg-ink-primary/[0.08] active:bg-ink-primary/[0.12] transition-all duration-short4 ease-standard" aria-label="LinkedIn">
         <Icon name="linkedin" class="w-4 h-4" />
         LinkedIn
       </a>
-      <a href={otherLangPath} class="flex items-center gap-2 text-ink-onSurfaceVariant hover:text-ink-primary px-3 py-2 rounded-full hover:bg-ink-primary/[0.08] transition-all duration-short4 ease-standard" aria-label="Switch language">
+      <a href={otherLangPath} class="flex items-center gap-2 text-ink-onSurfaceVariant hover:text-ink-primary px-3 py-3 rounded-full hover:bg-ink-primary/[0.08] active:bg-ink-primary/[0.12] transition-all duration-short4 ease-standard" aria-label="Switch language">
         <Icon name="language" class="w-4 h-4" />
         {otherLangLabel}
       </a>
