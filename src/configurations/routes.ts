@@ -26,4 +26,5 @@ export function localizedRoutes(lang: 'de' | 'en') {
 
 export const EXTERNAL = {
   email: `mailto:${BRAND.email}`,
+  calendly: 'https://calendly.com/curfee/30min',
 } as const;

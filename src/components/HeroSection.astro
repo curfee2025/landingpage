@@ -1,6 +1,7 @@
 ---
 import type { Translations } from '@/i18n/translations';
 import logoIconRaw from '@/assets/logos/logo_icon.svg?raw';
+import ContactButton from '@/components/shared/ContactButton.astro';
 
 interface Props {
   translations: Translations;
@@ -27,6 +28,10 @@ const { translations: t } = Astro.props;
         <span class="text-label-large text-brand-primary/70 bg-brand-primary/[0.06] px-4 py-1.5 rounded-full">{t['hero.badge.1']}</span>
         <span class="text-label-large text-brand-primary/70 bg-brand-primary/[0.06] px-4 py-1.5 rounded-full">{t['hero.badge.2']}</span>
         <span class="text-label-large text-brand-primary/70 bg-brand-primary/[0.06] px-4 py-1.5 rounded-full">{t['hero.badge.3']}</span>
+      </div>
+
+      <div class="mt-10">
+        <ContactButton label={t['hero.cta']} variant="filled" />
       </div>
 
     </div>
