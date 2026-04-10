@@ -54,7 +54,7 @@ const faqLd = {
 const serviceLd = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "@id": "https://curfee.com/#services",
+  "@id": "https://curfee.com/en/#services",
   "name": "Systems Architecture Consulting",
   "provider": { "@id": "https://curfee.com/#organization" },
   "serviceType": "Systems Architecture Consulting",
@@ -74,53 +74,31 @@ const serviceLd = {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "@id": "https://curfee.com/#diagnosis",
+          "@id": "https://curfee.com/en/#diagnosis",
           "name": t['services.diagnosis.title'],
           "description": t['services.diagnosis.problem'],
           "slogan": t['services.diagnosis.subtitle'],
           "provider": { "@id": "https://curfee.com/#organization" },
           "serviceType": "System Diagnosis",
-          "offers": {
-            "@type": "Offer",
-            "priceCurrency": "EUR",
-            "price": "10000",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "10000",
-              "priceCurrency": "EUR",
-              "unitText": "starting price"
-            }
-          }
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "@id": "https://curfee.com/#guidance",
+          "@id": "https://curfee.com/en/#guidance",
           "name": t['services.guidance.title'],
           "description": t['services.guidance.problem'],
           "slogan": t['services.guidance.subtitle'],
           "provider": { "@id": "https://curfee.com/#organization" },
-          "serviceType": "Architecture Guidance",
-          "offers": {
-            "@type": "Offer",
-            "priceCurrency": "EUR",
-            "price": "30000",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "30000",
-              "priceCurrency": "EUR",
-              "unitText": "starting price"
-            }
-          }
+          "serviceType": "Architecture Guidance"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "@id": "https://curfee.com/#sparring",
+          "@id": "https://curfee.com/en/#sparring",
           "name": t['services.sparring.title'],
           "description": t['services.sparring.problem'],
           "slogan": t['services.sparring.subtitle'],
@@ -141,7 +119,7 @@ const jsonLd = [webSiteLd, breadcrumbLd, faqLd, serviceLd];
   canonicalPath="/en/"
   jsonLd={jsonLd}
   lang={lang}
-  dateModified="2026-03-30"
+  dateModified="2026-04-10"
 >
   <HeroSection translations={t} />
   <ObservationsSection translations={t} />

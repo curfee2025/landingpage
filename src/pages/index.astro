@@ -80,17 +80,6 @@ const serviceLd = {
           "slogan": t['services.diagnosis.subtitle'],
           "provider": { "@id": "https://curfee.com/#organization" },
           "serviceType": "System Diagnosis",
-          "offers": {
-            "@type": "Offer",
-            "priceCurrency": "EUR",
-            "price": "10000",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "10000",
-              "priceCurrency": "EUR",
-              "unitText": "starting price"
-            }
-          }
         }
       },
       {
@@ -102,18 +91,7 @@ const serviceLd = {
           "description": t['services.guidance.problem'],
           "slogan": t['services.guidance.subtitle'],
           "provider": { "@id": "https://curfee.com/#organization" },
-          "serviceType": "Architecture Guidance",
-          "offers": {
-            "@type": "Offer",
-            "priceCurrency": "EUR",
-            "price": "30000",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "30000",
-              "priceCurrency": "EUR",
-              "unitText": "starting price"
-            }
-          }
+          "serviceType": "Architecture Guidance"
         }
       },
       {
@@ -141,7 +119,7 @@ const jsonLd = [webSiteLd, breadcrumbLd, faqLd, serviceLd];
   canonicalPath="/"
   jsonLd={jsonLd}
   lang={lang}
-  dateModified="2026-03-30"
+  dateModified="2026-04-10"
 >
   <HeroSection translations={t} />
   <ObservationsSection translations={t} />
