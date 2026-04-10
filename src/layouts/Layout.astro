@@ -278,6 +278,29 @@ const speakableLd = {
         : <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
 
+    <!-- Browser language redirect — inline for zero-flash, mirrors logic from src/i18n/language-detection.ts -->
+    <script is:inline>
+      (function() {
+        var key = 'lang-preference';
+        var stored;
+        try { stored = localStorage.getItem(key); } catch(e) { return; }
+        if (stored === 'de' || stored === 'en') return;
+        var langs = navigator.languages || [navigator.language || ''];
+        var detected = 'en';
+        for (var i = 0; i < langs.length; i++) {
+          if (langs[i].split('-')[0].toLowerCase() === 'de') { detected = 'de'; break; }
+        }
+        try { localStorage.setItem(key, detected); } catch(e) {}
+        var path = location.pathname;
+        var isEn = path === '/en' || path.substring(0, 4) === '/en/';
+        if (detected === 'de' && isEn) {
+          location.replace(path.replace(/^\/en\/?/, '/') || '/');
+        } else if (detected === 'en' && !isEn) {
+          location.replace(path === '/' ? '/en/' : '/en' + path);
+        }
+      })();
+    </script>
+
     <ClientRouter />
   </head>
   <body>
@@ -294,6 +317,11 @@ const speakableLd = {
 
     <ScrollToTop />
     <CookieBanner lang={lang} />
+
+    <script>
+      import { initLanguageSwitcher } from '@/i18n/language-detection';
+      document.addEventListener('astro:page-load', initLanguageSwitcher);
+    </script>
   </body>
 </html>
 
