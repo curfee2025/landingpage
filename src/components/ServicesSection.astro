@@ -300,9 +300,11 @@ const services: ServiceCard[] = [
                   {t['hero.cta']}
                   <Icon name="arrow_outward" class="w-4 h-4" />
                 </a>
-                <p class="text-body-small text-ink-muted/50 mt-2">
-                  {service.key === 'sparring' ? t['services.cta.note.sparring'] : t['services.cta.note']}
-                </p>
+                {(service.key === 'sparring' ? t['services.cta.note.sparring'] : t['services.cta.note']) && (
+                  <p class="text-body-small text-ink-muted/50 mt-2">
+                    {service.key === 'sparring' ? t['services.cta.note.sparring'] : t['services.cta.note']}
+                  </p>
+                )}
               </div>
             </div>
           </div>
