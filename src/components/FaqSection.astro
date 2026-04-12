@@ -15,6 +15,11 @@ const questions = [
   { question: t['faq.4.question'], answer: t['faq.4.answer'] },
   { question: t['faq.5.question'], answer: t['faq.5.answer'] },
   { question: t['faq.6.question'], answer: t['faq.6.answer'] },
+  { question: t['faq.7.question'], answer: t['faq.7.answer'] },
+  { question: t['faq.8.question'], answer: t['faq.8.answer'] },
+  { question: t['faq.9.question'], answer: t['faq.9.answer'] },
+  { question: t['faq.10.question'], answer: t['faq.10.answer'] },
+  { question: t['faq.11.question'], answer: t['faq.11.answer'] },
 ];
 ---
 
@@ -41,7 +46,7 @@ const questions = [
       </div>
       <div data-faq-answer class="rounded-lg bg-surface-raised border border-stroke-outlineVariant p-8 min-h-[200px]">
         <h3 class="text-title-large text-ink-primary mb-4" data-faq-answer-title>{questions[0].question}</h3>
-        <p class="text-body-large text-ink-muted leading-relaxed" data-faq-answer-text>{questions[0].answer}</p>
+        <p data-speakable class="text-body-large text-ink-muted leading-relaxed" data-faq-answer-text>{questions[0].answer}</p>
       </div>
     </div>
 

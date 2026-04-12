@@ -16,6 +16,7 @@ interface Props {
   jsonLd?: object | object[];
   lang?: Lang;
   dateModified?: string;
+  noindex?: boolean;
 }
 
 const lang = Astro.props.lang ?? 'de';
@@ -27,6 +28,7 @@ const {
   canonicalPath = '',
   jsonLd,
   dateModified,
+  noindex = false,
 } = Astro.props;
 
 const siteUrl = 'https://curfee.com';
@@ -46,10 +48,20 @@ const personLd = {
   "familyName": "Höllinger",
   "jobTitle": t['meta.about.jobTitle'],
   "description": lang === 'de'
-    ? "Systemarchitekt in Österreich. Gründer von Curfee. Beratung für Systemarchitektur, Ursachenanalyse und strukturelle Verankerung von Entscheidungen in Systemlandschaften."
-    : "Systems architect based in Austria. Founder of Curfee. Consulting for systems architecture, root cause analysis, and structural anchoring of decisions in system landscapes.",
+    ? "Systemarchitekt in Österreich. Gründer von Curfee. Beratung für Systemarchitektur und Ursachenanalyse – damit Architekturentscheidungen vom System selbst durchgesetzt werden, nicht von Personen oder Disziplin."
+    : "Systems architect based in Austria. Founder of Curfee. Consulting for systems architecture and root cause analysis – making architecture decisions stick by design, enforced by the system itself, not by people or discipline.",
   "url": siteUrl,
-  "image": `${siteUrl}/assets/profile.webp`,
+  "mainEntityOfPage": `${siteUrl}/#about`,
+  "image": {
+    "@type": "ImageObject",
+    "url": `${siteUrl}/assets/profile.webp`,
+    "contentUrl": `${siteUrl}/assets/profile.webp`,
+    "caption": lang === 'de'
+      ? "Portrait von Philipp Höllinger, Systemarchitekt und Gründer von Curfee"
+      : "Portrait of Philipp Höllinger, systems architect and founder of Curfee",
+    "width": 180,
+    "height": 225
+  },
   "sameAs": ["https://www.linkedin.com/in/phoellinger"],
   "nationality": { "@type": "Country", "name": "Austria" },
   "knowsAbout": [
@@ -59,103 +71,213 @@ const personLd = {
     "IT Consulting",
     "Root Cause Analysis",
     "Dependency Mapping",
+    "Decision Enforcement",
     "Standards and Conventions Design",
-    "Tool Landscape Assessment"
+    "Tool Landscape Assessment",
+    "Structural Consulting"
   ],
   "hasOccupation": {
     "@type": "Occupation",
     "name": lang === 'de' ? "Systemarchitekt" : "Systems Architect",
-    "occupationLocation": {
-      "@type": "Country",
-      "name": "Austria"
+    "occupationLocation": { "@id": `${siteUrl}/#place-salzburg` },
+    "occupationalCategory": {
+      "@type": "CategoryCode",
+      "codeValue": "15-1199.02",
+      "name": "Computer Systems Engineer/Architect",
+      "inCodeSet": {
+        "@type": "CategoryCodeSet",
+        "name": "O*NET-SOC"
+      }
     },
-    "occupationalCategory": "15-1299.00",
-    "skills": "Systems architecture, root cause analysis, dependency mapping, governance anchoring, standards design"
+    "skills": "Systems architecture, root cause analysis, dependency mapping, decision enforcement, standards and conventions design, tool landscape assessment"
   },
-  "knowsLanguage": ["de", "en"],
+  "knowsLanguage": [
+    { "@type": "Language", "name": "German", "alternateName": "de" },
+    { "@type": "Language", "name": "English", "alternateName": "en" }
+  ],
   "worksFor": { "@id": `${siteUrl}/#organization` },
   "memberOf": { "@id": `${siteUrl}/#organization` },
   "address": {
     "@type": "PostalAddress",
+    "addressLocality": "Salzburg",
+    "addressRegion": "Salzburg",
     "addressCountry": "AT"
+  }
+};
+
+const placeLd = {
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "@id": `${siteUrl}/#place-salzburg`,
+  "name": "Salzburg, Austria",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Lieferinger Hauptstraße 49A",
+    "postalCode": "5020",
+    "addressLocality": "Salzburg",
+    "addressRegion": "Salzburg",
+    "addressCountry": "AT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 47.8066,
+    "longitude": 13.0089
   }
 };
 
 const organizationLd = {
   "@context": "https://schema.org",
-  "@type": ["Organization", "ProfessionalService"],
+  "@type": ["Organization", "ProfessionalService", "LocalBusiness"],
   "@id": `${siteUrl}/#organization`,
   "name": "Curfee",
   "legalName": "Curfee e.U.",
-  "alternateName": "Curfee e.U. — Systems Architecture Consulting",
+  "alternateName": ["Curfee Systems Architecture Consulting", "Curfee Consulting"],
   "url": siteUrl,
   "logo": {
     "@type": "ImageObject",
+    "@id": `${siteUrl}/#logo`,
     "url": `${siteUrl}/assets/og-image.png`,
     "width": 1200,
-    "height": 630
+    "height": 630,
+    "caption": "Curfee"
   },
-  "image": `${siteUrl}/assets/og-image.png`,
+  "image": { "@id": `${siteUrl}/#logo` },
   "description": t['meta.home.jsonld.description'],
   "slogan": t['footer.tagline'],
   "founder": { "@id": `${siteUrl}/#founder` },
   "employee": { "@id": `${siteUrl}/#founder` },
   "numberOfEmployees": { "@type": "QuantitativeValue", "value": 1 },
   "foundingDate": "2025",
-  "foundingLocation": {
-    "@type": "Place",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "AT"
-    }
-  },
+  "foundingLocation": { "@id": `${siteUrl}/#place-salzburg` },
+  "location": { "@id": `${siteUrl}/#place-salzburg` },
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "Lieferinger Hauptstraße 49A",
+    "postalCode": "5020",
+    "addressLocality": "Salzburg",
+    "addressRegion": "Salzburg",
     "addressCountry": "AT"
   },
-  "areaServed": [
-    {
-      "@type": "Country",
-      "name": "Austria"
-    },
-    {
-      "@type": "Country",
-      "name": "Germany"
-    },
-    {
-      "@type": "Country",
-      "name": "Switzerland"
-    },
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "office@curfee.com",
-    "telephone": "+4367763024228",
-    "contactType": "customer service",
-    "availableLanguage": ["de", "en"]
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 47.8066,
+    "longitude": 13.0089
   },
-  "knowsLanguage": ["de", "en"],
+  "areaServed": [
+    { "@type": "Country", "name": "Austria", "alternateName": "AT" },
+    { "@type": "Country", "name": "Germany", "alternateName": "DE" },
+    { "@type": "Country", "name": "Switzerland", "alternateName": "CH" }
+  ],
+  "serviceArea": {
+    "@type": "AdministrativeArea",
+    "name": "DACH region"
+  },
+  "knowsAbout": [
+    "Systems Architecture",
+    "Software Architecture",
+    "System Analysis",
+    "IT Consulting",
+    "Root Cause Analysis",
+    "Dependency Mapping",
+    "Decision Enforcement",
+    "Standards and Conventions Design",
+    "Tool Landscape Assessment",
+    "Structural Consulting",
+    "Technical Debt Resolution"
+  ],
+  "mentions": {
+    "@type": "DefinedTerm",
+    "@id": `${siteUrl}/#decision-enforcement-principle`,
+    "name": "Decision Enforcement Principle",
+    "description": lang === 'de'
+      ? "Architekturentscheidungen müssen vom System selbst durchgesetzt werden – durch Pipelines, Tooling und automatische Checks – nicht durch Personen, Technologien oder Disziplin."
+      : "Architecture decisions must be enforced by the system itself — through pipelines, tooling, and automated checks — not by people, technologies, or discipline.",
+    "inDefinedTermSet": {
+      "@type": "DefinedTermSet",
+      "name": "Curfee Methodology",
+      "inDefinedTermSet": `${siteUrl}/#organization`
+    }
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "email": "office@curfee.com",
+      "telephone": "+4367763024228",
+      "contactType": "customer service",
+      "availableLanguage": ["de", "en"],
+      "areaServed": ["AT", "DE", "CH"]
+    },
+    {
+      "@type": "ContactPoint",
+      "url": "https://calendly.com/curfee/30min",
+      "contactType": "sales",
+      "contactOption": "OnlineAppointment",
+      "availableLanguage": ["de", "en"]
+    }
+  ],
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "name": lang === 'de' ? "30-minütiges Erstgespräch buchen" : "Book a 30-minute intro call",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://calendly.com/curfee/30min",
+      "inLanguage": ["de", "en"],
+      "actionPlatform": ["https://schema.org/DesktopWebPlatform", "https://schema.org/MobileWebPlatform"]
+    }
+  },
+  "knowsLanguage": [
+    { "@type": "Language", "name": "German", "alternateName": "de" },
+    { "@type": "Language", "name": "English", "alternateName": "en" }
+  ],
   "vatID": "ATU83146203",
+  "taxID": "ATU83146203",
+  "identifier": [
+    { "@type": "PropertyValue", "propertyID": "VAT", "value": "ATU83146203" },
+    { "@type": "PropertyValue", "propertyID": "GISA", "value": "39453891" }
+  ],
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Wirtschaftskammer Österreich",
+    "alternateName": "WKO",
+    "url": "https://www.wko.at"
+  },
   "keywords": [
     "systems architecture consulting",
-    "software architecture",
+    "decision enforcement",
+    "architecture governance automation",
     "root cause analysis",
     "system landscape assessment",
     "dependency mapping",
-    "governance anchoring",
+    "standards enforcement pipelines",
     "structural consulting",
     "IT consulting Austria",
     "Systemarchitektur Beratung",
-    "Systemarchitektur Österreich"
+    "Systemarchitektur Österreich",
+    "Architekturentscheidungen durchsetzen",
+    "Systemarchitekt Österreich"
   ],
-  "sameAs": ["https://www.linkedin.com/in/phoellinger"]
+  "sameAs": [
+    "https://www.linkedin.com/in/phoellinger",
+    "https://calendly.com/curfee/30min"
+  ]
 };
 
 const speakableLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
+  "@id": `${siteUrl}${canonicalPath}#webpage`,
   "name": title,
   "url": canonicalUrl,
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "about": { "@id": `${siteUrl}/#organization` },
+  "author": { "@id": `${siteUrl}/#founder` },
+  "publisher": { "@id": `${siteUrl}/#organization` },
+  "inLanguage": htmlLang,
+  ...(dateModified && { "dateModified": dateModified }),
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": ogImage
+  },
   "speakable": {
     "@type": "SpeakableSpecification",
     "cssSelector": ["[data-speakable]"]
@@ -178,14 +300,14 @@ const speakableLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Philipp Höllinger" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    {dateModified && <meta name="article:modified_time" content={dateModified} />}
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
+    {dateModified && <meta property="article:modified_time" content={dateModified} />}
 
-    <!-- Geo Meta Tags — Local SEO (Austria) -->
-    <meta name="geo.region" content="AT" />
-    <meta name="geo.placename" content="Austria" />
-    <meta name="geo.position" content="47.5162;14.5501" />
-    <meta name="ICBM" content="47.5162, 14.5501" />
+    <!-- Geo Meta Tags — Local SEO (Salzburg, Austria) -->
+    <meta name="geo.region" content="AT-5" />
+    <meta name="geo.placename" content="Salzburg, Austria" />
+    <meta name="geo.position" content="47.8066;13.0089" />
+    <meta name="ICBM" content="47.8066, 13.0089" />
 
     <!-- DNS Prefetch for third-party domains -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -236,7 +358,8 @@ const speakableLd = {
     <meta name="theme-color" content="#003366" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#141416" media="(prefers-color-scheme: dark)" />
 
-    <!-- Structured Data — Sitewide Person + Organization + Speakable -->
+    <!-- Structured Data — Sitewide Place + Person + Organization + Speakable -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(placeLd)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(personLd)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(speakableLd)} />
