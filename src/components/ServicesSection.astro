@@ -350,6 +350,8 @@ const services: ServiceCard[] = [
     allCards.forEach((c) => { closedHeight = Math.max(closedHeight, c.offsetHeight); });
     allCards.forEach((c) => c.style.minHeight = closedHeight + 'px');
 
+    let savedScrollY: number | null = null;
+
     allCards.forEach((card) => {
       if (card.hasAttribute('data-initialized')) return;
       card.setAttribute('data-initialized', '');
@@ -359,8 +361,48 @@ const services: ServiceCard[] = [
         const target = e.target as HTMLElement;
         if (target.closest('a')) return;
         const isOpen = card.classList.contains('open');
+        const anyOtherOpen = Array.from(allCards).some((c) => c !== card && c.classList.contains('open'));
+
+        // Close everything first
         allCards.forEach((c) => { c.classList.remove('open'); c.setAttribute('aria-expanded', 'false'); });
-        if (!isOpen) { card.classList.add('open'); card.setAttribute('aria-expanded', 'true'); }
+
+        if (isOpen) {
+          // This card was open — user is closing it
+          if (savedScrollY !== null) {
+            window.scrollTo({ top: savedScrollY, behavior: 'auto' });
+            savedScrollY = null;
+          } else {
+            // No saved scroll (e.g., closed after a switch) — snap card to viewport top
+            card.scrollIntoView({ behavior: 'auto', block: 'start' });
+          }
+          return;
+        }
+
+        if (anyOtherOpen) {
+          // Switching cards — disable transition, snap layout instantly, scroll to new card top
+          const allBodies = document.querySelectorAll<HTMLElement>('.card-body');
+          allBodies.forEach((b) => { b.style.transition = 'none'; });
+
+          allCards.forEach((c) => { c.classList.remove('open'); c.setAttribute('aria-expanded', 'false'); });
+          card.classList.add('open');
+          card.setAttribute('aria-expanded', 'true');
+          savedScrollY = null;
+
+          // Force reflow so layout is committed before scrollIntoView measures
+          void card.offsetHeight;
+          card.scrollIntoView({ behavior: 'auto', block: 'start' });
+
+          // Restore transition on next frame (after paint, so the instant change has rendered)
+          requestAnimationFrame(() => {
+            allBodies.forEach((b) => { b.style.transition = ''; });
+          });
+          return;
+        }
+
+        // Fresh open — smooth animation, remember scroll to restore on close
+        card.classList.add('open');
+        card.setAttribute('aria-expanded', 'true');
+        savedScrollY = window.scrollY;
       };
       card.addEventListener('click', toggle);
       card.addEventListener('keydown', (e: KeyboardEvent) => {
