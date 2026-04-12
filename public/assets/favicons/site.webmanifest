@@ -1,11 +1,16 @@
 {
-  "name": "Curfee",
+  "name": "Curfee – Systemarchitektur-Beratung",
   "short_name": "Curfee",
+  "description": "Beratung für Systemarchitektur aus Österreich",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     { "src": "/assets/favicons/android_chrome_192x192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/assets/favicons/android_chrome_512x512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/assets/favicons/android_chrome_512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "theme_color": "#003366",
   "background_color": "#fcfbf9",
-  "display": "standalone"
+  "display": "standalone",
+  "lang": "de-AT",
+  "categories": ["business", "productivity"]
 }

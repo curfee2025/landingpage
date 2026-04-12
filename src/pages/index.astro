@@ -15,40 +15,43 @@ const t = getTranslations(lang);
 const webSiteLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": "https://curfee.com/#website",
   "name": "Curfee",
+  "alternateName": "Curfee — Systems Architecture Consulting",
   "url": "https://curfee.com",
   "description": t['meta.home.jsonld.description'],
-  "inLanguage": "de",
-  "availableLanguage": ["de", "en"],
+  "inLanguage": ["de-AT", "en"],
   "publisher": { "@id": "https://curfee.com/#organization" },
   "about": { "@id": "https://curfee.com/#organization" },
-  "mainEntity": { "@id": "https://curfee.com/#organization" }
+  "mainEntity": { "@id": "https://curfee.com/#organization" },
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "target": "https://calendly.com/curfee/30min",
+    "name": "Erstgespräch buchen"
+  }
 };
 
-const breadcrumbLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Startseite",
-      "item": "https://curfee.com/"
-    }
-  ]
-};
-
+const faqQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] as const;
 const faqLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": t['faq.1.question'], "acceptedAnswer": { "@type": "Answer", "text": t['faq.1.answer'] } },
-    { "@type": "Question", "name": t['faq.2.question'], "acceptedAnswer": { "@type": "Answer", "text": t['faq.2.answer'] } },
-    { "@type": "Question", "name": t['faq.3.question'], "acceptedAnswer": { "@type": "Answer", "text": t['faq.3.answer'] } },
-    { "@type": "Question", "name": t['faq.4.question'], "acceptedAnswer": { "@type": "Answer", "text": t['faq.4.answer'] } },
-    { "@type": "Question", "name": t['faq.5.question'], "acceptedAnswer": { "@type": "Answer", "text": t['faq.5.answer'] } },
-    { "@type": "Question", "name": t['faq.6.question'], "acceptedAnswer": { "@type": "Answer", "text": t['faq.6.answer'] } },
-  ]
+  "@id": "https://curfee.com/#faq",
+  "inLanguage": "de-AT",
+  "about": { "@id": "https://curfee.com/#organization" },
+  "author": { "@id": "https://curfee.com/#founder" },
+  "publisher": { "@id": "https://curfee.com/#organization" },
+  "dateModified": "2026-04-12",
+  "mainEntity": faqQuestions.map((n) => ({
+    "@type": "Question",
+    "@id": `https://curfee.com/#faq-${n}`,
+    "name": t[`faq.${n}.question` as keyof typeof t],
+    "author": { "@id": "https://curfee.com/#founder" },
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "author": { "@id": "https://curfee.com/#founder" },
+      "text": t[`faq.${n}.answer` as keyof typeof t]
+    }
+  }))
 };
 
 const serviceLd = {
@@ -56,22 +59,37 @@ const serviceLd = {
   "@type": "Service",
   "@id": "https://curfee.com/#services",
   "name": "Systems Architecture Consulting",
+  "alternateName": "Systemarchitektur-Beratung",
   "provider": { "@id": "https://curfee.com/#organization" },
   "serviceType": "Systems Architecture Consulting",
-  "category": "IT Consulting",
+  "category": ["IT Consulting", "Management Consulting", "Software Architecture"],
   "areaServed": [
     { "@type": "Country", "name": "Austria" },
     { "@type": "Country", "name": "Germany" },
     { "@type": "Country", "name": "Switzerland" }
   ],
-  "serviceOutput": "Structural analysis, root cause identification, architectural standards, governance frameworks, implementation guidance",
-  "termsOfService": "https://curfee.com/privacy",
+  "audience": {
+    "@type": "BusinessAudience",
+    "name": "CTOs, engineering managers, team leads, founders",
+    "audienceType": "Decision-makers in companies with grown system landscapes"
+  },
+  "serviceOutput": "Root cause analysis, architectural standards enforced by the system through pipelines and tooling, governance frameworks, implementation guidance",
+  "availableLanguage": ["de", "en"],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
+    "@id": "https://curfee.com/#offer-catalog",
     "name": t['services.heading'],
     "itemListElement": [
       {
         "@type": "Offer",
+        "@id": "https://curfee.com/#offer-diagnosis",
+        "category": "Entry engagement",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "priceCurrency": "EUR",
+          "description": "Price on application"
+        },
+        "eligibleDuration": { "@type": "QuantitativeValue", "minValue": 2, "unitCode": "WEE" },
         "itemOffered": {
           "@type": "Service",
           "@id": "https://curfee.com/#diagnosis",
@@ -80,10 +98,19 @@ const serviceLd = {
           "slogan": t['services.diagnosis.subtitle'],
           "provider": { "@id": "https://curfee.com/#organization" },
           "serviceType": "System Diagnosis",
+          "inLanguage": ["de", "en"]
         }
       },
       {
         "@type": "Offer",
+        "@id": "https://curfee.com/#offer-guidance",
+        "category": "Project engagement",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "priceCurrency": "EUR",
+          "description": "Price on application"
+        },
+        "eligibleDuration": { "@type": "QuantitativeValue", "minValue": 3, "unitCode": "MON" },
         "itemOffered": {
           "@type": "Service",
           "@id": "https://curfee.com/#guidance",
@@ -91,11 +118,19 @@ const serviceLd = {
           "description": t['services.guidance.problem'],
           "slogan": t['services.guidance.subtitle'],
           "provider": { "@id": "https://curfee.com/#organization" },
-          "serviceType": "Architecture Guidance"
+          "serviceType": "Architecture Guidance",
+          "inLanguage": ["de", "en"]
         }
       },
       {
         "@type": "Offer",
+        "@id": "https://curfee.com/#offer-sparring",
+        "category": "Retainer engagement",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "priceCurrency": "EUR",
+          "description": "Ongoing retainer, price on application"
+        },
         "itemOffered": {
           "@type": "Service",
           "@id": "https://curfee.com/#sparring",
@@ -103,14 +138,25 @@ const serviceLd = {
           "description": t['services.sparring.problem'],
           "slogan": t['services.sparring.subtitle'],
           "provider": { "@id": "https://curfee.com/#organization" },
-          "serviceType": "Architecture Sparring"
+          "serviceType": "Architecture Sparring",
+          "inLanguage": ["de", "en"]
         }
       },
     ]
   }
 };
 
-const jsonLd = [webSiteLd, breadcrumbLd, faqLd, serviceLd];
+const aboutPageLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": "https://curfee.com/#about",
+  "url": "https://curfee.com/#about",
+  "mainEntity": { "@id": "https://curfee.com/#founder" },
+  "isPartOf": { "@id": "https://curfee.com/#website" },
+  "inLanguage": "de-AT"
+};
+
+const jsonLd = [webSiteLd, faqLd, serviceLd, aboutPageLd];
 ---
 
 <Layout
@@ -119,7 +165,7 @@ const jsonLd = [webSiteLd, breadcrumbLd, faqLd, serviceLd];
   canonicalPath="/"
   jsonLd={jsonLd}
   lang={lang}
-  dateModified="2026-04-10"
+  dateModified="2026-04-12"
 >
   <HeroSection translations={t} />
   <ObservationsSection translations={t} />
