@@ -1,7 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import Footer from '@/components/shared/Footer.astro';
-import ScrollToTop from '@/components/shared/ScrollToTop.astro';
 import CookieBanner from '@/components/shared/CookieBanner.astro';
 import { getTranslations } from '@/i18n/translations';
 import { getAlternateUrl } from '@/i18n/utils';
@@ -389,7 +388,6 @@ const speakableLd = {
     </main>
     <Footer lang={lang} />
 
-    <ScrollToTop />
     <CookieBanner lang={lang} />
 
     <script>
