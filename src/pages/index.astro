@@ -6,6 +6,7 @@ import ServicesSection from '@/components/ServicesSection.astro';
 // import CaseStudySection from '@/components/CaseStudySection.astro'; // disabled — component kept for future
 import AboutSection from '@/components/AboutSection.astro';
 import FaqSection from '@/components/FaqSection.astro';
+import BlogSection from '@/components/BlogSection.astro';
 import ContactSection from '@/components/ContactSection.astro';
 import { getTranslations } from '@/i18n/translations';
 
@@ -188,5 +189,6 @@ const jsonLd = [webSiteLd, faqLd, serviceLd, aboutPageLd];
   <ServicesSection translations={t} />
   <AboutSection translations={t} />
   <FaqSection translations={t} />
+  <BlogSection translations={t} lang={lang} />
   <ContactSection translations={t} />
 </Layout>

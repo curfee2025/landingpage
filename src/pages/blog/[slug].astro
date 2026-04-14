@@ -1,0 +1,113 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import Icon from '@/components/shared/Icon.astro';
+import BackToHomeSection from '@/components/shared/BackToHomeSection.astro';
+import { getTranslations } from '@/i18n/translations';
+import { postSlug, formatDate, readingTime, blogIndexPath } from '@/utils/blog';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data, id }) => !data.draft && id.startsWith('de/'));
+  return posts.map((post) => ({
+    params: { slug: postSlug(post) },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const lang = 'de' as const;
+const t = getTranslations(lang);
+const { Content } = await render(post);
+const minutes = post.data.readingTimeMinutes ?? readingTime(post.body ?? '');
+const slug = postSlug(post);
+const canonicalPath = `/blog/${slug}/`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `https://curfee.com${canonicalPath}#post`,
+  "headline": post.data.title,
+  "description": post.data.excerpt,
+  "datePublished": post.data.createdAt.toISOString(),
+  "dateModified": (post.data.updatedAt ?? post.data.createdAt).toISOString(),
+  "author": { "@id": "https://curfee.com/#founder" },
+  "publisher": { "@id": "https://curfee.com/#organization" },
+  "inLanguage": "de-AT",
+  "url": `https://curfee.com${canonicalPath}`,
+  "keywords": [post.data.topic, ...post.data.tags].join(', '),
+  "wordCount": (post.body ?? '').split(/\s+/).filter(Boolean).length,
+  "isPartOf": { "@id": "https://curfee.com/blog/#blog" },
+};
+---
+
+<Layout
+  title={`${post.data.title} – Curfee Blog`}
+  description={post.data.excerpt}
+  lang={lang}
+  canonicalPath={canonicalPath}
+  jsonLd={jsonLd}
+  dateModified={(post.data.updatedAt ?? post.data.createdAt).toISOString().slice(0, 10)}
+>
+  <article class="py-16 md:py-24 max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+    <div class="max-w-3xl mx-auto">
+      <a href={blogIndexPath(lang)} class="inline-flex items-center gap-1.5 text-label-medium text-ink-muted hover:text-brand-primary mb-8 transition-colors duration-short4">
+        <Icon name="arrow_back_outline" class="w-4 h-4" />
+        {t['blog.backToIndex']}
+      </a>
+
+      <header class="mb-12">
+        <div class="flex flex-wrap items-center gap-3 text-label-medium text-ink-muted mb-4">
+          <span class="rounded-full bg-brand-primary/[0.08] text-brand-primary px-3 py-0.5">
+            {post.data.topic}
+          </span>
+          <span>{minutes} {t['blog.minutes']}</span>
+        </div>
+        <h1 class="text-display-small md:text-display-medium text-ink-primary leading-[1.1] tracking-tight mb-4">
+          {post.data.title}
+        </h1>
+        <p class="text-title-medium text-ink-muted/80 mb-6">
+          {post.data.excerpt}
+        </p>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-label-medium text-ink-muted/70">
+          <span>{t['blog.byAuthor']} {post.data.author}</span>
+          <span aria-hidden="true">·</span>
+          <span>
+            {t['blog.publishedOn']}{' '}
+            <time datetime={post.data.createdAt.toISOString()}>
+              {formatDate(post.data.createdAt, lang)}
+            </time>
+          </span>
+          {post.data.updatedAt && post.data.updatedAt > post.data.createdAt && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>
+                {t['blog.updatedOn']}{' '}
+                <time datetime={post.data.updatedAt.toISOString()}>
+                  {formatDate(post.data.updatedAt, lang)}
+                </time>
+              </span>
+            </>
+          )}
+        </div>
+        {post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-6">
+            {post.data.tags.map((tag) => (
+              <span class="text-label-small text-ink-muted/70 border border-stroke-outlineVariant rounded-full px-3 py-0.5">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <div class="prose-blog text-body-large text-ink-primary leading-relaxed [&_h2]:text-headline-small [&_h2]:md:text-headline-large [&_h2]:text-ink-primary [&_h2]:mt-12 [&_h2]:mb-4 [&_h2]:tracking-tight [&_h3]:text-title-large [&_h3]:text-ink-primary [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:mb-5 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-5 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-5 [&_ol]:space-y-2 [&_li]:leading-relaxed [&_a]:text-brand-primary [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-brand-primary/80 [&_strong]:font-semibold [&_strong]:text-ink-primary [&_blockquote]:border-l-4 [&_blockquote]:border-brand-primary/30 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-ink-muted [&_code]:bg-surface-container [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-body-medium">
+        <Content />
+      </div>
+    </div>
+  </article>
+  <BackToHomeSection lang={lang} />
+</Layout>
