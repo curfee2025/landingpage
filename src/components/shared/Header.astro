@@ -21,10 +21,11 @@ const menuItemClass = "flex items-center px-4 py-3 rounded-full text-label-large
     <a href={lang === 'en' ? '/en/' : '/'} class="flex-shrink-0 block h-7 text-brand-primary [&>svg]:h-full [&>svg]:max-h-full [&>svg]:w-auto" aria-label="Curfee" set:html={logoTextRaw} />
 
     <nav class="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2" aria-label="Primary navigation">
-      <a href="#services" class={navClass}>{t['nav.services']}</a>
-      <a href="#about" class={navClass}>{t['nav.about']}</a>
-      <a href="#blog" class={navClass}>{t['nav.blog']}</a>
-      <a href="#faq" class={navClass}>{t['nav.faq']}</a>
+      <a href="#services" class={navClass} data-nav-link>{t['nav.services']}</a>
+      <a href="#about" class={navClass} data-nav-link>{t['nav.about']}</a>
+      <a href="#casestudy" class={navClass} data-nav-link>{t['nav.casestudy']}</a>
+      <a href="#blog" class={navClass} data-nav-link>{t['nav.blog']}</a>
+      <a href="#faq" class={navClass} data-nav-link>{t['nav.faq']}</a>
     </nav>
 
     <div class="flex items-center gap-1 ml-auto flex-shrink-0 z-10">
@@ -41,10 +42,11 @@ const menuItemClass = "flex items-center px-4 py-3 rounded-full text-label-large
   <div id={menuId} inert data-mobile-menu class="md:hidden absolute -left-px -right-px transition-[max-height,opacity] duration-medium2 ease-standard max-h-0 opacity-0 pointer-events-none overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 md:px-12 pb-4 space-y-2">
       <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
-        <a href="#services" class={menuItemClass} data-menu-close>{t['nav.services']}</a>
-        <a href="#about" class={menuItemClass} data-menu-close>{t['nav.about']}</a>
-        <a href="#blog" class={menuItemClass} data-menu-close>{t['nav.blog']}</a>
-        <a href="#faq" class={menuItemClass} data-menu-close>{t['nav.faq']}</a>
+        <a href="#services" class={menuItemClass} data-menu-close data-nav-link>{t['nav.services']}</a>
+        <a href="#about" class={menuItemClass} data-menu-close data-nav-link>{t['nav.about']}</a>
+        <a href="#casestudy" class={menuItemClass} data-menu-close data-nav-link>{t['nav.casestudy']}</a>
+        <a href="#blog" class={menuItemClass} data-menu-close data-nav-link>{t['nav.blog']}</a>
+        <a href="#faq" class={menuItemClass} data-menu-close data-nav-link>{t['nav.faq']}</a>
       </nav>
       <div class="flex flex-col gap-2 px-4 pt-2">
         <a href={EXTERNAL.mailto} class="inline-flex items-center justify-center gap-2 border border-brand-primary text-brand-primary py-3 rounded-full text-label-large font-medium hover:bg-brand-primary/[0.08] active:bg-brand-primary/[0.12] transition-all duration-short4 ease-standard" data-menu-close>{t['nav.cta']}</a>
@@ -54,6 +56,10 @@ const menuItemClass = "flex items-center px-4 py-3 rounded-full text-label-large
 </header>
 
 <style>
+  [data-nav-link][data-active] {
+    color: rgb(var(--brand-primary));
+    background: rgb(var(--brand-primary) / 0.12);
+  }
   [data-header] {
     --menu-height: 0px;
     --header-duration: 500ms;
@@ -195,7 +201,66 @@ const menuItemClass = "flex items-center px-4 py-3 rounded-full text-label-large
     }
   }
 
+  function initActiveSection() {
+    const navLinks = document.querySelectorAll('[data-nav-link]') as NodeListOf<HTMLAnchorElement>;
+    const sectionIds = ['services', 'about', 'casestudy', 'blog', 'faq', 'contact'];
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    let currentActive = '';
+
+    const setActive = (id: string) => {
+      if (id === currentActive) return;
+      currentActive = id;
+      navLinks.forEach((link) => {
+        if (link.getAttribute('href') === `#${id}`) {
+          link.setAttribute('data-active', '');
+        } else {
+          link.removeAttribute('data-active');
+        }
+      });
+      history.replaceState(null, '', `#${id}`);
+    };
+
+    const clearActive = () => {
+      if (!currentActive) return;
+      currentActive = '';
+      navLinks.forEach((link) => link.removeAttribute('data-active'));
+      history.replaceState(null, '', location.pathname);
+    };
+
+    const onScroll = () => {
+      const scrollY = window.scrollY;
+      const viewportMiddle = scrollY + window.innerHeight * 0.35;
+
+      // In hero zone — no highlight
+      const firstSection = sections[0];
+      if (firstSection && viewportMiddle < firstSection.offsetTop) {
+        clearActive();
+        return;
+      }
+
+      // Find the section whose top is closest to (but not past) the viewport trigger
+      let active = '';
+      for (const section of sections) {
+        if (section.offsetTop <= viewportMiddle) {
+          active = section.id;
+        }
+      }
+      if (active) {
+        setActive(active);
+      } else {
+        clearActive();
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   document.addEventListener('astro:page-load', () => {
     initHeader();
+    initActiveSection();
   });
 </script>
