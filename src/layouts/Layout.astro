@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import Header from '@/components/shared/Header.astro';
 import Footer from '@/components/shared/Footer.astro';
 import { getTranslations } from '@/i18n/translations';
 import { getAlternateUrl } from '@/i18n/utils';
@@ -382,6 +383,7 @@ const speakableLd = {
     <ClientRouter />
   </head>
   <body>
+    <Header lang={lang} />
     <main>
       <slot />
     </main>
