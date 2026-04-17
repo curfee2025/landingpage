@@ -9,14 +9,19 @@ interface Props {
 const { translations: t } = Astro.props;
 
 const questions = [
+  { question: t['faq.1.question'], answer: t['faq.1.answer'] },
+  { question: t['faq.nontech.question'], answer: t['faq.nontech.answer'] },
+  { question: t['faq.2.question'], answer: t['faq.2.answer'] },
+  { question: t['faq.4.question'], answer: t['faq.4.answer'] },
+  { question: t['faq.keep.question'], answer: t['faq.keep.answer'] },
   { question: t['faq.patterns.structural.question'], answer: t['faq.patterns.structural.answer'] },
   { question: t['faq.patterns.operational.question'], answer: t['faq.patterns.operational.answer'] },
   { question: t['faq.decisions.question'], answer: t['faq.decisions.answer'] },
   { question: t['faq.enforcement.question'], answer: t['faq.enforcement.answer'] },
-  { question: t['faq.1.question'], answer: t['faq.1.answer'] },
-  { question: t['faq.2.question'], answer: t['faq.2.answer'] },
-  { question: t['faq.4.question'], answer: t['faq.4.answer'] },
+  { question: t['faq.ai.question'], answer: t['faq.ai.answer'] },
+  { question: t['faq.cultural.question'], answer: t['faq.cultural.answer'] },
   { question: t['faq.5.question'], answer: t['faq.5.answer'] },
+  { question: t['faq.international.question'], answer: t['faq.international.answer'] },
   { question: t['faq.6.question'], answer: t['faq.6.answer'] },
 ];
 

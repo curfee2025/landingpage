@@ -77,9 +77,9 @@ const operationalPairs = [
     </ol>
 
     <div class="my-12 flex items-center gap-4">
-      <div class="flex-1 border-t border-ink-primary/10"></div>
-      <p class="text-body-large text-ink-muted/70 italic">{t['observations.transition']}</p>
-      <div class="flex-1 border-t border-ink-primary/10"></div>
+      <div class="flex-1 min-w-[1.5rem] border-t border-ink-primary/10"></div>
+      <p class="text-body-large text-ink-muted/70 italic text-center">{t['observations.transition']}</p>
+      <div class="flex-1 min-w-[1.5rem] border-t border-ink-primary/10"></div>
     </div>
 
     <ol class="space-y-2" data-observations-toggle-list-b start="5">
@@ -101,6 +101,10 @@ const operationalPairs = [
         </li>
       ))}
     </ol>
+
+    <p class="text-center text-body-large md:text-title-medium text-ink-muted italic leading-relaxed mt-12 max-w-2xl mx-auto">
+      <a href="#contact" class="hover:text-brand-primary transition-colors duration-short4">{t['observations.cta']}</a>
+    </p>
     </div>
   </div>
 </section>

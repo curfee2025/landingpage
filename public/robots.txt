@@ -1,8 +1,14 @@
-# Default: allow all crawlers
+# Curfee (curfee.com) – crawler access policy
+#
+# Intent: search and AI answer-engine retrieval bots are welcome to crawl and
+# cite this site. Training-data crawlers are not — Curfee content must not be
+# ingested into foundation-model training sets. See /llms.txt and
+# /llms-full.txt for the canonical corpus available for runtime retrieval.
+
 User-agent: *
 Allow: /
 
-# --- AI answer-engine / on-demand retrieval bots (ALLOW — enable citation in LLM answers and AI search) ---
+# --- AI answer-engine / on-demand retrieval bots (ALLOW) ---
 
 User-agent: ChatGPT-User
 Allow: /
@@ -28,6 +34,9 @@ Allow: /
 User-agent: Perplexity-User
 Allow: /
 
+User-agent: DuckAssistBot
+Allow: /
+
 User-agent: Googlebot
 Allow: /
 
@@ -37,19 +46,16 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-User-agent: Amazonbot
-Allow: /
-
 User-agent: Applebot
 Allow: /
 
 User-agent: YouBot
 Allow: /
 
-User-agent: cohere-ai
+User-agent: Cohere-ai
 Allow: /
 
-User-agent: Cohere-ai
+User-agent: cohere-ai
 Allow: /
 
 User-agent: MistralAI-User
@@ -58,13 +64,10 @@ Allow: /
 User-agent: PhindBot
 Allow: /
 
-User-agent: DuckAssistBot
-Allow: /
-
 User-agent: Meta-ExternalFetcher
 Allow: /
 
-# --- Training-data crawlers (DISALLOW — protect canonical copy from being absorbed into training sets) ---
+# --- Training-data crawlers (DISALLOW – no ingestion into training sets) ---
 
 User-agent: GPTBot
 Disallow: /
@@ -78,7 +81,13 @@ Disallow: /
 User-agent: Applebot-Extended
 Disallow: /
 
+User-agent: Amazonbot
+Disallow: /
+
 User-agent: FacebookBot
+Disallow: /
+
+User-agent: Meta-ExternalAgent
 Disallow: /
 
 User-agent: CCBot
@@ -87,7 +96,7 @@ Disallow: /
 User-agent: Bytespider
 Disallow: /
 
-# --- Low-value / non-citation scraping bots (DISALLOW) ---
+# --- Low-signal / non-citation scraping bots (DISALLOW) ---
 
 User-agent: Diffbot
 Disallow: /
@@ -96,9 +105,6 @@ User-agent: Omgilibot
 Disallow: /
 
 User-agent: Timpibot
-Disallow: /
-
-User-agent: Meta-ExternalAgent
 Disallow: /
 
 User-agent: img2dataset

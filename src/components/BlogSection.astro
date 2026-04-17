@@ -12,7 +12,7 @@ const { translations: t } = Astro.props;
 
 const allPosts = await getPosts();
 const previewPosts = allPosts.slice(0, 3);
-const showAllLink = allPosts.length > 3;
+const linkLabel = allPosts.length > 3 ? t['blog.all'] : t['blog.visit'];
 ---
 
 {previewPosts.length > 0 && (
@@ -27,15 +27,13 @@ const showAllLink = allPosts.length > 3;
             {t['blog.subtitle']}
           </p>
         </div>
-        {showAllLink && (
-          <a
-            href="/blog/"
-            class="inline-flex items-center gap-1.5 text-label-large text-brand-primary rounded-full px-4 py-2 hover:bg-brand-primary/[0.08] active:bg-brand-primary/[0.12] transition-all duration-short4 ease-standard self-start md:self-end"
-          >
-            {t['blog.all']}
-            <Icon name="arrow_outward" class="w-4 h-4" />
-          </a>
-        )}
+        <a
+          href="/blog/"
+          class="inline-flex items-center gap-1.5 text-label-large text-brand-primary rounded-full px-4 py-2 hover:bg-brand-primary/[0.08] active:bg-brand-primary/[0.12] transition-all duration-short4 ease-standard self-start md:self-end"
+        >
+          {linkLabel}
+          <Icon name="arrow_outward" class="w-4 h-4" />
+        </a>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

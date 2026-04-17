@@ -25,22 +25,45 @@ const adjacent = await getAdjacentPosts(post);
 const references = extractReferences(post.body ?? '');
 const contactPath = '/#contact';
 
-const jsonLd = {
+const postImage = post.data.coverImage
+  ? (post.data.coverImage.startsWith('http') ? post.data.coverImage : `https://curfee.com${post.data.coverImage}`)
+  : 'https://curfee.com/assets/og-image.png';
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/" },
+    { "@type": "ListItem", "position": 2, "name": t['blog.indexHeading'], "item": "https://curfee.com/blog/" },
+    { "@type": "ListItem", "position": 3, "name": post.data.title, "item": `https://curfee.com${canonicalPath}` }
+  ]
+};
+
+const blogPostingLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "@id": `https://curfee.com${canonicalPath}#post`,
   "headline": post.data.title,
   "description": post.data.excerpt,
+  "image": {
+    "@type": "ImageObject",
+    "url": postImage,
+    "width": 1200,
+    "height": 630
+  },
   "datePublished": post.data.createdAt.toISOString(),
   "dateModified": (post.data.updatedAt ?? post.data.createdAt).toISOString(),
   "author": { "@id": "https://curfee.com/#founder" },
   "publisher": { "@id": "https://curfee.com/#organization" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": `https://curfee.com${canonicalPath}` },
   "inLanguage": "en",
   "url": `https://curfee.com${canonicalPath}`,
   "keywords": [post.data.topic, ...post.data.tags].join(', '),
   "wordCount": (post.body ?? '').split(/\s+/).filter(Boolean).length,
   "isPartOf": { "@id": "https://curfee.com/blog/#blog" },
 };
+
+const jsonLd = [blogPostingLd, breadcrumbLd];
 ---
 
 <Layout
@@ -48,9 +71,12 @@ const jsonLd = {
   description={post.data.excerpt}
   canonicalPath={canonicalPath}
   jsonLd={jsonLd}
+  ogType="article"
+  datePublished={post.data.createdAt.toISOString().slice(0, 10)}
   dateModified={(post.data.updatedAt ?? post.data.createdAt).toISOString().slice(0, 10)}
+  showHeader={false}
 >
-  <article class="py-16 md:py-24 max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+  <article class="pt-[clamp(4rem,3rem+3vw,7rem)] pb-[clamp(8rem,5rem+7vw,12rem)] max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <div class="max-w-4xl mx-auto">
       <a href="/blog/" class="inline-flex items-center gap-1.5 text-label-medium text-ink-muted hover:text-brand-primary mb-8 transition-colors duration-short4">
         <Icon name="arrow_back_outline" class="w-4 h-4" />
@@ -67,13 +93,25 @@ const jsonLd = {
             <time datetime={post.data.createdAt.toISOString()}>
               {formatDate(post.data.createdAt)}
             </time>
+            {post.data.updatedAt && post.data.updatedAt.toISOString() !== post.data.createdAt.toISOString() && (
+              <>
+                <span class="text-ink-muted/50">·</span>
+                <span class="text-ink-muted/70">Updated</span>
+                <time datetime={post.data.updatedAt.toISOString()}>
+                  {formatDate(post.data.updatedAt)}
+                </time>
+              </>
+            )}
           </span>
         </div>
         <h1 class="text-display-small md:text-display-medium text-ink-primary leading-[1.1] tracking-tight mb-4 [text-wrap:balance]">
           {post.data.title}
         </h1>
-        <p class="text-title-medium text-ink-muted/80">
+        <p class="text-title-medium text-ink-muted/80 mb-6">
           {post.data.excerpt}
+        </p>
+        <p class="text-body-medium text-ink-muted/80">
+          By <a href="/#about" rel="author" class="text-ink-primary font-medium hover:text-brand-primary transition-colors duration-short4">Philipp Höllinger</a>, systems architect and founder of Curfee. Background spans logistics, software engineering, and architecture across automotive, public sector, and software consulting.
         </p>
       </header>
 
