@@ -1,13 +1,13 @@
 ---
-# Blog post template — copy this file, rename to your slug (e.g. `your-post-title.md`),
-# and place under `src/content/blog/de/` or `src/content/blog/en/` depending on locale.
+# Blog post template – copy this file, rename to your slug (e.g. `your-post-title.md`),
+# and place under `src/content/blog/`.
 # Filename without extension becomes the URL slug.
 # Files starting with `_` are ignored by Astro Content Collections.
 
 title: "Your post title here"
 excerpt: "One- or two-sentence summary used on the blog index, in previews, and as meta description."
 
-# Required: when this post was first published. Fixed — do not change after publish.
+# Required: when this post was first published. Fixed – do not change after publish.
 createdAt: 2026-04-14
 
 # Optional: when content was last meaningfully updated. Update only on substantive edits.
@@ -66,7 +66,7 @@ or "and what changes when this is in place".
 
 ## Main section 3 (optional)
 
-Only if the post genuinely needs three sections. Otherwise skip — two sections plus
+Only if the post genuinely needs three sections. Otherwise skip – two sections plus
 intro and conclusion is plenty for most posts.
 
 ## Conclusion

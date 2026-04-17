@@ -4,10 +4,10 @@ import Layout from '@/layouts/Layout.astro';
 import Icon from '@/components/shared/Icon.astro';
 import BackToHomeSection from '@/components/shared/BackToHomeSection.astro';
 import { getTranslations } from '@/i18n/translations';
-import { postSlug, postPath, formatDate, blogIndexPath, getRelatedPosts, extractToc, getAdjacentPosts, extractReferences } from '@/utils/blog';
+import { postSlug, postPath, formatDate, getRelatedPosts, extractToc, getAdjacentPosts, extractReferences } from '@/utils/blog';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data, id }) => !data.draft && id.startsWith('de/'));
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
   return posts.map((post) => ({
     params: { slug: postSlug(post) },
     props: { post },
@@ -15,8 +15,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const lang = 'de' as const;
-const t = getTranslations(lang);
+const t = getTranslations();
 const { Content } = await render(post);
 const slug = postSlug(post);
 const canonicalPath = `/blog/${slug}/`;
@@ -26,35 +25,60 @@ const adjacent = await getAdjacentPosts(post);
 const references = extractReferences(post.body ?? '');
 const contactPath = '/#contact';
 
-const jsonLd = {
+const postImage = post.data.coverImage
+  ? (post.data.coverImage.startsWith('http') ? post.data.coverImage : `https://curfee.com${post.data.coverImage}`)
+  : 'https://curfee.com/assets/og-image.png';
+
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": t['breadcrumb.home'], "item": "https://curfee.com/" },
+    { "@type": "ListItem", "position": 2, "name": t['blog.indexHeading'], "item": "https://curfee.com/blog/" },
+    { "@type": "ListItem", "position": 3, "name": post.data.title, "item": `https://curfee.com${canonicalPath}` }
+  ]
+};
+
+const blogPostingLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "@id": `https://curfee.com${canonicalPath}#post`,
   "headline": post.data.title,
   "description": post.data.excerpt,
+  "image": {
+    "@type": "ImageObject",
+    "url": postImage,
+    "width": 1200,
+    "height": 630
+  },
   "datePublished": post.data.createdAt.toISOString(),
   "dateModified": (post.data.updatedAt ?? post.data.createdAt).toISOString(),
   "author": { "@id": "https://curfee.com/#founder" },
   "publisher": { "@id": "https://curfee.com/#organization" },
-  "inLanguage": "de-AT",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": `https://curfee.com${canonicalPath}` },
+  "inLanguage": "en",
   "url": `https://curfee.com${canonicalPath}`,
   "keywords": [post.data.topic, ...post.data.tags].join(', '),
   "wordCount": (post.body ?? '').split(/\s+/).filter(Boolean).length,
   "isPartOf": { "@id": "https://curfee.com/blog/#blog" },
 };
+
+const jsonLd = [blogPostingLd, breadcrumbLd];
 ---
 
 <Layout
   title={`${post.data.title} – Curfee Blog`}
   description={post.data.excerpt}
-  lang={lang}
   canonicalPath={canonicalPath}
   jsonLd={jsonLd}
+  ogType="article"
+  datePublished={post.data.createdAt.toISOString().slice(0, 10)}
   dateModified={(post.data.updatedAt ?? post.data.createdAt).toISOString().slice(0, 10)}
+  showHeader={false}
 >
-  <article class="py-16 md:py-24 max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+  <article class="pt-[clamp(4rem,3rem+3vw,7rem)] pb-[clamp(8rem,5rem+7vw,12rem)] max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
     <div class="max-w-4xl mx-auto">
-      <a href={blogIndexPath(lang)} class="inline-flex items-center gap-1.5 text-label-medium text-ink-muted hover:text-brand-primary mb-8 transition-colors duration-short4">
+      <a href="/blog/" class="inline-flex items-center gap-1.5 text-label-medium text-ink-muted hover:text-brand-primary mb-8 transition-colors duration-short4">
         <Icon name="arrow_back_outline" class="w-4 h-4" />
         {t['blog.backToIndex']}
       </a>
@@ -67,15 +91,27 @@ const jsonLd = {
           <span class="inline-flex items-center gap-1.5 rounded-full border border-stroke-outlineVariant bg-surface-base px-3 py-1 text-label-medium text-ink-muted" title={t['blog.publishedOn']}>
             <Icon name="event" class="w-4 h-4" />
             <time datetime={post.data.createdAt.toISOString()}>
-              {formatDate(post.data.createdAt, lang)}
+              {formatDate(post.data.createdAt)}
             </time>
+            {post.data.updatedAt && post.data.updatedAt.toISOString() !== post.data.createdAt.toISOString() && (
+              <>
+                <span class="text-ink-muted/50">·</span>
+                <span class="text-ink-muted/70">Updated</span>
+                <time datetime={post.data.updatedAt.toISOString()}>
+                  {formatDate(post.data.updatedAt)}
+                </time>
+              </>
+            )}
           </span>
         </div>
         <h1 class="text-display-small md:text-display-medium text-ink-primary leading-[1.1] tracking-tight mb-4 [text-wrap:balance]">
           {post.data.title}
         </h1>
-        <p class="text-title-medium text-ink-muted/80">
+        <p class="text-title-medium text-ink-muted/80 mb-6">
           {post.data.excerpt}
+        </p>
+        <p class="text-body-medium text-ink-muted/80">
+          By <a href="/#about" rel="author" class="text-ink-primary font-medium hover:text-brand-primary transition-colors duration-short4">Philipp Höllinger</a>, systems architect and founder of Curfee. Background spans logistics, software engineering, and architecture across automotive, public sector, and software consulting.
         </p>
       </header>
 
@@ -115,7 +151,7 @@ const jsonLd = {
         </figure>
       )}
 
-      <div class={`prose-blog text-body-large text-ink-primary leading-[1.7] [&_h2]:text-headline-small [&_h2]:text-ink-primary [&_h2]:mt-14 [&_h2]:mb-4 [&_h2]:tracking-tight [&_h2]:scroll-mt-24 [&_h3]:text-title-large [&_h3]:text-ink-primary [&_h3]:mt-10 [&_h3]:mb-3 [&_h3]:scroll-mt-24 [&_p]:mb-6 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_ol]:space-y-2 [&_li]:leading-[1.7] [&_a]:text-brand-primary [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-brand-primary/80 [&_strong]:font-semibold [&_strong]:text-ink-primary [&_blockquote]:border-l-2 [&_blockquote]:border-brand-primary [&_blockquote]:pl-6 [&_blockquote]:my-10 [&_blockquote]:italic [&_blockquote]:text-title-medium [&_blockquote]:text-ink-primary [&_blockquote]:leading-[1.6] [&_blockquote_p]:mb-0 [&_code]:bg-surface-container [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-body-medium [&_pre]:bg-surface-container [&_pre]:border [&_pre]:border-stroke-outlineVariant [&_pre]:rounded-lg [&_pre]:p-4 [&_pre]:my-6 [&_pre]:overflow-x-auto [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_hr]:border-stroke-outlineVariant [&_hr]:my-12`}>
+      <div class={`prose-blog text-body-large text-ink-primary leading-[1.7] [&_h2]:text-headline-small [&_h2]:text-ink-primary [&_h2]:mt-14 [&_h2]:mb-4 [&_h2]:tracking-tight [&_h2]:scroll-mt-20 [&_h2]:md:scroll-mt-24 [&_h3]:text-title-large [&_h3]:text-ink-primary [&_h3]:mt-10 [&_h3]:mb-3 [&_h3]:scroll-mt-20 [&_h3]:md:scroll-mt-24 [&_p]:mb-6 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-6 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-6 [&_ol]:space-y-2 [&_li]:leading-[1.7] [&_a]:text-brand-primary [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-brand-primary/80 [&_strong]:font-semibold [&_strong]:text-ink-primary [&_blockquote]:border-l-2 [&_blockquote]:border-brand-primary [&_blockquote]:pl-6 [&_blockquote]:my-10 [&_blockquote]:italic [&_blockquote]:text-title-medium [&_blockquote]:text-ink-primary [&_blockquote]:leading-[1.6] [&_blockquote_p]:mb-0 [&_code]:bg-surface-container [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-body-medium [&_pre]:bg-surface-container [&_pre]:border [&_pre]:border-stroke-outlineVariant [&_pre]:rounded-lg [&_pre]:p-4 [&_pre]:my-6 [&_pre]:overflow-x-auto [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_hr]:border-stroke-outlineVariant [&_hr]:my-12`}>
         <Content />
       </div>
 
@@ -174,7 +210,7 @@ const jsonLd = {
                   <span class="text-label-small text-brand-primary">{r.data.topic}</span>
                   <span class="text-label-small text-ink-muted/60">·</span>
                   <time class="text-label-small text-ink-muted/70" datetime={r.data.createdAt.toISOString()}>
-                    {formatDate(r.data.createdAt, lang)}
+                    {formatDate(r.data.createdAt)}
                   </time>
                 </div>
                 <h3 class="text-title-large text-ink-primary group-hover:text-brand-primary transition-colors duration-short4 mb-1">
@@ -215,5 +251,5 @@ const jsonLd = {
       </nav>
     )}
   </article>
-  <BackToHomeSection lang={lang} />
+  <BackToHomeSection />
 </Layout>

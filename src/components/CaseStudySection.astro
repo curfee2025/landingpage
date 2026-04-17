@@ -8,13 +8,12 @@ const { translations: t } = Astro.props;
 const hasHeading = Boolean(t['casestudy.heading']);
 const hasSubtitle = Boolean(t['casestudy.subtitle']);
 const hasPlaceholder = Boolean(t['casestudy.placeholder']);
-const hasAnyContent = hasHeading || hasSubtitle || hasPlaceholder;
 ---
 
-{hasAnyContent && (
-  <section id="casestudy" class="py-32 md:py-48" aria-labelledby="casestudy-heading">
+{(hasHeading || hasSubtitle || hasPlaceholder) && (
+  <section id="casestudy" class="py-[clamp(8rem,5rem+7vw,12rem)]" aria-labelledby="casestudy-heading">
     <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-      <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+      <div class="max-w-4xl mx-auto">
         {hasHeading && (
           <h2 id="casestudy-heading" class="text-headline-large md:text-display-small lg:text-display-medium text-ink-primary leading-[1.1] tracking-tight mb-3">
             {t['casestudy.heading']}
@@ -23,16 +22,14 @@ const hasAnyContent = hasHeading || hasSubtitle || hasPlaceholder;
         {hasSubtitle && (
           <p class="text-title-medium text-brand-primary font-medium mb-12">{t['casestudy.subtitle']}</p>
         )}
-      </div>
-      {hasPlaceholder && (
-        <div class="max-w-2xl mx-auto">
-          <div class="rounded-lg bg-surface-base shadow-elevation-1 p-10 md:p-14 text-center">
-            <p class="text-body-medium text-ink-muted">
+        {hasPlaceholder && (
+          <div class="rounded-lg bg-surface-base shadow-elevation-1 p-8 md:p-10">
+            <p class="text-body-large text-ink-muted leading-relaxed italic">
               {t['casestudy.placeholder']}
             </p>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   </section>
 )}
