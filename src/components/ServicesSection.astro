@@ -20,7 +20,6 @@ interface ServiceCard {
   icon: string;
   title: string;
   subtitle: string;
-  progression: string;
   duration: string;
   problem: string;
   forwhom: string[];
@@ -46,7 +45,6 @@ const services: ServiceCard[] = [
     icon: 'search',
     title: t['services.diagnosis.title'],
     subtitle: t['services.diagnosis.subtitle'],
-    progression: t['services.diagnosis.progression'],
     duration: t['services.diagnosis.duration'],
     problem: t['services.diagnosis.problem'],
     forwhom: [t['services.diagnosis.forwhom.1'], t['services.diagnosis.forwhom.2'], t['services.diagnosis.forwhom.3']],
@@ -71,7 +69,7 @@ const services: ServiceCard[] = [
       },
     ],
     delivers: [t['services.diagnosis.delivers.1'], t['services.diagnosis.delivers.2'], t['services.diagnosis.delivers.3'], t['services.diagnosis.delivers.4']],
-    excludes: [t['services.diagnosis.excludes.1'], t['services.diagnosis.excludes.2'], t['services.diagnosis.excludes.3']],
+    excludes: [t['services.diagnosis.excludes.1'], t['services.diagnosis.excludes.2'], t['services.diagnosis.excludes.3'], t['services.diagnosis.excludes.4']],
     objectionQ: t['services.diagnosis.objection.q'],
     objectionA: t['services.diagnosis.objection.a'],
     colorText: 'text-brand-primary',
@@ -89,7 +87,6 @@ const services: ServiceCard[] = [
     icon: 'route',
     title: t['services.guidance.title'],
     subtitle: t['services.guidance.subtitle'],
-    progression: t['services.guidance.progression'],
     duration: t['services.guidance.duration'],
     problem: t['services.guidance.problem'],
     forwhom: [t['services.guidance.forwhom.1'], t['services.guidance.forwhom.2'], t['services.guidance.forwhom.3']],
@@ -138,7 +135,6 @@ const services: ServiceCard[] = [
     icon: 'handshake',
     title: t['services.sparring.title'],
     subtitle: t['services.sparring.subtitle'],
-    progression: t['services.sparring.progression'],
     duration: t['services.sparring.duration'],
     problem: t['services.sparring.problem'],
     forwhom: [t['services.sparring.forwhom.1'], t['services.sparring.forwhom.2'], t['services.sparring.forwhom.3']],
@@ -205,9 +201,6 @@ const services: ServiceCard[] = [
               <div class:list={["w-10 h-10 rounded-full flex items-center justify-center mb-4", service.colorBg]}>
                 <Icon name={service.icon} class:list={["w-5 h-5", service.colorText]} />
               </div>
-              <span class:list={["inline-block rounded-full text-label-medium px-3 py-0.5 mb-2", service.colorText, service.colorBg]}>
-                {service.progression}
-              </span>
               <div class="flex items-center gap-3 flex-wrap mb-1">
                 <h3 class="text-title-large text-ink-primary">{service.title}</h3>
                 <span class:list={["rounded-full text-label-medium px-3 py-0.5 whitespace-nowrap border", service.colorText, service.colorBorder]}>

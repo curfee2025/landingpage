@@ -9,7 +9,8 @@ interface Props {
 const { translations: t } = Astro.props;
 
 const questions = [
-  { question: t['faq.patterns.question'], answer: t['faq.patterns.answer'] },
+  { question: t['faq.patterns.structural.question'], answer: t['faq.patterns.structural.answer'] },
+  { question: t['faq.patterns.operational.question'], answer: t['faq.patterns.operational.answer'] },
   { question: t['faq.decisions.question'], answer: t['faq.decisions.answer'] },
   { question: t['faq.1.question'], answer: t['faq.1.answer'] },
   { question: t['faq.2.question'], answer: t['faq.2.answer'] },
